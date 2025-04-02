@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Instalando dependencias..."
+      - npm ci --production
+      
+  pre_build:
+    commands:
+      - echo "Verificando entorno..."
+      - node -v
+      - npm -v
+
+  build:
+    commands:
+      - echo "Construyendo proyecto con Vite..."
+      - vite build --mode production
+
+artifacts:
+  files:
+    - 'dist/**/*'
+  base-directory: dist
