@@ -3,15 +3,13 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18  # Versión explícita de Node
+      nodejs: 20  # Versión requerida por vite-plugin-glsl
     commands:
-      - npm ci  # Instala TODAS las dependencias (incluyendo devDependencies)
+      - npm ci
       
   build:
     commands:
-      - npm exec vite build -- --mode production  # Ejecuta vite desde node_modules
-      # Alternativa:
-      - ./node_modules/.bin/vite build --mode production
+      - npm exec vite build -- --mode production
 
 artifacts:
   files:
