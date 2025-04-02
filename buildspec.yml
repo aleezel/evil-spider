@@ -2,20 +2,16 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 18  # Versión explícita de Node
     commands:
-      - echo "Instalando dependencias..."
-      - npm ci --production
+      - npm ci  # Instala TODAS las dependencias (incluyendo devDependencies)
       
-  pre_build:
-    commands:
-      - echo "Verificando entorno..."
-      - node -v
-      - npm -v
-
   build:
     commands:
-      - echo "Construyendo proyecto con Vite..."
-      - vite build --mode production
+      - npm exec vite build -- --mode production  # Ejecuta vite desde node_modules
+      # Alternativa:
+      - ./node_modules/.bin/vite build --mode production
 
 artifacts:
   files:
