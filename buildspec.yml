@@ -10,10 +10,9 @@ phases:
   build:
     commands:
       - npm exec vite build -- --mode production
-      - ls -la
-      
+      - ls -la dist  # Listamos el contenido de 'dist' para verificar que existan los archivos
 
 artifacts:
   files:
-    - 'dist/**/*'
+    - '**/*'
   base-directory: dist
