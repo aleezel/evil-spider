@@ -10,6 +10,8 @@ phases:
   build:
     commands:
       - npm exec vite build -- --mode production
+      - ls -la
+      
 
 artifacts:
   files:
