@@ -14,10 +14,10 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 
 // Agregar un objeto (cubo girando)
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshStandardMaterial({ color: 0x00ffcc });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+//const geometry = new THREE.BoxGeometry();
+//const material = new THREE.MeshStandardMaterial({ color: 0x00ffcc });
+//const cube = new THREE.Mesh(geometry, material);
+//scene.add(cube);
 
 // Luz
 const light = new THREE.DirectionalLight(0xffffff, 1);
