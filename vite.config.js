@@ -8,8 +8,9 @@ export default defineConfig({
         assetsInlineLimit: 0, // Para evitar inline de assets grandes
         rollupOptions: {
             output: {
-                assetFileNames: 'assets/[name]-[hash][extname]',
-                entryFileNames: 'js/[name]-[hash].js'
+                assetFileNames: 'assets/[name][extname]', // Sin hash para assets
+                entryFileNames: 'js/[name].js',            // Sin hash para la entrada principal
+                chunkFileNames: 'js/[name].js'             // Sin hash para los chunks
             }
         }
     }
