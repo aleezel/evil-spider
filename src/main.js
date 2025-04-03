@@ -18,7 +18,7 @@ const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene, camera);
 composer.addPass(renderPass);
 
-const filmPass = new FilmPass(0.9, 0.5, 150, 0,)
+const filmPass = new FilmPass(0.9, 0.5)
 composer.addPass(filmPass)
 
 const fishEyePass = new ShaderPass(FishEyeShader);
