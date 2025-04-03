@@ -43,7 +43,7 @@ function animate() {
   var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
   random = random * plusOrMinus;
   // console.log(filmPass.uniforms)
-  filmPass.uniforms['tDiffuse'].value += random
+  filmPass.uniforms['sCount'].value += random
 
   composer.render();
 }
