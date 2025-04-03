@@ -44,7 +44,7 @@ function animate() {
   random = random * plusOrMinus;
   console.log(filmPass.uniforms)
   console.log(random)
-  // filmPass.uniforms['sCount'].value += random
+  filmPass.uniforms['sCount'].value += random
 
   composer.render();
 }
