@@ -18,7 +18,7 @@ const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene, camera);
 composer.addPass(renderPass);
 
-const filmPass = new FilmPass(0.9, 0.5, 300, 0,)
+const filmPass = new FilmPass(0.9, 0.5, 150, 0,)
 composer.addPass(filmPass)
 
 const fishEyePass = new ShaderPass(FishEyeShader);
@@ -38,14 +38,6 @@ window.addEventListener('resize', () => {
 // Animación
 function animate() {
   requestAnimationFrame(animate);
-
-  let random = (Math.floor((Math.random() * 150) + 1));
-  var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-  random = random * plusOrMinus;
-  console.log(filmPass.uniforms)
-  console.log(random)
-  filmPass.uniforms['sCount'].value += random
-
   composer.render();
 }
 animate();
