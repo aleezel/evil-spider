@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
 import { FishEyeShader } from './fisheyeShader.js';
 
 // Escena básica
@@ -13,23 +14,13 @@ const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#effe
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 
-// Agregar un objeto (cubo girando)
-//const geometry = new THREE.BoxGeometry();
-//const material = new THREE.MeshStandardMaterial({ color: 0x00ffcc });
-//const cube = new THREE.Mesh(geometry, material);
-//scene.add(cube);
-
-// Luz
-//const light = new THREE.DirectionalLight(0xffffff, 1);
-//light.position.set(5, 5, 5);
-//scene.add(light);
-
-// EffectComposer
 const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene, camera);
 composer.addPass(renderPass);
 
-// ShaderPass personalizado de ojo de pez
+const filmPass = new FilmPass(0.35, 0.5, 300, 0,)
+composer.addPass(filmPass)
+
 const fishEyePass = new ShaderPass(FishEyeShader);
 fishEyePass.uniforms.strength.value = 0.35; // puedes ajustarlo
 composer.addPass(fishEyePass);
@@ -47,9 +38,6 @@ window.addEventListener('resize', () => {
 // Animación
 function animate() {
   requestAnimationFrame(animate);
-  //cube.rotation.x += 0.01;
-  //cube.rotation.y += 0.01;
-
   composer.render();
 }
 animate();
