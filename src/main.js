@@ -39,7 +39,7 @@ window.addEventListener('resize', () => {
 function animate() {
   requestAnimationFrame(animate);
 
-  random = Math.random();
+  let random = (Math.floor((Math.random() * 15) + 1));
   var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
   random = random * plusOrMinus;
   // console.log(filmPass.uniforms)
