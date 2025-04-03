@@ -38,6 +38,12 @@ window.addEventListener('resize', () => {
 // Animación
 function animate() {
   requestAnimationFrame(animate);
+
+  random = Math.random();
+  var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+  random = random * plusOrMinus;
+  filmPass.uniforms['sCount'].value += random
+
   composer.render();
 }
 animate();
