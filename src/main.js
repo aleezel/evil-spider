@@ -4,6 +4,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
 import { FishEyeShader } from './fisheyeShader.js';
+import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js';
 
 // Escena básica
 const scene = new THREE.Scene();
@@ -20,6 +21,9 @@ composer.addPass(renderPass);
 
 const filmPass = new FilmPass(0.9, 0.5)
 composer.addPass(filmPass)
+
+const glitchPass = new GlitchPass();
+composer.addPass(glitchPass);
 
 const fishEyePass = new ShaderPass(FishEyeShader);
 fishEyePass.uniforms.strength.value = 0.35; // puedes ajustarlo
