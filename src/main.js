@@ -26,9 +26,9 @@ composer.addPass(filmPass)
 const glitchPass = new GlitchPass();
 composer.addPass(glitchPass);
 
-const chromaPass = new ShaderPass(ChromaticAberrationShader);
-chromaPass.uniforms["offset"].value.set(0.003, 0.003);
-composer.addPass(chromaPass);
+// const chromaPass = new ShaderPass(ChromaticAberrationShader);
+// chromaPass.uniforms["offset"].value.set(0.003, 0.003);
+// composer.addPass(chromaPass);
 
 const fishEyePass = new ShaderPass(FishEyeShader);
 fishEyePass.uniforms.strength.value = 0.35; // puedes ajustarlo
