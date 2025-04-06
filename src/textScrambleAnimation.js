@@ -44,7 +44,7 @@ export const TextScrambleAnimation = (textBox) => {
             // Genera el texto a mostrar en cada ciclo usando for...of
             for (const originalChar of originalChars) {
                 // Si el carácter debe ser revelado, muestra el original
-                if (index <= revealedChars && count - 10 >= originalChars.length + revealDelay) {
+                if (index <= revealedChars && (count - originalChars.length / 2) >= originalChars.length + revealDelay) {
                     displayText += originalChar;
                 } else {
                     // Sino, muestra un carácter aleatorio
