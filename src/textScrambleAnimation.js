@@ -25,11 +25,15 @@ export const TextScrambleAnimation = (textBox) => {
         const originalChars = textBox.textContent.split('');
 
         // Configura la animación CSS para el contenedor de texto
-        textBox.css({
-            'width': originalChars.length + 'ch',
-            'animation': 'typing ' + ((animationSpeed * originalChars.length) / 1000) +
-                's steps(' + originalChars.length + ')'
-        });
+        // $(textBox).css({
+        //     'width': originalChars.length + 'ch',
+        //     'animation': 'typing ' + ((animationSpeed * originalChars.length) / 1000) +
+        //         's steps(' + originalChars.length + ')'
+        // });
+        // Usa style para aplicar estilos directamente
+        textBox.style.width = originalChars.length + 'ch';
+        textBox.style.animation = 'typing ' + ((animationSpeed * originalChars.length) / 1000) +
+            's steps(' + originalChars.length + ')';
 
         // Variables para controlar el progreso de la animación
         let count = 0;          // Contador de ciclos completados
