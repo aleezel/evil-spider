@@ -61,7 +61,7 @@ export const TextScrambleAnimation = (textBox) => {
             count++;
 
             // Verifica si es momento de revelar otro carácter
-            if (count >= originalChars.length / 2) {
+            if (count >= originalChars.length / 4) {
                 revealedChars++;
 
                 // Si todos los caracteres han sido revelados, detiene la animación
