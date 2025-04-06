@@ -1,6 +1,7 @@
-export const TextScrambleAnimation = (text_id) => {
+export const TextScrambleAnimation = (textBox) => {
     // Elementos y configuración
-    const textBox = $(text_id);
+    // const textBox = $(text_id);
+    console.log(textBox)
     const specialCharacters = [
         '!', '§', '$', '%', '&', '/', '(', ')', '=', '?',
         '_', '<', '>', '^', '°', '*', '#', '-', ':', ';', '~'
