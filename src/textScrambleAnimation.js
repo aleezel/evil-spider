@@ -9,7 +9,7 @@ export const TextScrambleAnimation = (textBox) => {
     ];
 
     // Configuración de la animación
-    const animationSpeed = 80; // Velocidad en milisegundos (antes era 125)
+    const animationSpeed = 10; // Velocidad en milisegundos (antes era 125)
     const revealDelay = 0;     // Retraso antes de revelar caracteres
 
     // Función para generar números aleatorios en un rango
