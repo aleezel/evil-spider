@@ -2,6 +2,7 @@ export const TextScrambleAnimation = (textBox) => {
     // Elementos y configuración
     // const textBox = $(text_id);
     console.log(textBox)
+    textBox = $(textBox);
     const specialCharacters = [
         '!', '§', '$', '%', '&', '/', '(', ')', '=', '?',
         '_', '<', '>', '^', '°', '*', '#', '-', ':', ';', '~'
@@ -22,18 +23,14 @@ export const TextScrambleAnimation = (textBox) => {
      */
     function startScrambleText() {
         // Divide el texto en un array de caracteres
-        const originalChars = textBox.textContent.split('');
+        const originalChars = textBox.text().split('');
 
         // Configura la animación CSS para el contenedor de texto
-        // $(textBox).css({
-        //     'width': originalChars.length + 'ch',
-        //     'animation': 'typing ' + ((animationSpeed * originalChars.length) / 1000) +
-        //         's steps(' + originalChars.length + ')'
-        // });
-        // Usa style para aplicar estilos directamente
-        textBox.style.width = originalChars.length + 'ch';
-        textBox.style.animation = 'typing ' + ((animationSpeed * originalChars.length) / 1000) +
-            's steps(' + originalChars.length + ')';
+        textBox.css({
+            'width': originalChars.length + 'ch',
+            'animation': 'typing ' + ((animationSpeed * originalChars.length) / 1000) +
+                's steps(' + originalChars.length + ')'
+        });
 
         // Variables para controlar el progreso de la animación
         let count = 0;          // Contador de ciclos completados
