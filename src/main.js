@@ -6,6 +6,7 @@ import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
 import { FishEyeShader } from './shaders/fisheyeShader.js';
 import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js';
 import { ChromaticAberrationShader } from './shaders/chromaticShader.js';
+import { TextScrambleAnimation } from "./textScrambleAnimation.js"
 
 // Escena básica
 const scene = new THREE.Scene();
