@@ -22,7 +22,7 @@ export const TextScrambleAnimation = (textBox) => {
      */
     function startScrambleText() {
         // Divide el texto en un array de caracteres
-        const originalChars = textBox.textContent().split('');
+        const originalChars = textBox.textContent.split('');
 
         // Configura la animación CSS para el contenedor de texto
         textBox.css({
