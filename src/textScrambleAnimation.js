@@ -40,11 +40,13 @@ export const TextScrambleAnimation = (textBox) => {
         const animationInterval = setInterval(function () {
             let displayText = "";
             let index = 0; // sirve para llevar conteo de las letras
+            const reveler = Number((originalChars.length + revealDelay) / 4)
 
             // Genera el texto a mostrar en cada ciclo usando for...of
             for (const originalChar of originalChars) {
                 // Si el carácter debe ser revelado, muestra el original
-                if (index <= revealedChars && count >= originalChars.length + revealDelay) {
+                const reveler = Number((originalChars.length + revealDelay) / 4)
+                if (index <= revealedChars && count >= reveler) {
                     displayText += originalChar;
                 } else {
                     // Sino, muestra un carácter aleatorio
@@ -61,7 +63,7 @@ export const TextScrambleAnimation = (textBox) => {
             count++;
 
             // Verifica si es momento de revelar otro carácter
-            if (count >= originalChars.length / 4) {
+            if (count >= reveler) {
                 revealedChars++;
 
                 // Si todos los caracteres han sido revelados, detiene la animación
