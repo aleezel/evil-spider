@@ -55,7 +55,7 @@ export const TextScrambleAnimation = (textBox) => {
             }
 
             // Actualiza el texto en la página
-            textBox.text(`${displayText.slice(0, revealedChars)}|`);
+            textBox.text(`${displayText.slice(0, count)}|`);
 
             // Incrementa el contador de ciclos
             count++;
