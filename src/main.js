@@ -30,7 +30,7 @@ composer.addPass(renderPass);
 // composer.addPass(glitchPass);
 
 const fishEyePass = new ShaderPass(FishEyeShader);
-fishEyePass.uniforms.strength.value = 0.9; // puedes ajustarlo
+fishEyePass.uniforms.strength.value = 0.3; 
 composer.addPass(fishEyePass);
 
 // Resize handler
