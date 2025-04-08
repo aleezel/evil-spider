@@ -23,14 +23,14 @@ const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene, camera);
 composer.addPass(renderPass);
 
-const filmPass = new FilmPass(0.9, 0.5)
-composer.addPass(filmPass)
+// const filmPass = new FilmPass(0.9, 0.5)
+// composer.addPass(filmPass)
 
-const glitchPass = new GlitchPass();
-composer.addPass(glitchPass);
+// const glitchPass = new GlitchPass();
+// composer.addPass(glitchPass);
 
 const fishEyePass = new ShaderPass(FishEyeShader);
-fishEyePass.uniforms.strength.value = 0.35; // puedes ajustarlo
+fishEyePass.uniforms.strength.value = 0.9; // puedes ajustarlo
 composer.addPass(fishEyePass);
 
 // Resize handler
