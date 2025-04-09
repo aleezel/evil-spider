@@ -4,9 +4,22 @@ export const TextScrambleAnimation = (textBox) => {
     console.log(textBox)
     textBox = $(textBox);
     const specialCharacters = [
-        '!', '§', '$', '%', '&', '/', '(', ')', '=', '?',
-        '_', '<', '>', '^', '°', '*', '#', '-', ':', ';', '~'
+        // Símbolos comunes
+        '!', '@', '#', '$', '%', '&', '*', '+', '-', '=', '?',
+        '/', '|', '~', '^',
+    
+        // Letras mayúsculas y minúsculas
+        'A', 'b', 'C', 'd', 'E', 'f', 'G', 'h', 'I', 'j',
+        'K', 'l', 'M', 'n', 'O', 'p', 'Q', 'r', 'S', 't',
+        'U', 'v', 'W', 'x', 'Y', 'z',
+    
+        // Caracteres chinos y japoneses (ejemplos, pueden ampliarse)
+        '日', '本', '中', '国', '学', '生',
+    
+        // Otros caracteres especiales
+        '{', '}', '[', ']', '<', '>', '¿', '¡'
     ];
+    
 
     // Configuración de la animación
     const animationSpeed = 100; // Velocidad en milisegundos (antes era 125)
