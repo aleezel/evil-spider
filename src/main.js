@@ -12,8 +12,13 @@ import { TextScrambleAnimation } from "./textScrambleAnimation.js"
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 4;
+
+// scramble en texco principal
+let introText = document.querySelector('div[terminal-text] h2.home-subheading')
+introText.style.visibility = 'hidden'; 
+
 setTimeout(()=>{
-  TextScrambleAnimation(document.querySelector('div[terminal-text] h2.home-subheading'))
+  TextScrambleAnimation(introText)
 }, 8000)
 
 const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#effects'), antialias: true, alpha: true });
