@@ -75,6 +75,10 @@ export const TextScrambleAnimation = (textBox) => {
             // Incrementa el contador de ciclos
             count++;
 
+            if (textBox.css('visibility') === 'hidden') {
+                textBox.css('visibility', 'visible');
+            }
+
             // Verifica si es momento de revelar otro carácter
             if (count >= reveler) {
                 revealedChars++;
