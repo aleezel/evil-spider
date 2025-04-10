@@ -24,7 +24,6 @@ export class TransitionsManager {
         this.transitionScene = new THREE.Scene();
         this.transitionCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
         this.geometry = new THREE.PlaneGeometry(2, 2);
-        // this.textureLoader = new THREE.TextureLoader();
     }
 
     setupEventListeners() {
@@ -89,12 +88,15 @@ class TransitionInstance {
             progress: { value: 0 }
         };
 
-        this.initShaderMaterial();
+        // En el constructor de TransitionInstance:
+        // this.material.uniforms.maxScale.value = 1.5;  // Escala máxima (1.0 = normal)
+        // this.material.uniforms.maxOffset.value = 0.2; // Desplazamiento máximo en UV coordinates
+        // this.material.uniforms.glitchIntensity.value = 0.7;
 
         // Inicializar escena y cámara específicas para esta transición
         this.transitionScene = new THREE.Scene();
         this.transitionCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        this.createMesh();
+        // this.createMesh();
 
         this.initShaderMaterial();
         this.createMesh(); // Ahora usa la nueva escena y geometría
@@ -102,26 +104,92 @@ class TransitionInstance {
 
     initShaderMaterial() {
         this.material = new THREE.ShaderMaterial({
-            uniforms: this.uniforms,
+            uniforms: {
+                texture1: { value: null },
+                texture2: { value: null },
+                progress: { value: 0 },
+                time: { value: 0 },
+                glitchIntensity: { value: 0.5 },
+                rgbSplitIntensity: { value: 0.1 },
+                maxScale: { value: 1.2 },  // Escala máxima permitida
+                maxOffset: { value: 0.1 }   // Desplazamiento máximo
+            },
             vertexShader: `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelMatrix * vec4(position, 1.0);
-        }
-      `,
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelMatrix * vec4(position, 1.0);
+                }
+            `,
             fragmentShader: `
-        uniform sampler2D texture1;
-        uniform sampler2D texture2;
-        uniform float progress;
-        varying vec2 vUv;
-        
-        void main() {
-          vec4 color1 = texture2D(texture1, vUv);
-          vec4 color2 = texture2D(texture2, vUv);
-          gl_FragColor = mix(color1, color2, smoothstep(0.0, 1.0, progress));
-        }
-      `,
+                uniform sampler2D texture1;
+                uniform sampler2D texture2;
+                uniform float progress;
+                uniform float time;
+                uniform float glitchIntensity;
+                uniform float rgbSplitIntensity;
+                uniform float maxScale;
+                uniform float maxOffset;
+                varying vec2 vUv;
+                
+                float rand(vec2 co) {
+                    return fract(sin(dot(co.xy, vec2(12.9898,78.233))) * 43758.5453);
+                }
+                
+                vec2 randomScale(vec2 uv, float seed) {
+                    // Generar escala aleatoria diferente para X/Y usando tiempo y seed único
+                    float scaleX = 1.0 + (rand(vec2(time * 0.1, seed)) * maxScale * progress;
+                    float scaleY = 1.0 + (rand(vec2(time * 0.1, seed + 1.0)) * maxScale * progress;
+                    
+                    // Escalar desde el centro
+                    vec2 centeredUV = (uv - 0.5) * vec2(1.0/scaleX, 1.0/scaleY) + 0.5;
+                    return centeredUV;
+                }
+                
+                vec2 randomOffset(vec2 uv, float seed) {
+                    // Generar offset aleatorio usando tiempo y seed único
+                    float offsetX = (rand(vec2(time * 0.2, seed)) * maxOffset * progress;
+                    float offsetY = (rand(vec2(time * 0.2, seed + 1.0)) * maxOffset * progress;
+                    return uv + vec2(offsetX, offsetY);
+                }
+                
+                vec4 applyTextureEffects(sampler2D tex, vec2 uv, float seed) {
+                    // Aplicar transformaciones independientes a cada textura
+                    vec2 scaledUV = randomScale(uv, seed);
+                    vec2 offsetUV = randomOffset(scaledUV, seed + 2.0);
+                    
+                    // Muestrear la textura con las coordenadas modificadas
+                    return texture2D(tex, offsetUV);
+                }
+                
+                void main() {
+                    // Efectos independientes para cada textura usando diferentes seeds
+                    vec4 color1 = applyTextureEffects(texture1, vUv, 1.0);
+                    vec4 color2 = applyTextureEffects(texture2, vUv, 100.0);
+                    
+                    // Efecto de separación RGB
+                    vec4 rgbSplit = vec4(
+                        texture2D(texture2, vUv + vec2(rgbSplitIntensity * progress, 0.0)).r,
+                        texture2D(texture2, vUv + vec2(-rgbSplitIntensity * progress * 0.5, 0.0)).g,
+                        texture2D(texture2, vUv + vec2(0.0, rgbSplitIntensity * progress)).b,
+                        mix(color1.a, color2.a, smoothstep(0.0, 1.0, progress))
+                    );
+                    
+                    // Mezcla base con efectos
+                    vec4 finalColor = mix(color1, rgbSplit, smoothstep(0.0, 1.0, progress));
+                    
+                    // Efectos adicionales de glitch
+                    float twitchIntensity = glitchIntensity * progress;
+                    vec2 glitchUV = vUv;
+                    glitchUV.x += (rand(vec2(time * 0.3, vUv.y)) * twitchIntensity;
+                    glitchUV.y += (rand(vec2(time * 0.3, vUv.x)) - 0.5) * twitchIntensity * 0.5;
+                    
+                    // Aplicar distorsión final
+                    finalColor = mix(finalColor, texture2D(texture2, glitchUV), progress);
+                    
+                    gl_FragColor = finalColor;
+                }
+            `,
             transparent: true
         });
     }
