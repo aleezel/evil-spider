@@ -15,9 +15,9 @@ camera.position.z = 4;
 
 // scramble en texco principal
 let introText = document.querySelector('div[terminal-text] h2.home-subheading')
-introText.style.visibility = 'hidden'; 
+introText.style.visibility = 'hidden';
 
-setTimeout(()=>{
+setTimeout(() => {
   TextScrambleAnimation(introText)
 }, 8000)
 
@@ -36,7 +36,7 @@ composer.addPass(renderPass);
 // composer.addPass(glitchPass);
 
 const fishEyePass = new ShaderPass(FishEyeShader);
-fishEyePass.uniforms.strength.value = 0.3; 
+fishEyePass.uniforms.strength.value = 0.3;
 composer.addPass(fishEyePass);
 
 // Resize handler
@@ -54,4 +54,8 @@ function animate() {
   requestAnimationFrame(animate);
   composer.render();
 }
+
+
+
+
 animate();
