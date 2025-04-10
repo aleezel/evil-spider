@@ -178,11 +178,12 @@ class TransitionInstance {
 
         this.composer.addPass(this.transitionPass);
     }
-
+    // En la clase TransitionInstance
     startTransition(duration = TransitionsManager.DEFAULT_TRANSITION_DURATION) {
         if (this.isTransitioning) return;
 
         this.isTransitioning = true;
+        this.duration = duration; // Almacenar en la instancia
         this.startTime = performance.now();
         this.updateTransition();
     }
@@ -191,9 +192,9 @@ class TransitionInstance {
         if (!this.isTransitioning) return;
 
         const elapsed = performance.now() - this.startTime;
-        this.progress = Math.min(elapsed / duration, 1);
-        this.uniforms.progress.value = this.progress;
+        this.progress = Math.min(elapsed / this.duration, 1); // Usar this.duration
 
+        this.uniforms.progress.value = this.progress;
         this.renderTransition();
 
         if (this.progress < 1) {
@@ -202,7 +203,6 @@ class TransitionInstance {
             this.completeTransition();
         }
     }
-
     // En TransitionInstance.js, modifica el método renderTransition:
     renderTransition() {
         const width = Math.max(this.renderer.domElement.width, 1);
