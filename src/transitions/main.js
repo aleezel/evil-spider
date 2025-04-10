@@ -4,7 +4,7 @@ import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
 export class TransitionsManager {
-    static DEFAULT_TRANSITION_DURATION = 3000;
+    static DEFAULT_TRANSITION_DURATION = 1000;
     static RESIZE_DEBOUNCE_TIME = 100;
 
     constructor(mainRenderer, composer) {
