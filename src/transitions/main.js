@@ -89,11 +89,11 @@ class TransitionInstance {
         };
 
         this.initShaderMaterial();
-        this.createMesh();
 
         // Inicializar escena y cámara específicas para esta transición
         this.transitionScene = new THREE.Scene();
         this.transitionCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        this.createMesh();
 
         this.initShaderMaterial();
         this.createMesh(); // Ahora usa la nueva escena y geometría
