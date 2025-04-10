@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+// Agrega la importación faltante en TransitionsManager.js
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 
 export class TransitionsManager {
     static DEFAULT_TRANSITION_DURATION = 3000;
@@ -28,11 +30,19 @@ export class TransitionsManager {
         window.addEventListener('resize', this.handleResize.bind(this));
     }
 
+    // En TransitionsManager.js:
     handleResize() {
         clearTimeout(this.resizeTimeout);
         this.resizeTimeout = setTimeout(() => {
-            this.transitionCamera.aspect = window.innerWidth / window.innerHeight;
+            const width = Math.max(window.innerWidth, 1);
+            const height = Math.max(window.innerHeight, 1);
+
+            this.transitionCamera.aspect = width / height;
             this.transitionCamera.updateProjectionMatrix();
+
+            if (this.currentTransition?.renderTarget) {
+                this.currentTransition.renderTarget.setSize(width, height);
+            }
         }, TransitionsManager.RESIZE_DEBOUNCE_TIME);
     }
 
@@ -193,15 +203,24 @@ class TransitionInstance {
         }
     }
 
+    // En TransitionInstance.js, modifica el método renderTransition:
     renderTransition() {
-        const renderTarget = new THREE.WebGLRenderTarget(
-            this.renderer.domElement.width,
-            this.renderer.domElement.height
-        );
+        const width = Math.max(this.renderer.domElement.width, 1);
+        const height = Math.max(this.renderer.domElement.height, 1);
 
-        this.renderer.setRenderTarget(renderTarget);
+        if (this.renderTarget) {
+            this.renderTarget.dispose();
+        }
+
+        this.renderTarget = new THREE.WebGLRenderTarget(width, height, {
+            minFilter: THREE.LinearFilter,
+            magFilter: THREE.LinearFilter,
+            format: THREE.RGBAFormat
+        });
+
+        this.renderer.setRenderTarget(this.renderTarget);
         this.renderer.render(this.transitionScene, this.transitionCamera);
-        this.transitionPass.uniforms.transitionTexture.value = renderTarget.texture;
+        this.transitionPass.uniforms.transitionTexture.value = this.renderTarget.texture;
         this.renderer.setRenderTarget(null);
     }
 
