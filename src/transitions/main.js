@@ -90,6 +90,13 @@ class TransitionInstance {
 
         this.initShaderMaterial();
         this.createMesh();
+
+        // Inicializar escena y cámara específicas para esta transición
+        this.transitionScene = new THREE.Scene();
+        this.transitionCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+        this.initShaderMaterial();
+        this.createMesh(); // Ahora usa la nueva escena y geometría
     }
 
     initShaderMaterial() {
@@ -119,9 +126,15 @@ class TransitionInstance {
     }
 
     createMesh() {
+        // Crear geometría propia para esta instancia
+        this.geometry = new THREE.PlaneGeometry(2, 2);
+
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.mesh.frustumCulled = false;
         this.mesh.renderOrder = 999;
+
+        // Agregar el mesh a la escena de transición
+        this.transitionScene.add(this.mesh);
     }
 
     async initialize() {
@@ -205,23 +218,25 @@ class TransitionInstance {
     }
     // En TransitionInstance.js, modifica el método renderTransition:
     renderTransition() {
-        const width = Math.max(this.renderer.domElement.width, 1);
-        const height = Math.max(this.renderer.domElement.height, 1);
+        // Configurar render target con las dimensiones actuales
+        const width = this.renderer.domElement.width;
+        const height = this.renderer.domElement.height;
 
-        if (this.renderTarget) {
-            this.renderTarget.dispose();
+        if (!this.renderTarget || this.renderTarget.width !== width || this.renderTarget.height !== height) {
+            if (this.renderTarget) this.renderTarget.dispose();
+            this.renderTarget = new THREE.WebGLRenderTarget(width, height, {
+                minFilter: THREE.LinearFilter,
+                magFilter: THREE.LinearFilter
+            });
         }
 
-        this.renderTarget = new THREE.WebGLRenderTarget(width, height, {
-            minFilter: THREE.LinearFilter,
-            magFilter: THREE.LinearFilter,
-            format: THREE.RGBAFormat
-        });
-
+        // Renderizar la escena de transición
         this.renderer.setRenderTarget(this.renderTarget);
         this.renderer.render(this.transitionScene, this.transitionCamera);
-        this.transitionPass.uniforms.transitionTexture.value = this.renderTarget.texture;
         this.renderer.setRenderTarget(null);
+
+        // Actualizar textura del shader pass
+        this.transitionPass.uniforms.transitionTexture.value = this.renderTarget.texture;
     }
 
     completeTransition() {
