@@ -4,7 +4,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { FishEyeShader } from './shaders/fisheyeShader.js';
 import { TextScrambleAnimation } from "./textScrambleAnimation.js";
-import { TransitionsManager } from './TransitionsManager.js';
+import { TransitionsManager } from './transitions/main.js';
 
 // Configuración inicial
 const scene = new THREE.Scene();
