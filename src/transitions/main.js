@@ -1,6 +1,7 @@
 import * as THREE from 'three';
-// Agrega la importación faltante en TransitionsManager.js
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
+import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
 export class TransitionsManager {
     static DEFAULT_TRANSITION_DURATION = 3000;
@@ -170,26 +171,31 @@ class TransitionInstance {
                 transitionTexture: { value: null }
             },
             vertexShader: `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelMatrix * vec4(position, 1.0);
-        }
-      `,
+                            varying vec2 vUv;
+                            void main() {
+                                vUv = uv;
+                                gl_Position = projectionMatrix * modelMatrix * vec4(position, 1.0);
+                            }
+                        `,
             fragmentShader: `
-        uniform sampler2D tDiffuse;
-        uniform sampler2D transitionTexture;
-        varying vec2 vUv;
-        
-        void main() {
-          vec4 sceneColor = texture2D(tDiffuse, vUv);
-          vec4 transitionColor = texture2D(transitionTexture, vUv);
-          gl_FragColor = mix(sceneColor, transitionColor, transitionColor.a);
-        }
-      `
+                            uniform sampler2D tDiffuse;
+                            uniform sampler2D transitionTexture;
+                            varying vec2 vUv;
+                            
+                            void main() {
+                                vec4 sceneColor = texture2D(tDiffuse, vUv);
+                                vec4 transitionColor = texture2D(transitionTexture, vUv);
+                                gl_FragColor = mix(sceneColor, transitionColor, transitionColor.a);
+                            }
+                        `
         });
 
+        this.transitionFilmPass = new FilmPass(1)
+        this.transitionGlitchPass = new GlitchPass(324)
+
         this.composer.addPass(this.transitionPass);
+        this.composer.addPass(this.transitionFilmPass);
+        this.composer.addPass(this.transitionGlitchPass);
     }
     // En la clase TransitionInstance
     startTransition(duration = TransitionsManager.DEFAULT_TRANSITION_DURATION) {
