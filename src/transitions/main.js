@@ -4,7 +4,7 @@ import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
 export class TransitionsManager {
-    static DEFAULT_TRANSITION_DURATION = 1000;
+    static DEFAULT_TRANSITION_DURATION = 750;
     static RESIZE_DEBOUNCE_TIME = 100;
 
     constructor(mainRenderer, composer) {
@@ -191,7 +191,7 @@ class TransitionInstance {
         });
 
         this.transitionFilmPass = new FilmPass(1)
-        this.transitionGlitchPass = new GlitchPass(324)
+        this.transitionGlitchPass = new GlitchPass(500)
 
         this.composer.addPass(this.transitionPass);
         this.composer.addPass(this.transitionFilmPass);
@@ -250,6 +250,8 @@ class TransitionInstance {
         this.progress = 0;
         this.uniforms.progress.value = 0;
         this.composer.removePass(this.transitionPass);
+        this.composer.removePass(this.transitionFilmPass);
+        this.composer.removePass(this.transitionGlitchPass);
     }
 
     dispose() {
@@ -257,5 +259,7 @@ class TransitionInstance {
         this.uniforms.texture1.value?.dispose();
         this.uniforms.texture2.value?.dispose();
         this.composer.removePass(this.transitionPass);
+        this.composer.removePass(this.transitionFilmPass);
+        this.composer.removePass(this.transitionGlitchPass);
     }
 }

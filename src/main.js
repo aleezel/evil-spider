@@ -91,7 +91,7 @@ const callback = (entries) => {
 const options = {
   root: null, // Elemento contenedor (null = viewport)
   rootMargin: '0px', // Márgenes del root
-  threshold: 0.5 // Umbral(es) de visibilidad (ej: [0, 0.25, 0.5, 1])
+  threshold: 0.05 // Umbral(es) de visibilidad (ej: [0, 0.25, 0.5, 1])
 }
 const observer = new IntersectionObserver(callback, options);
 const target = document.querySelector('.spider-section');
