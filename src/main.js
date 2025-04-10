@@ -67,8 +67,8 @@ animate();
 async function startSceneTransition() {
   try {
     const transition = await transitionsManager.createTransition(
-      'https://cdn.example.com/image1.jpg',
-      'https://cdn.example.com/image2.jpg'
+      'https://evilspider-webgl.alejandra-piedra.com/home-section.png',
+      'https://evilspider-webgl.alejandra-piedra.com/evil-spider.png'
     );
 
     transition.startTransition()
