@@ -7,6 +7,7 @@ export class TransitionsManager {
     constructor(mainRenderer, composer) {
         this.mainRenderer = mainRenderer;
         this.composer = composer;
+        this.textureLoader = new THREE.TextureLoader(); // Mover aquí el inicializador
         this.isTransitioning = false;
         this.resizeTimeout = null;
         this.currentTransition = null;
@@ -15,11 +16,12 @@ export class TransitionsManager {
         this.setupEventListeners();
     }
 
+
     initTransitionScene() {
         this.transitionScene = new THREE.Scene();
         this.transitionCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
         this.geometry = new THREE.PlaneGeometry(2, 2);
-        this.textureLoader = new THREE.TextureLoader();
+        // this.textureLoader = new THREE.TextureLoader();
     }
 
     setupEventListeners() {
@@ -43,7 +45,8 @@ export class TransitionsManager {
             fromUrl,
             toUrl,
             this.mainRenderer,
-            this.composer
+            this.composer,
+            this.textureLoader // Pasar el loader como parámetro
         );
 
         await this.currentTransition.initialize();
@@ -59,11 +62,13 @@ export class TransitionsManager {
 }
 
 class TransitionInstance {
-    constructor(fromUrl, toUrl, renderer, composer) {
+    // Modificar el constructor
+    constructor(fromUrl, toUrl, renderer, composer, textureLoader) {
         this.fromUrl = fromUrl;
         this.toUrl = toUrl;
         this.renderer = renderer;
         this.composer = composer;
+        this.textureLoader = textureLoader; // Recibir el loader
         this.isTransitioning = false;
         this.startTime = null;
         this.progress = 0;
