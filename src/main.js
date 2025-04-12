@@ -48,17 +48,26 @@ const animate = (currentTime) => {
 };
 
 // Manejo de resize optimizado
-const resizeObserver = new ResizeObserver(entries => {
-  const { width, height } = entries[0].contentRect;
+// const resizeObserver = new ResizeObserver(entries => {
+//   const { width, height } = entries[0].contentRect;
 
+//   camera.aspect = width / height;
+//   camera.updateProjectionMatrix();
+
+//   renderer.setSize(width, height);
+//   composer.setSize(width, height);
+// });
+
+// resizeObserver.observe(renderer.domElement);
+
+window.addEventListener('resize', () => {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
-
   renderer.setSize(width, height);
   composer.setSize(width, height);
 });
-
-resizeObserver.observe(renderer.domElement);
 
 // Iniciar animación
 animate();
