@@ -91,7 +91,7 @@ const callback = (entries) => {
     if (entry.isIntersecting) {
       // Elemento está visible
       console.log(`${entry.target.id} está visible en un ${entry.intersectionRatio * 100}%`);
-      startSceneTransition();
+      // startSceneTransition();
     } else {
       // Elemento no está visible
     }
