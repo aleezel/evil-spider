@@ -13,7 +13,7 @@ export class TransitionsManager {
         this.textureLoader = new THREE.TextureLoader(); // Mover aquí el inicializador
         this.isTransitioning = false;
         this.resizeTimeout = null;
-        this.currentTransition = null;
+        this.currentTransition = null; 
 
         this.initTransitionScene();
         this.setupEventListeners();

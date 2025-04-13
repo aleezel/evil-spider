@@ -102,9 +102,9 @@ const options = {
   rootMargin: '0px', // Márgenes del root
   threshold: 0.05 // Umbral(es) de visibilidad (ej: [0, 0.25, 0.5, 1])
 }
-const observer = new IntersectionObserver(callback, options);
-const target = document.querySelector('.spider-section');
-observer.observe(target);
+// const observer = new IntersectionObserver(callback, options);
+// const target = document.querySelector('.spider-section');
+// observer.observe(target);
 
 
 // Iniciar la transición después de la animación del texto
