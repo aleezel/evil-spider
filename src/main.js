@@ -36,13 +36,13 @@ document.body.prepend(logContainer);
   };
 })();
 
-import * as THREE from 'three';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-import { FishEyeShader } from './shaders/fisheyeShader.js';
+// import * as THREE from 'three';
+// import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+// import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+// import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+// import { FishEyeShader } from './shaders/fisheyeShader.js';
 import { TextScrambleAnimation } from "./textScrambleAnimation.js";
-import { TransitionsManager } from './transitions/main.js';
+// import { TransitionsManager } from './transitions/main.js';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -114,35 +114,35 @@ try {
   // animate();
   
   // Ejemplo de uso de la transición
-  async function startSceneTransition() {
-    try {
-      const transition = await transitionsManager.createTransition(
-        'https://evilspider-webgl.alejandra-piedra.com/home-section.png',
-        'https://evilspider-webgl.alejandra-piedra.com/evil-spider.png'
-      );
+  // async function startSceneTransition() {
+  //   try {
+  //     const transition = await transitionsManager.createTransition(
+  //       'https://evilspider-webgl.alejandra-piedra.com/home-section.png',
+  //       'https://evilspider-webgl.alejandra-piedra.com/evil-spider.png'
+  //     );
   
-      transition.startTransition()
-    } catch (error) {
-      console.error('Transition failed:', error);
-    }
-  }
+  //     transition.startTransition()
+  //   } catch (error) {
+  //     console.error('Transition failed:', error);
+  //   }
+  // }
   
-  const callback = (entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Elemento está visible
-        console.log(`${entry.target.id} está visible en un ${entry.intersectionRatio * 100}%`);
-        // startSceneTransition();
-      } else {
-        // Elemento no está visible
-      }
-    });
-  };
-  const options = {
-    root: null, // Elemento contenedor (null = viewport)
-    rootMargin: '0px', // Márgenes del root
-    threshold: 0.05 // Umbral(es) de visibilidad (ej: [0, 0.25, 0.5, 1])
-  }
+  // const callback = (entries) => {
+  //   entries.forEach(entry => {
+  //     if (entry.isIntersecting) {
+  //       // Elemento está visible
+  //       console.log(`${entry.target.id} está visible en un ${entry.intersectionRatio * 100}%`);
+  //       // startSceneTransition();
+  //     } else {
+  //       // Elemento no está visible
+  //     }
+  //   });
+  // };
+  // const options = {
+  //   root: null, // Elemento contenedor (null = viewport)
+  //   rootMargin: '0px', // Márgenes del root
+  //   threshold: 0.05 // Umbral(es) de visibilidad (ej: [0, 0.25, 0.5, 1])
+  // }
   // const observer = new IntersectionObserver(callback, options);
   // const target = document.querySelector('.spider-section');
   // observer.observe(target);
