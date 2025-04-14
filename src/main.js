@@ -130,23 +130,31 @@ gsap.registerPlugin(ScrollTrigger)
 const scrombledTexts = document.querySelectorAll('[terminal-text]')
 console.log(scrombledTexts)
 scrombledTexts.forEach((textContainer) => {
-  ScrollTrigger.create({
-    trigger: text,
-    onEnter: ({progress, direction, isActive}) => {
-      const nestedTextElements = textContainer.querySelectorAll('h1, h2, h3, p');
-      console.log(nestedTextElements)
+  const nestedTextElements = textContainer.querySelectorAll('h1, h2, h3, p');
+  console.log(nestedTextElements)
 
-      if (nestedTextElements.length > 0) {
-        // Si dentro del contenedor hay h, p, etc., anímalos individualmente
-        nestedTextElements.forEach((el) => {
+  if (nestedTextElements.length > 0) {
+    // Si dentro del contenedor hay h, p, etc., anímalos individualmente
+    nestedTextElements.forEach((el) => {
+      console.log(el)
+      ScrollTrigger.create({
+        trigger: el,
+        onEnter: ({progress, direction, isActive}) => {
           TextScrambleAnimation(el);
-        });
-      } else {
-        // Si no hay hijos con h/p/etc., animas directamente el contenedor
+        }
+      });
+    });
+  } else {
+    // Si no hay hijos con h/p/etc., animas directamente el contenedor
+    ScrollTrigger.create({
+      console.log('else')
+      console.log(textContainer)
+      trigger: textContainer,
+      onEnter: ({progress, direction, isActive}) => {
         TextScrambleAnimation(textContainer);
       }
-    }
-  });
+    });
+  }
 });
 
 // Limpieza al salir
