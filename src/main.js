@@ -36,18 +36,18 @@ document.body.prepend(logContainer);
   };
 })();
 
+import * as THREE from 'three';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { FishEyeShader } from './shaders/fisheyeShader.js';
+import { TextScrambleAnimation } from "./textScrambleAnimation.js";
+import { TransitionsManager } from './transitions/main.js';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 try {
 
-  import * as THREE from 'three';
-  import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-  import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-  import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-  import { FishEyeShader } from './shaders/fisheyeShader.js';
-  import { TextScrambleAnimation } from "./textScrambleAnimation.js";
-  import { TransitionsManager } from './transitions/main.js';
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
   
   // Configuración inicial
   const scene = new THREE.Scene();
@@ -187,9 +187,9 @@ try {
       });
     } else {
       // Si no hay hijos con h/p/etc., animas directamente el contenedor
+      console.log('else')
+      console.log(textContainer)
       ScrollTrigger.create({
-        console.log('else')
-        console.log(textContainer)
         trigger: textContainer,
         onEnter: ({progress, direction, isActive}) => {
           TextScrambleAnimation(textContainer);
