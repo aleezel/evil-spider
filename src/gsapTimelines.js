@@ -7,7 +7,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 export function gsapTimelines() {
-
+    console.log("gsapTimelines")
     gsap.set(".cursor", { xPercent: -50, yPercent: -50 });
 
     let xTo = gsap.quickTo(".cursor", "x", { duration: 0.3, ease: "power4.out" }),
