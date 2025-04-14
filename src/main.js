@@ -116,9 +116,7 @@ const options = {
   //   TextScrambleAnimation(introText);
   // }, 8000);
 gsap.registerPlugin(ScrollTrigger) 
-const introText = document.querySelector('h2.home-subheading');
 const scrombledTexts = document.querySelectorAll('[terminal-text]')
-scrombledTexts.push(introText)
 scrombledTexts.forEach(text => {
   ScrollTrigger.create({
     trigger: text,
