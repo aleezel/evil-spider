@@ -5,6 +5,8 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { FishEyeShader } from './shaders/fisheyeShader.js';
 import { TextScrambleAnimation } from "./textScrambleAnimation.js";
 import { TransitionsManager } from './transitions/main.js';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Configuración inicial
 const scene = new THREE.Scene();
@@ -114,20 +116,15 @@ const options = {
 // setTimeout(() => {
 //   TextScrambleAnimation(introText);
 // }, 8000);
-
-const scrombledText = document.querySelectorAll('[terminal-text]')
-scrombledText.forEach(text => {
-  gsap.from(text, {
-    autoAlpha: 0,
-    duration: 0.5,
-    scrollTrigger: {
-      trigger: text,
-      scrub: false
-    },
-    onStart: () => {
+gsap.registerPlugin(ScrollTrigger) 
+const scrombledTexts = document.querySelectorAll('[terminal-text]')
+scrombledTexts.forEach(text => {
+  ScrollTrigger.create({
+    trigger: text,
+    onEnter: ({progress, direction, isActive}) => {
       TextScrambleAnimation(text);
     }
-  })
+});
 });
 
 // Limpieza al salir
