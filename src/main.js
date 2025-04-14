@@ -50,7 +50,7 @@ import { TextScrambleAnimation } from "./textScrambleAnimation.js";
 // import { TransitionsManager } from './transitions/main.js';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { gsapTimeline } from "./gsapTimelines.js";
+import { gsapTimelines } from "./gsapTimelines.js";
 
 try {
   // Configuración inicial
@@ -173,7 +173,7 @@ try {
   // });
 
 
-  gsapTimeline();
+  gsapTimelines();
 
   
   const scrombledTexts = document.querySelectorAll('[terminal-text]')
