@@ -1,7 +1,6 @@
 export const TextScrambleAnimation = (textBox) => {
     // Elementos y configuración
-    // const textBox = $(text_id);
-    console.log(textBox)
+
     textBox = $(textBox);
     const specialCharacters = [
         // Símbolos comunes
