@@ -111,6 +111,7 @@ const options = {
 
 // Iniciar la transición después de la animación del texto
 const introText = document.querySelector('div[terminal-text] h2.home-subheading');
+console.log(introText)
 introText.style.visibility = 'hidden';
 
 setTimeout(() => {
