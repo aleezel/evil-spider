@@ -170,7 +170,7 @@ try {
 
   gsapTimeline();
 
-  gsap.registerPlugin(ScrollTrigger)
+  
   const scrombledTexts = document.querySelectorAll('[terminal-text]')
   console.log(scrombledTexts)
   scrombledTexts.forEach((textContainer) => {

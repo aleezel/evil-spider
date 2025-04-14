@@ -1,4 +1,9 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 export function gsapTimelines() {
+    gsap.registerPlugin(ScrollTrigger)
+
     gsap.set(".cursor", { xPercent: -50, yPercent: -50 });
 
     let xTo = gsap.quickTo(".cursor", "x", { duration: 0.3, ease: "power4.out" }),
