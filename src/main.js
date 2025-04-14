@@ -37,7 +37,7 @@ document.body.prepend(logContainer);
 // })();
 
 const message = document.createElement('div');
-message.textContent = args.join(`La hora de inicio fue: ${process.env.START_TIME || "No se guardo la variable de tiempo"}`);
+message.textContent = `La hora de inicio fue: ${process.env.START_TIME || "No se guardo la variable de tiempo"}`;
 logContainer.appendChild(message);
 
 
