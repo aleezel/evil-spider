@@ -126,7 +126,7 @@ setTimeout(() => {
 //     }
 // });
 // });
-const scrombledTexts = document.querySelectorAll('[terminal-text]'.innerText)
+const scrombledTexts = document.querySelectorAll('[terminal-text]')
 console.log(scrombledTexts)
 scrombledTexts.forEach(text => {
   setTimeout(() => {
