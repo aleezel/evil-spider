@@ -1,8 +1,12 @@
 import { gsap } from "gsap";
+    
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextPlugin } from "gsap/TextPlugin";
+
+
+gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 export function gsapTimelines() {
-    gsap.registerPlugin(ScrollTrigger)
 
     gsap.set(".cursor", { xPercent: -50, yPercent: -50 });
 
