@@ -23,18 +23,23 @@ Object.assign(logContainer.style, {
 document.body.prepend(logContainer);
 
 // 2) Sobrescribir console.log para mostrar mensajes en pantalla
-(() => {
-  const originalLog = console.log;
-  console.log = function (...args) {
-    // Mostrar en la consola original
-    originalLog.apply(console, args);
-    // Agregar el mensaje al contenedor
-    const message = document.createElement('div');
-    // Combina todos los argumentos en un solo string
-    message.textContent = args.join(' ');
-    logContainer.appendChild(message);
-  };
-})();
+// (() => {
+//   const originalLog = console.log;
+//   console.log = function (...args) {
+//     // Mostrar en la consola original
+//     originalLog.apply(console, args);
+//     // Agregar el mensaje al contenedor
+//     const message = document.createElement('div');
+//     // Combina todos los argumentos en un solo string
+//     message.textContent = args.join(' ');
+//     logContainer.appendChild(message);
+//   };
+// })();
+
+const message = document.createElement('div');
+message.textContent = args.join(`La hora de inicio fue: ${process.env.START_TIME || "No se guardo la variable de tiempo"}`);
+logContainer.appendChild(message);
+
 
 // import * as THREE from 'three';
 // import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
