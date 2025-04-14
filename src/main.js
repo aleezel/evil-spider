@@ -110,21 +110,22 @@ const options = {
 
 
 // Iniciar la transición después de la animación del texto
-// introText.style.visibility = 'hidden';
+ const introText = document.querySelector('div[terminal-text] h2.home-subheading');
+ introText.style.visibility = 'hidden';
 
 // setTimeout(() => {
   //   TextScrambleAnimation(introText);
   // }, 8000);
 gsap.registerPlugin(ScrollTrigger) 
-const scrombledTexts = document.querySelectorAll('[terminal-text]')
-scrombledTexts.forEach(text => {
+//const scrombledTexts = document.querySelectorAll('[terminal-text]')
+//scrombledTexts.forEach(text => {
   ScrollTrigger.create({
-    trigger: text,
+    trigger: introText,
     onEnter: ({progress, direction, isActive}) => {
-      TextScrambleAnimation(text);
+      TextScrambleAnimation(introText);
     }
 });
-});
+//});
 
 // Limpieza al salir
 window.addEventListener('beforeunload', () => {
