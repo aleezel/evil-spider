@@ -47,48 +47,46 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 try {
-
-  
   // Configuración inicial
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.z = 4;
+  // const scene = new THREE.Scene();
+  // const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  // camera.position.z = 4;
   
-  // Configuración del renderer
-  const renderer = new THREE.WebGLRenderer({
-    canvas: document.querySelector('#effects'),
-    antialias: true,
-    alpha: true,
-    powerPreference: 'high-performance'
-  });
+  // // Configuración del renderer
+  // const renderer = new THREE.WebGLRenderer({
+  //   canvas: document.querySelector('#effects'),
+  //   antialias: true,
+  //   alpha: true,
+  //   powerPreference: 'high-performance'
+  // });
   
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.autoClear = false;
+  // renderer.setSize(window.innerWidth, window.innerHeight);
+  // renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  // renderer.autoClear = false;
   
-  // Configuración del EffectComposer
-  const composer = new EffectComposer(renderer);
-  composer.addPass(new RenderPass(scene, camera));
+  // // Configuración del EffectComposer
+  // const composer = new EffectComposer(renderer);
+  // composer.addPass(new RenderPass(scene, camera));
   
-  // Añadir efectos post-procesamiento
-  const fishEyePass = new ShaderPass(FishEyeShader);
-  fishEyePass.uniforms.strength.value = 0.3;
-  composer.addPass(fishEyePass);
+  // // Añadir efectos post-procesamiento
+  // const fishEyePass = new ShaderPass(FishEyeShader);
+  // fishEyePass.uniforms.strength.value = 0.3;
+  // composer.addPass(fishEyePass);
   
-  // Inicializar TransitionsManager
-  const transitionsManager = new TransitionsManager(renderer, composer);
+  // // Inicializar TransitionsManager
+  // const transitionsManager = new TransitionsManager(renderer, composer);
   
-  // Animación principal optimizada
-  let lastFrameTime = performance.now();
-  const animate = (currentTime) => {
-    const deltaTime = currentTime - lastFrameTime;
-    lastFrameTime = currentTime;
+  // // Animación principal optimizada
+  // let lastFrameTime = performance.now();
+  // const animate = (currentTime) => {
+  //   const deltaTime = currentTime - lastFrameTime;
+  //   lastFrameTime = currentTime;
   
-    requestAnimationFrame(animate);
+  //   requestAnimationFrame(animate);
   
-    renderer.clear();
-    composer.render(deltaTime);
-  };
+  //   renderer.clear();
+  //   composer.render(deltaTime);
+  // };
   
   // Manejo de resize optimizado
   // const resizeObserver = new ResizeObserver(entries => {
@@ -103,17 +101,17 @@ try {
   
   // resizeObserver.observe(renderer.domElement);
   
-  window.addEventListener('resize', () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
-    composer.setSize(width, height);
-  });
+  // window.addEventListener('resize', () => {
+  //   const width = window.innerWidth;
+  //   const height = window.innerHeight;
+  //   camera.aspect = width / height;
+  //   camera.updateProjectionMatrix();
+  //   renderer.setSize(width, height);
+  //   composer.setSize(width, height);
+  // });
   
-  // Iniciar animación
-  animate();
+  // // Iniciar animación
+  // animate();
   
   // Ejemplo de uso de la transición
   async function startSceneTransition() {
