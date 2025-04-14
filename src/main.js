@@ -110,41 +110,43 @@ const options = {
 
 
 // Iniciar la transición después de la animación del texto
-const introText = document.querySelector('div[terminal-text] h2.home-subheading');
-console.log(introText)
-introText.style.visibility = 'hidden';
+// const introText = document.querySelector('div[terminal-text] h2.home-subheading');
+// console.log(introText)
+// introText.style.visibility = 'hidden';
 
-setTimeout(() => {
-    TextScrambleAnimation(introText);
-  }, 8000);
-//gsap.registerPlugin(ScrollTrigger) 
+// setTimeout(() => {
+//     TextScrambleAnimation(introText);
+//   }, 8000);
 // const scrombledTexts = document.querySelectorAll('[terminal-text]')
 // scrombledTexts.forEach(text => {
-//   ScrollTrigger.create({
-//     trigger: text,
-//     onEnter: ({progress, direction, isActive}) => {
-//       TextScrambleAnimation(text);
-//     }
-// });
-// });
+  //   ScrollTrigger.create({
+    //     trigger: text,
+    //     onEnter: ({progress, direction, isActive}) => {
+      //       TextScrambleAnimation(text);
+      //     }
+      // });
+      // });
+gsap.registerPlugin(ScrollTrigger) 
 const scrombledTexts = document.querySelectorAll('[terminal-text]')
 console.log(scrombledTexts)
 scrombledTexts.forEach((textContainer) => {
-  // Usa setTimeout si así lo requieres (12s en el ejemplo)
-  setTimeout(() => {
-    // Busca elementos de texto que quieras animar (ajusta el selector a tus necesidades)
-    const nestedTextElements = textContainer.querySelectorAll('h1, h2, h3, p');
+  ScrollTrigger.create({
+    trigger: text,
+    onEnter: ({progress, direction, isActive}) => {
+      const nestedTextElements = textContainer.querySelectorAll('h1, h2, h3, p');
+      console.log(nestedTextElements)
 
-    if (nestedTextElements.length > 0) {
-      // Si dentro del contenedor hay h, p, etc., anímalos individualmente
-      nestedTextElements.forEach((el) => {
-        TextScrambleAnimation(el);
-      });
-    } else {
-      // Si no hay hijos con h/p/etc., animas directamente el contenedor
-      TextScrambleAnimation(textContainer);
+      if (nestedTextElements.length > 0) {
+        // Si dentro del contenedor hay h, p, etc., anímalos individualmente
+        nestedTextElements.forEach((el) => {
+          TextScrambleAnimation(el);
+        });
+      } else {
+        // Si no hay hijos con h/p/etc., animas directamente el contenedor
+        TextScrambleAnimation(textContainer);
+      }
     }
-  }, 12000);
+  });
 });
 
 // Limpieza al salir
