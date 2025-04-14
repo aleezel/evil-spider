@@ -129,10 +129,22 @@ setTimeout(() => {
 // });
 const scrombledTexts = document.querySelectorAll('[terminal-text]')
 console.log(scrombledTexts)
-scrombledTexts.forEach(text => {
+scrombledTexts.forEach((textContainer) => {
+  // Usa setTimeout si así lo requieres (12s en el ejemplo)
   setTimeout(() => {
-    TextScrambleAnimation(text);
-  }, 12000)
+    // Busca elementos de texto que quieras animar (ajusta el selector a tus necesidades)
+    const nestedTextElements = textContainer.querySelectorAll('h1, h2, h3, p');
+
+    if (nestedTextElements.length > 0) {
+      // Si dentro del contenedor hay h, p, etc., anímalos individualmente
+      nestedTextElements.forEach((el) => {
+        TextScrambleAnimation(el);
+      });
+    } else {
+      // Si no hay hijos con h/p/etc., animas directamente el contenedor
+      TextScrambleAnimation(textContainer);
+    }
+  }, 12000);
 });
 
 // Limpieza al salir
