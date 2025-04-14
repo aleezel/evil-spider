@@ -116,7 +116,7 @@ introText.style.visibility = 'hidden';
 setTimeout(() => {
     TextScrambleAnimation(introText);
   }, 8000);
-gsap.registerPlugin(ScrollTrigger) 
+//gsap.registerPlugin(ScrollTrigger) 
 // const scrombledTexts = document.querySelectorAll('[terminal-text]')
 // scrombledTexts.forEach(text => {
 //   ScrollTrigger.create({
@@ -126,7 +126,7 @@ gsap.registerPlugin(ScrollTrigger)
 //     }
 // });
 // });
-const scrombledTexts = document.querySelectorAll('[terminal-text]')
+const scrombledTexts = document.querySelectorAll('[terminal-text]'.innerText)
 console.log(scrombledTexts)
 scrombledTexts.forEach(text => {
   setTimeout(() => {
