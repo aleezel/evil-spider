@@ -1,3 +1,43 @@
+// 1) Crear dinámicamente el contenedor para los logs
+const logContainer = document.createElement('div');
+logContainer.setAttribute('id', 'log-output');
+
+// Estilo para el contenedor de logs
+Object.assign(logContainer.style, {
+  position: 'fixed',
+  bottom: '0',
+  left: '0',
+  right: '0',
+  maxHeight: '200px',
+  overflowY: 'auto',
+  background: 'rgba(0, 0, 0, 0.7)',
+  color: '#fff',
+  fontSize: '12px',
+  padding: '10px',
+  boxSizing: 'border-box',
+  zIndex: '99999'
+});
+
+// Insertar el contenedor al final del body
+document.body.appendChild(logContainer);
+
+// 2) Sobrescribir console.log para mostrar mensajes en pantalla
+(() => {
+  const originalLog = console.log;
+  console.log = function(...args) {
+    // Mostrar en la consola original
+    originalLog.apply(console, args);
+    // Agregar el mensaje al contenedor
+    const message = document.createElement('div');
+    // Combina todos los argumentos en un solo string
+    message.textContent = args.join(' ');
+    logContainer.appendChild(message);
+  };
+})();
+
+
+
+
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
