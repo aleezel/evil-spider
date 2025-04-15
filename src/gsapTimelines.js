@@ -10,8 +10,8 @@ export const gsapTimelines = () => {
     console.log("gsapTimelines")
     gsap.set(".cursor", { xPercent: -50, yPercent: -50 });
 
-    let xTo = gsap.quickTo(".cursor", "x", { duration: 0.3, ease: "expo.out" }),
-        yTo = gsap.quickTo(".cursor", "y", { duration: 0.3, ease: "expo.out" });
+    let xTo = gsap.quickTo(".cursor", "x", { duration: 0.5, ease: "power4" }),
+        yTo = gsap.quickTo(".cursor", "y", { duration: 0.5, ease: "power4" });
 
     window.addEventListener("mousemove", e => {
         xTo(e.clientX);
@@ -33,23 +33,31 @@ export const gsapTimelines = () => {
 
     heroSecTl.addLabel('intro')
         .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 }, 0)
-        .fromTo('.copy-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, delay: 8},  0)
-        .to('.copy-1', { delay: 20, autoAlpha: 0, y: "-10vh" })
-        .fromTo('.copy-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, delay: 8}, ">-0.5" )
-        .to('.copy-2', { delay: 20, autoAlpha: 0, y: "-10vh" } )
-        .fromTo('.copy-3', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, delay: 8}, ">-0.5" )
-        .to('.copy-3', { delay: 20, autoAlpha: 0, y: "-10vh" } )
-        .set('.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
-        .to('.hero-head_eyebrow', { autoAlpha: 1, delay: 5 })
-        .to('.hero-head_eyebrow', { y: 0 } )
+        //copy-1
+        .fromTo('.copy-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1},  0)
+        .to({}, {duration: 5})
+        .to('.copy-1', { autoAlpha: 0, y: "-10vh" })
 
-        .from('.div-keyword', { autoAlpha: 0, stagger: 0.2 })
+        .fromTo('.copy-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1}, ">-0.5" )
+        .to({}, {duration: 5})
+        .to('.copy-2', { autoAlpha: 0, y: "-10vh" } )
+        
+        .fromTo('.copy-3', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1}, ">-0.5" )
+        .to({}, {duration: 5})
+        .to('.copy-3', { autoAlpha: 0, y: "-10vh" } )
+        
+        .set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
+        .to('.div-text.hero-head_eyebrow', { autoAlpha: 1, delay: 5 })
+        .to('.div-text.hero-head_eyebrow', { y: 0 } )
+
+        .from('.div-keyword', { autoAlpha: 0 })
+        .to('.div-keyword', { autoAlpha: 1, stagger: 0.2 })
         .from('.spider-texture-wrap', { opacity: 0 })
         .from('.spider-heading', { opacity: 0 })
         
         .from('.hero_spline', { opacity: 0 })
         .from('.main-text', { opacity: 0 })
-        .to({}, {duration: 5})
+        .to({}, {duration: 10})
         
         .addLabel('end');
 
