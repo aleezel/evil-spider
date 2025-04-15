@@ -174,7 +174,7 @@ try {
   // });
 
 
-  gsapTimelines();
+  
 
 
   const scrombledTexts = document.querySelectorAll('[terminal-text]')
@@ -206,6 +206,8 @@ try {
       });
     }
   });
+
+  gsapTimelines();
 
   // Limpieza al salir
   window.addEventListener('beforeunload', () => {

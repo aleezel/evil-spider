@@ -10,8 +10,8 @@ export const gsapTimelines = () => {
     console.log("gsapTimelines")
     gsap.set(".cursor", { xPercent: -50, yPercent: -50 });
 
-    let xTo = gsap.quickTo(".cursor", "x", { duration: 0.3, ease: "power4.out" }),
-        yTo = gsap.quickTo(".cursor", "y", { duration: 0.3, ease: "power4.out" });
+    let xTo = gsap.quickTo(".cursor", "x", { duration: 0.3, ease: "expo.out" }),
+        yTo = gsap.quickTo(".cursor", "y", { duration: 0.3, ease: "expo.out" });
 
     window.addEventListener("mousemove", e => {
         xTo(e.clientX);
@@ -31,17 +31,23 @@ export const gsapTimelines = () => {
     });
 
     heroSecTl.addLabel('intro')
-        // .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 }, 0)
-        .from('.copy-1', { opacity: 0, y: "60vh" }, 0)
-        .to('.copy-1', { opacity: 1, y: "-10vh" }, 0.5)
-        .from('.copy-2', { opacity: 0, y: "60vh" }, "<1")
-        .from('.copy-3', { opacity: 0, y: "60vh" })
-        .from('.hero-keyword', { opacity: 0 })
-        .from('.hero-head_eyebrow', { opacity: 0 })
+        .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 }, 0)
+        .fromTo('.copy-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1}, 0)
+        .to('.copy-1', { autoAlpha: 0, y: "-10vh" }, ">2")
+        .fromTo('.copy-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1}, ">-0.5" )
+        .to('.copy-2', { autoAlpha: 0, y: "-10vh" }, ">2")
+        .fromTo('.copy-3', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1}, ">-0.5" )
+        .to('.copy-2', { autoAlpha: 0, y: "-10vh" }, ">2")
+        .from('.hero-head_eyebrow', { autoAlpha: 0 })
+        .to('.copy-2', { autoAlpha: 1, y: "50vh" }, ">2")
+
+        .from('.div-keyword', { autoAlpha: 0, stagger: 0.2 })
+        
         .from('.spider-heading', { opacity: 0 })
+        .from('.spider-texture-wrap', { opacity: 0 })
         .from('.hero_spline', { opacity: 0 })
         .from('.main-text', { opacity: 0 })
-        .from('.spider-texture-wrap', { opacity: 0 })
+        
         .addLabel('end');
 
 
