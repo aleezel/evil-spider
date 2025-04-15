@@ -34,7 +34,7 @@ export const gsapTimelines = () => {
     heroSecTl.addLabel('intro')
         .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 }, 0)
         .to('.cursor-feedback', {autoAlpha: 1}, 0 )
-        .to('.cursor-feedback', {autoAlpha: 0}, 5 )
+        //.to('.cursor-feedback', {autoAlpha: 0}, 5 )
         
         //copy-1
         .fromTo('.copy-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0},  0)
