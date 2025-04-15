@@ -2,6 +2,7 @@ export const TextScrambleAnimation = (textBox) => {
     // Elementos y configuración
 
     textBox = $(textBox).children('h4.first');
+    console.log(textBox)
     const specialCharacters = [
         // Símbolos comunes
         '!', '@', '#', '$', '%', '&', '*', '+', '-', '=', '?',
