@@ -33,7 +33,7 @@ export const gsapTimelines = () => {
 
     heroSecTl.addLabel('intro')
         .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 }, 0)
-        .fromTo('.copy-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1}, duration: 8, 0)
+        .fromTo('.copy-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, duration: 8},  0)
         .to('.copy-1', { delay: 20, autoAlpha: 0, y: "-10vh" }, ">10")
         .fromTo('.copy-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, duration: 8}, ">-0.5" )
         .to('.copy-2', { delay: 20, autoAlpha: 0, y: "-10vh" }, ">10")
