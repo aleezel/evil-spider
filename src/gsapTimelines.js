@@ -1,5 +1,5 @@
 import { gsap } from "gsap";
-    
+
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 
@@ -31,7 +31,7 @@ export const gsapTimelines = () => {
     });
 
     heroSecTl.addLabel('intro')
-        .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 }, 0)
+        // .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 }, 0)
         .from('.copy-1', { opacity: 0, y: "60vh" }, 0)
         .to('.copy-1', { opacity: 1, y: "-10vh" }, 0.5)
         .from('.copy-2', { opacity: 0, y: "60vh" }, "<1")
