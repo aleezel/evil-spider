@@ -175,12 +175,12 @@ try {
 
 
   
-
+  gsapTimelines();
 
   const scrombledTexts = document.querySelectorAll('[terminal-text]')
   console.log(scrombledTexts)
   scrombledTexts.forEach((textContainer) => {
-    const nestedTextElements = textContainer.querySelectorAll('h1, h2, h3, p');
+    const nestedTextElements = textContainer.querySelectorAll('h4, h2, h3, p');
     console.log(nestedTextElements)
 
     if (nestedTextElements.length > 0) {
@@ -207,7 +207,8 @@ try {
     }
   });
 
-  gsapTimelines();
+  
+  ScrollTrigger.sort();
 
   // Limpieza al salir
   window.addEventListener('beforeunload', () => {

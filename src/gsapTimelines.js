@@ -27,7 +27,7 @@ export const gsapTimelines = () => {
             end: 'bottom top', // end after scrolling 500px beyond the start
             scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
             markers: true,
-            refreshPriority: -1
+            refreshPriority: 2
         }
     });
 
