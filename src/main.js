@@ -37,7 +37,8 @@ document.body.prepend(logContainer);
 // })();
 
 const message = document.createElement('div');
-message.textContent = `La hora de inicio fue: ${process.env.START_TIME || "No se guardo la variable de tiempo"}`;
+
+message.textContent = `La hora de inicio fue: ${process.env.VITE_START_TIME || "No se guardo la variable de tiempo"}`;
 logContainer.appendChild(message);
 
 
@@ -175,7 +176,7 @@ try {
 
   gsapTimelines();
 
-  
+
   const scrombledTexts = document.querySelectorAll('[terminal-text]')
   console.log(scrombledTexts)
   scrombledTexts.forEach((textContainer) => {
