@@ -37,10 +37,19 @@ document.body.prepend(logContainer);
 // })();
 
 const message = document.createElement('div');
+// 2) Variables inyectadas por Vite
+const buildNumber = import.meta.env.VITE_BUILD_NUMBER;
+const commitSHA   = import.meta.env.VITE_COMMIT_SHA;
 
-message.textContent = `La hora de inicio fue: ${process.env.VITE_START_TIME || "No se guardo la variable de tiempo"}`;
+// 3) Mostrar valores en pantalla
+const textoparamostrar = `
+  La hora de inicio fue: ${import.meta.env.VITE_START_TIME}
+  Build Number: ${buildNumber || 'N/A'}
+  Commit SHA: ${commitSHA || 'N/A'}
+`;
+message.textContent = textoparamostrar
 logContainer.appendChild(message);
-
+console.log(textoparamostrar)
 
 // import * as THREE from 'three';
 // import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';

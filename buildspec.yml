@@ -9,7 +9,10 @@ phases:
       
   build:
     commands:
-      - export START_TIME=$(date +"%Y-%m-%d_%H-%M-%S") && npm exec vite build -- --mode production
+      - export VITE_BUILD_NUMBER=$CODEBUILD_BUILD_NUMBER
+      - export VITE_COMMIT_SHA=$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - export VITE_START_TIME=$(date +"%Y-%m-%d_%H-%M-%S")
+      - npm exec vite build -- --mode production
       - ls -la dist  # Listamos el contenido de 'dist' para verificar que existan los archivos
 
 artifacts:
