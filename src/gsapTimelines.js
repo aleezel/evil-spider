@@ -18,7 +18,7 @@ export const gsapTimelines = () => {
         yTo(e.clientY);
     });
 
-    let heroSec = gsap.timeline({
+    let heroSecTl = gsap.timeline({
         // yes, we can add it to an entire timeline!
         scrollTrigger: {
             trigger: '.spider-sticky',
@@ -30,8 +30,8 @@ export const gsapTimelines = () => {
         }
     });
 
-    heroSec.addLabel('intro')
-        .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 })
+    heroSecTl.addLabel('intro')
+        .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 }, 0)
         .from('.copy-1', { opacity: 0, y: "60vh" }, 0)
         .to('.copy-1', { opacity: 1, y: "-10vh" }, 0.5)
         .from('.copy-2', { opacity: 0, y: "60vh" }, "<1")
