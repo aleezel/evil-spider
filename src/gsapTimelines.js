@@ -24,7 +24,7 @@ export const gsapTimelines = () => {
             trigger: '.spider-sticky',
             pin: true,
             start: 'top top', // when the top of the trigger hits the top of the viewport
-            end: 'bottom top', // end after scrolling 500px beyond the start
+            end: '+=15000', // end after scrolling 500px beyond the start
             scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
             markers: true,
             refreshPriority: 2
