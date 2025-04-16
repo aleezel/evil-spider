@@ -210,7 +210,7 @@ try {
     ScrollTrigger.create({
       trigger: textContainer,
       onEnter: ({ progress, direction, isActive }) => {
-        console.log(`Esta entrando ${textContainer}`)
+        console.log(`Esta entrando ${$(textContainer)?.text()?.split('')}`)
         TextScrambleAnimation(textContainer);
       }
     });
