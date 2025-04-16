@@ -8,7 +8,9 @@ gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 export const gsapTimelines = () => {
     console.log("gsapTimelines")
+    //cursor
     gsap.set(".cursor", { xPercent: -50, yPercent: -50 });
+    gsap.set(".cursor-feedback", {autoAlpha: 0}); 
 
     let xTo = gsap.quickTo(".cursor", "x", { duration: 0.5, ease: "power4" }),
         yTo = gsap.quickTo(".cursor", "y", { duration: 0.5, ease: "power4" });
@@ -17,6 +19,12 @@ export const gsapTimelines = () => {
         xTo(e.clientX);
         yTo(e.clientY);
     });
+
+    //vars
+    const kwords = document.querySelectorAll(".div-keyword");
+
+    //ABSOLUTE SETS
+    gsap.set('.div-keyword', { autoAlpha: 0 })
 
     let heroSecTl = gsap.timeline({
         // yes, we can add it to an entire timeline!
@@ -37,24 +45,24 @@ export const gsapTimelines = () => {
         //.to('.cursor-feedback', {autoAlpha: 0}, 5 )
         
         //copy-1
-        .fromTo('.copy-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0},  0)
-        .to({}, {duration: 5})
-        .to('.copy-1', { autoAlpha: 0, y: "-10vh" })
+        .fromTo('.div-introText.text-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0},  0)
+        .to({}, {duration: 3})
+        .to('.div-introText.text-1', { autoAlpha: 0, y: "-10vh" })
 
-        .fromTo('.copy-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-0.5" )
-        .to({}, {duration: 5})
-        .to('.copy-2', { autoAlpha: 0, y: "-10vh" } )
+        .fromTo('.div-introText.text-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-0.5" )
+        .to({}, {duration: 3})
+        .to('.div-introText.text-2', { autoAlpha: 0, y: "-10vh" } )
         
-        .fromTo('.copy-3', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-0.5" )
-        .to({}, {duration: 5})
-        .to('.copy-3', { autoAlpha: 0, y: "-10vh" } )
+        .fromTo('.div-introText.text-3', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-0.5" )
+        .to({}, {duration: 3})
+        .to('.div-introText.text-3', { autoAlpha: 0, y: "-10vh" } )
         
         .set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
         .to('.div-text.hero-head_eyebrow', { autoAlpha: 1, delay: 5 })
         .to('.div-text.hero-head_eyebrow', { y: 0 } )
 
         .from('.div-keyword', { autoAlpha: 0 })
-        .to('.div-keyword', { autoAlpha: 1, stagger: 0.2 })
+        .to(kwords, { autoAlpha: 1, stagger: { each: 0.2, from: "random"}} )
         .from('.spider-texture-wrap', { opacity: 0 })
         .from('.spider-heading', { opacity: 0 })
         
