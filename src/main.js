@@ -192,39 +192,40 @@ try {
     const nestedTextElements = textContainer.querySelectorAll('h4');
     console.log(nestedTextElements)
 
-    if (nestedTextElements.length > 0) {
-      // Si dentro del contenedor hay h, p, etc., anímalos individualmente
-      nestedTextElements.forEach((el) => {
-        console.log(el)
-        ScrollTrigger.create({
-          trigger: el,
-          onEnter: ({ progress, direction, isActive }) => {
-            TextScrambleAnimation(el);
-          }
-        });
-      });
-    } else {
-      // Si no hay hijos con h/p/etc., animas directamente el contenedor
-      console.log('else')
-      console.log(textContainer)
-      ScrollTrigger.create({
-        trigger: textContainer,
-        onEnter: ({ progress, direction, isActive }) => {
-          TextScrambleAnimation(textContainer);
-        }
-      });
-    }
-  });
+    // if (nestedTextElements.length > 0) {
+    //   // Si dentro del contenedor hay h, p, etc., anímalos individualmente
+    //   nestedTextElements.forEach((el) => {
+    //     console.log(el)
+    //     ScrollTrigger.create({
+    //       trigger: el,
+    //       onEnter: ({ progress, direction, isActive }) => {
+    //         TextScrambleAnimation(el);
+    //       }
+    //     });
+    //   });
+    // } else {
+    // Si no hay hijos con h/p/etc., animas directamente el contenedor
+    console.log('else')
+    console.log(textContainer)
+    ScrollTrigger.create({
+      trigger: textContainer,
+      onEnter: ({ progress, direction, isActive }) => {
+        TextScrambleAnimation(textContainer);
+      }
+    });
+  }
+    // }
+  );
 
 
   ScrollTrigger.sort();
 
   // Limpieza al salir
-  window.addEventListener('beforeunload', () => {
-    transitionsManager.dispose();
-    renderer.dispose();
-    composer.dispose();
-  });
+  // window.addEventListener('beforeunload', () => {
+  //   transitionsManager.dispose();
+  //   renderer.dispose();
+  //   composer.dispose();
+  // });
 
 } catch (error) {
   console.log(error)
