@@ -186,38 +186,53 @@ try {
 
   gsapTimelines();
 
-  const scrombledTexts = document.querySelectorAll('[terminal-text]')
-  console.log(scrombledTexts)
-  scrombledTexts.forEach((textContainer) => {
-    const nestedTextElements = textContainer.querySelectorAll('h4');
-    console.log(nestedTextElements)
+  // const scrombledTexts = document.querySelectorAll('[terminal-text]')
+  // console.log(scrombledTexts)
+  // scrombledTexts.forEach((textContainer) => {
+  //   const nestedTextElements = textContainer.querySelectorAll('h4');
+  //   console.log(nestedTextElements)
+  //   console.log('else')
+  //   console.log(textContainer)
+  //   ScrollTrigger.create({
+  //     trigger: textContainer,
+  //     onEnter: ({ progress, direction, isActive }) => {
+  //       console.log(`Esta entrando ${$(textContainer)?.text()?.split('')}`)
+  //       TextScrambleAnimation(textContainer);
+  //     }
+  //   });
+  // }
+  //   // }
+  // );
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // El elemento ha entrado en el viewport
+        console.log(`Está entrando: ${entry.target.textContent.split('')}`);
 
-    // if (nestedTextElements.length > 0) {
-    //   // Si dentro del contenedor hay h, p, etc., anímalos individualmente
-    //   nestedTextElements.forEach((el) => {
-    //     console.log(el)
-    //     ScrollTrigger.create({
-    //       trigger: el,
-    //       onEnter: ({ progress, direction, isActive }) => {
-    //         TextScrambleAnimation(el);
-    //       }
-    //     });
-    //   });
-    // } else {
-    // Si no hay hijos con h/p/etc., animas directamente el contenedor
-    console.log('else')
-    console.log(textContainer)
-    ScrollTrigger.create({
-      trigger: textContainer,
-      onEnter: ({ progress, direction, isActive }) => {
-        console.log(`Esta entrando ${$(textContainer)?.text()?.split('')}`)
-        TextScrambleAnimation(textContainer);
+        // Llamamos a la animación de scramble
+        TextScrambleAnimation(entry.target);
+
+        // Si deseas que la animación ocurra solo una vez,
+        // puedes dejar de observar este elemento:
+        // obs.unobserve(entry.target);
       }
     });
-  }
-    // }
-  );
+  }, {
+    root: null,     // Observa en relación al viewport
+    threshold: 0.1  // Umbral de visibilidad al 10%
+  });
 
+  // 3. Observamos cada elemento
+  scrombledTexts.forEach((textContainer) => {
+    // Ejemplo de logs que tenías en tu código
+    const nestedTextElements = textContainer.querySelectorAll('h4');
+    console.log('Elementos <h4> anidados:', nestedTextElements);
+    console.log('else');
+    console.log(textContainer);
+
+    // Iniciamos la observación
+    observer.observe(textContainer);
+  });
 
   ScrollTrigger.sort();
 
