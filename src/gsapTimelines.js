@@ -45,17 +45,17 @@ export const gsapTimelines = () => {
         //.to('.cursor-feedback', {autoAlpha: 0}, 5 )
         
         //copy-1
-        .fromTo('.div-introText.text-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0},  0)
+        .fromTo('.div-introtext.text-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0},  0)
         .to({}, {duration: 3})
-        .to('.div-introText.text-1', { autoAlpha: 0, y: "-10vh" })
+        .to('.div-introtext.text-1', { autoAlpha: 0, y: "-10vh" })
 
-        .fromTo('.div-introText.text-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-0.5" )
+        .fromTo('.div-introtext.text-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-0.5" )
         .to({}, {duration: 3})
-        .to('.div-introText.text-2', { autoAlpha: 0, y: "-10vh" } )
+        .to('.div-introtext.text-2', { autoAlpha: 0, y: "-10vh" } )
         
-        .fromTo('.div-introText.text-3', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-0.5" )
+        .fromTo('.div-introtext.text-3', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-0.5" )
         .to({}, {duration: 3})
-        .to('.div-introText.text-3', { autoAlpha: 0, y: "-10vh" } )
+        .to('.div-introtext.text-3', { autoAlpha: 0, y: "-10vh" } )
         
         .set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
         .to('.div-text.hero-head_eyebrow', { autoAlpha: 1, delay: 5 })
@@ -68,6 +68,7 @@ export const gsapTimelines = () => {
         
         .from('.hero_spline', { opacity: 0 })
         .from('.main-text', { opacity: 0 })
+        .from('.color-overlay', {opacity: 0}, ">-0.5")
         .to({}, {duration: 10})
         
         .addLabel('end');
