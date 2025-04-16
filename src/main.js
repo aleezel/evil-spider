@@ -186,7 +186,7 @@ try {
 
   gsapTimelines();
 
-  // const scrombledTexts = document.querySelectorAll('[terminal-text]')
+  const scrombledTexts = document.querySelectorAll('[terminal-text]')
   // console.log(scrombledTexts)
   // scrombledTexts.forEach((textContainer) => {
   //   const nestedTextElements = textContainer.querySelectorAll('h4');
