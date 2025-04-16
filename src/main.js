@@ -39,7 +39,7 @@ document.body.prepend(logContainer);
 const message = document.createElement('div');
 // 2) Variables inyectadas por Vite
 const buildNumber = import.meta.env.VITE_BUILD_NUMBER;
-const commitSHA   = import.meta.env.VITE_COMMIT_SHA;
+const commitSHA = import.meta.env.VITE_COMMIT_SHA;
 
 // 3) Mostrar valores en pantalla
 const textoparamostrar = `
@@ -183,13 +183,13 @@ try {
   // });
 
 
-  
+
   gsapTimelines();
 
   const scrombledTexts = document.querySelectorAll('[terminal-text]')
   console.log(scrombledTexts)
   scrombledTexts.forEach((textContainer) => {
-    const nestedTextElements = textContainer.querySelectorAll('h4, h2, h3, p');
+    const nestedTextElements = textContainer.querySelectorAll('h4');
     console.log(nestedTextElements)
 
     if (nestedTextElements.length > 0) {
@@ -216,7 +216,7 @@ try {
     }
   });
 
-  
+
   ScrollTrigger.sort();
 
   // Limpieza al salir
