@@ -40,20 +40,20 @@ export const gsapTimelines = () => {
     });
 
     heroSecTl.addLabel('intro')
-        .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 }, 0)
+        .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
         .to('.cursor-feedback', {autoAlpha: 1}, 0 )
-        //.to('.cursor-feedback', {autoAlpha: 0}, 5 )
+        .to('.cursor-feedback', {autoAlpha: 0}, 5 )
         
         //copy-1
         .fromTo('.div-introtext.text-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0},  0)
         .to({}, {duration: 3})
         .to('.div-introtext.text-1', { autoAlpha: 0, y: "-10vh" })
 
-        .fromTo('.div-introtext.text-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-0.5" )
+        .fromTo('.div-introtext.text-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-5" )
         .to({}, {duration: 3})
         .to('.div-introtext.text-2', { autoAlpha: 0, y: "-10vh" } )
         
-        .fromTo('.div-introtext.text-3', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-0.5" )
+        .fromTo('.div-introtext.text-3', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0}, ">-5" )
         .to({}, {duration: 3})
         .to('.div-introtext.text-3', { autoAlpha: 0, y: "-10vh" } )
         
