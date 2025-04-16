@@ -12,8 +12,8 @@ export const gsapTimelines = () => {
     gsap.set(".cursor", { xPercent: -50, yPercent: -50 });
     gsap.set(".cursor-feedback", {autoAlpha: 0}); 
 
-    let xTo = gsap.quickTo(".cursor", "x", { duration: 0.5, ease: "power4" }),
-        yTo = gsap.quickTo(".cursor", "y", { duration: 0.5, ease: "power4" });
+    let xTo = gsap.quickTo(".cursor", "x", { duration: 0.5, ease: "back(1.7)" }),
+        yTo = gsap.quickTo(".cursor", "y", { duration: 0.5, ease: "back(1.7)" });
 
     window.addEventListener("mousemove", e => {
         xTo(e.clientX);
