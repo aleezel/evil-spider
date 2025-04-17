@@ -2,7 +2,7 @@ export const TextScrambleAnimation = (originalTextBox) => {
     // Elementos y configuración
 
     console.log({ originalTextBox })
-    let textBox = $(originalTextBox).children('h4.first');
+    let textBox = $(originalTextBox)//.children('h4.first');
     // console.log({ textBox })
     const specialCharacters = [
         // Símbolos comunes
