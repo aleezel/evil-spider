@@ -244,7 +244,7 @@ try {
 
   let currentVol = 1
   var sound = new Howl({
-    src: ['evil-spider.mp3'],
+    src: ['https://evilspider-webgl.alejandra-piedra.com/evil-spider.mp3'],
     volume: currentVol,
     onplayerror: function () {
       sound.once('unlock', function () {
@@ -256,13 +256,21 @@ try {
     }
   });
 
-  const inicio = document.querySelector(".play")
+  const inicio = document.querySelector(".main-btn")
   inicio.addEventListener("click", () => {
+    if (sound.playing()) {
+      sound.pause()
+      return
+    }
     sound.play();
   })
 
-  const soundButton = document.querySelector(".play")
+  const soundButton = document.querySelector(".sound-btn")
   soundButton.addEventListener("click", () => {
+    if (sound.playing()) {
+      sound.pause()
+      return
+    }
     sound.play();
   })
 
