@@ -22,20 +22,6 @@ Object.assign(logContainer.style, {
 // document.body.appendChild(logContainer);
 document.body.prepend(logContainer);
 
-// 2) Sobrescribir console.log para mostrar mensajes en pantalla
-// (() => {
-//   const originalLog = console.log;
-//   console.log = function (...args) {
-//     // Mostrar en la consola original
-//     originalLog.apply(console, args);
-//     // Agregar el mensaje al contenedor
-//     const message = document.createElement('div');
-//     // Combina todos los argumentos en un solo string
-//     message.textContent = args.join(' ');
-//     logContainer.appendChild(message);
-//   };
-// })();
-
 const message = document.createElement('div');
 // 2) Variables inyectadas por Vite
 const buildNumber = import.meta.env.VITE_BUILD_NUMBER;
@@ -61,7 +47,8 @@ import { TextScrambleAnimation } from "./textScrambleAnimation.js";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsapTimelines } from "./gsapTimelines.js";
-
+import { SongManager } from "./songManager.js";
+import { Howl, Howler } from 'howler';
 try {
   // Configuración inicial
   // const scene = new THREE.Scene();
@@ -242,6 +229,57 @@ try {
   //   renderer.dispose();
   //   composer.dispose();
   // });
+
+  // const song = new SongManager("evil-spider.mp3")
+  // const sound = new Howl({
+  //   src: ["evil-spider.mp3"],
+  //   volume: 1,
+  //   onloaderror(id, err) {
+  //     console.warn('failed to load sound file:', { id, err })
+  //   }
+  // });
+  // sound.play()
+  // song.play()
+
+
+  let currentVol = 1
+  var sound = new Howl({
+    src: ['evil-spider.mp3'],
+    volume: currentVol,
+    onplayerror: function () {
+      sound.once('unlock', function () {
+        sound.play();
+      });
+    },
+    onloaderror(id, err) {
+      console.error('failed to load sound file:', { id, err })
+    }
+  });
+
+  const inicio = document.querySelector(".play")
+  inicio.addEventListener("click", () => {
+    sound.play();
+  })
+
+  const soundButton = document.querySelector(".play")
+  soundButton.addEventListener("click", () => {
+    sound.play();
+  })
+
+  // const bajale = document.querySelector(".bajale")
+  // bajale.addEventListener("click", () => {
+  //   if (currentVol <= 0) {
+  //     return
+  //   }
+  //   currentVol += -0.1
+  //   sound.volume(currentVol);
+  // })
+
+  // const revientalabocina = document.querySelector(".revientalabocina")
+  // revientalabocina.addEventListener("click", () => {
+  //   currentVol = 1
+  //   sound.volume(currentVol);
+  // })
 
 } catch (error) {
   console.log(error)
