@@ -217,7 +217,7 @@ try {
     // console.log('else');
 
     // Iniciamos la observación
-    observer.observe(textContainer);
+    observer.observe(nestedTextElements);
   });
 
   ScrollTrigger.sort();
