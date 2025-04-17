@@ -214,12 +214,14 @@ try {
   // 3. Observamos cada elemento
   const scrombledTexts = document.querySelectorAll('[terminal-text]')
   scrombledTexts.forEach((textContainer) => {
+    console.log(textContainer)
     const nestedTextElements = textContainer.querySelectorAll('h4');
     // console.log('Elementos <h4> anidados:', nestedTextElements);
     // console.log(textContainer);
     // console.log('else');
 
     // Iniciamos la observación
+    console.log({ nestedTextElements })
     observer.observe(nestedTextElements);
   });
 
