@@ -1,7 +1,8 @@
-export const TextScrambleAnimation = (textBox) => {
+export const TextScrambleAnimation = (originalTextBox) => {
     // Elementos y configuración
 
-    textBox = $(textBox).children('h4.first');
+    console.log({ originalTextBox })
+    let textBox = $(originalTextBox).children('h4.first');
     // console.log({ textBox })
     const specialCharacters = [
         // Símbolos comunes
@@ -36,6 +37,7 @@ export const TextScrambleAnimation = (textBox) => {
      */
     function startScrambleText() {
         // Divide el texto en un array de caracteres
+        console.log({ "textBox": textBox, "text": textBox.text(), "split": textBox.text().split('') })
         const originalChars = textBox.text().split('');
         console.log({ originalChars })
         // Configura la animación CSS para el contenedor de texto
