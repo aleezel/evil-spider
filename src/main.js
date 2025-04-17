@@ -35,7 +35,7 @@ const textoparamostrar = `
 `;
 message.textContent = textoparamostrar
 logContainer.appendChild(message);
-console.log(textoparamostrar)
+// console.log(textoparamostrar)
 
 // import * as THREE from 'three';
 // import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -134,7 +134,7 @@ try {
   //   entries.forEach(entry => {
   //     if (entry.isIntersecting) {
   //       // Elemento está visible
-  //       console.log(`${entry.target.id} está visible en un ${entry.intersectionRatio * 100}%`);
+  //       // console.log(`${entry.target.id} está visible en un ${entry.intersectionRatio * 100}%`);
   //       // startSceneTransition();
   //     } else {
   //       // Elemento no está visible
@@ -153,7 +153,7 @@ try {
 
   // Iniciar la transición después de la animación del texto
   // const introText = document.querySelector('div[terminal-text] h2.home-subheading');
-  // console.log(introText)
+  // // console.log(introText)
   // introText.style.visibility = 'hidden';
 
   // setTimeout(() => {
@@ -173,17 +173,16 @@ try {
 
   gsapTimelines();
 
-  const scrombledTexts = document.querySelectorAll('[terminal-text]')
-  // console.log(scrombledTexts)
+  // // console.log(scrombledTexts)
   // scrombledTexts.forEach((textContainer) => {
   //   const nestedTextElements = textContainer.querySelectorAll('h4');
-  //   console.log(nestedTextElements)
-  //   console.log('else')
-  //   console.log(textContainer)
+  //   // console.log(nestedTextElements)
+  //   // console.log('else')
+  //   // console.log(textContainer)
   //   ScrollTrigger.create({
   //     trigger: textContainer,
   //     onEnter: ({ progress, direction, isActive }) => {
-  //       console.log(`Esta entrando ${$(textContainer)?.text()?.split('')}`)
+  //       // console.log(`Esta entrando ${$(textContainer)?.text()?.split('')}`)
   //       TextScrambleAnimation(textContainer);
   //     }
   //   });
@@ -194,7 +193,7 @@ try {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         // El elemento ha entrado en el viewport
-        console.log(`Está entrando: ${entry.target.textContent.split('')}`);
+        // console.log(`Está entrando: ${entry.target.textContent.split('')}`);
 
         // Llamamos a la animación de scramble
         TextScrambleAnimation(entry.target);
@@ -210,36 +209,18 @@ try {
   });
 
   // 3. Observamos cada elemento
+  const scrombledTexts = document.querySelectorAll('[terminal-text]')
   scrombledTexts.forEach((textContainer) => {
-    // Ejemplo de logs que tenías en tu código
     const nestedTextElements = textContainer.querySelectorAll('h4');
-    console.log('Elementos <h4> anidados:', nestedTextElements);
-    console.log('else');
-    console.log(textContainer);
+    // console.log('Elementos <h4> anidados:', nestedTextElements);
+    // console.log(textContainer);
+    // console.log('else');
 
     // Iniciamos la observación
     observer.observe(textContainer);
   });
 
   ScrollTrigger.sort();
-
-  // Limpieza al salir
-  // window.addEventListener('beforeunload', () => {
-  //   transitionsManager.dispose();
-  //   renderer.dispose();
-  //   composer.dispose();
-  // });
-
-  // const song = new SongManager("evil-spider.mp3")
-  // const sound = new Howl({
-  //   src: ["evil-spider.mp3"],
-  //   volume: 1,
-  //   onloaderror(id, err) {
-  //     console.warn('failed to load sound file:', { id, err })
-  //   }
-  // });
-  // sound.play()
-  // song.play()
 
 
   let currentVol = 1
@@ -290,5 +271,5 @@ try {
   // })
 
 } catch (error) {
-  console.log(error)
+  // console.log(error)
 }

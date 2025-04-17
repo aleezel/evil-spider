@@ -2,7 +2,7 @@ export const TextScrambleAnimation = (textBox) => {
     // Elementos y configuración
 
     textBox = $(textBox).children('h4.first');
-    console.log({ textBox })
+    // console.log({ textBox })
     const specialCharacters = [
         // Símbolos comunes
         '!', '@', '#', '$', '%', '&', '*', '+', '-', '=', '?',
@@ -37,7 +37,7 @@ export const TextScrambleAnimation = (textBox) => {
     function startScrambleText() {
         // Divide el texto en un array de caracteres
         const originalChars = textBox.text().split('');
-
+        console.log({ originalChars })
         // Configura la animación CSS para el contenedor de texto
         textBox.css({
             'width': originalChars.length + 'ch',
@@ -54,12 +54,13 @@ export const TextScrambleAnimation = (textBox) => {
             let displayText = "";
             let index = 0; // sirve para llevar conteo de las letras
             const reveler = Number((originalChars.length + revealDelay) / 4)
-
+            console.log({ displayText })
             // Genera el texto a mostrar en cada ciclo usando for...of
             for (const originalChar of originalChars) {
                 // Si el carácter debe ser revelado, muestra el original
                 const reveler = Number((originalChars.length + revealDelay) / 4)
                 if (index <= revealedChars && count >= reveler) {
+                    console.log("entroalif")
                     displayText += originalChar;
                 } else {
                     // Sino, muestra un carácter aleatorio
