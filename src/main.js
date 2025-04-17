@@ -191,12 +191,15 @@ try {
   // );
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
+      console.log({ entry })
       if (entry.isIntersecting) {
         // El elemento ha entrado en el viewport
         // console.log(`Está entrando: ${entry.target.textContent.split('')}`);
 
         // Llamamos a la animación de scramble
-        TextScrambleAnimation(entry.target);
+        console.log("llega al scabled")
+        const target = entry.target
+        TextScrambleAnimation(target);
 
         // Si deseas que la animación ocurra solo una vez,
         // puedes dejar de observar este elemento:
