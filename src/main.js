@@ -35,7 +35,6 @@ const textoparamostrar = `
 `;
 message.textContent = textoparamostrar
 logContainer.appendChild(message);
-// console.log(textoparamostrar)
 
 // import * as THREE from 'three';
 // import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -134,7 +133,6 @@ try {
   //   entries.forEach(entry => {
   //     if (entry.isIntersecting) {
   //       // Elemento está visible
-  //       // console.log(`${entry.target.id} está visible en un ${entry.intersectionRatio * 100}%`);
   //       // startSceneTransition();
   //     } else {
   //       // Elemento no está visible
@@ -153,7 +151,6 @@ try {
 
   // Iniciar la transición después de la animación del texto
   // const introText = document.querySelector('div[terminal-text] h2.home-subheading');
-  // // console.log(introText)
   // introText.style.visibility = 'hidden';
 
   // setTimeout(() => {
@@ -173,16 +170,11 @@ try {
 
   gsapTimelines();
 
-  // // console.log(scrombledTexts)
   // scrombledTexts.forEach((textContainer) => {
   //   const nestedTextElements = textContainer.querySelectorAll('h4');
-  //   // console.log(nestedTextElements)
-  //   // console.log('else')
-  //   // console.log(textContainer)
   //   ScrollTrigger.create({
   //     trigger: textContainer,
   //     onEnter: ({ progress, direction, isActive }) => {
-  //       // console.log(`Esta entrando ${$(textContainer)?.text()?.split('')}`)
   //       TextScrambleAnimation(textContainer);
   //     }
   //   });
@@ -191,13 +183,10 @@ try {
   // );
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
-      console.log({ entry })
       if (entry.isIntersecting) {
         // El elemento ha entrado en el viewport
-        // console.log(`Está entrando: ${entry.target.textContent.split('')}`);
 
         // Llamamos a la animación de scramble
-        console.log("llega al scabled")
         const target = entry.target
         TextScrambleAnimation(target);
 
@@ -213,16 +202,10 @@ try {
 
   // 3. Observamos cada elemento
   const scrombledTexts = document.querySelectorAll('[terminal-text]')
-  console.log({ scrombledTexts })
   scrombledTexts.forEach((textContainer) => {
-    console.log(textContainer)
     const nestedTextElements = textContainer.querySelector('h4');
-    // console.log('Elementos <h4> anidados:', nestedTextElements);
-    // console.log(textContainer);
-    // console.log('else');
 
     // Iniciamos la observación
-    console.log({ nestedTextElements })
     if (nestedTextElements) {
       observer.observe(nestedTextElements);
     }
@@ -279,5 +262,4 @@ try {
   // })
 
 } catch (error) {
-  // console.log(error)
 }

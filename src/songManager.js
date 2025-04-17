@@ -15,7 +15,7 @@ export class SongManager {
     }
 
     play() {
-        // console.log("dfgdfgdf")
+        // // console.log("dfgdfgdf")
         this.sound.play();
     }
 
