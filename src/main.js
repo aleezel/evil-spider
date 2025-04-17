@@ -213,6 +213,7 @@ try {
 
   // 3. Observamos cada elemento
   const scrombledTexts = document.querySelectorAll('[terminal-text]')
+  console.log({ scrombledTexts })
   scrombledTexts.forEach((textContainer) => {
     console.log(textContainer)
     const nestedTextElements = textContainer.querySelectorAll('h4');
