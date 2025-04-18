@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
-import { SplitType } from 'split-type';
+import SplitType from 'split-type';
 
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
