@@ -19,7 +19,7 @@ export const gsapTimelines = () => {
     window.addEventListener("mousemove", e => {
         xTo(e.clientX);
         yTo(e.clientY);
-    });
+    }, { passive: true });
 
     //text split
     let flyingText = new SplitType("[flying-text]", { types: "chars" })
