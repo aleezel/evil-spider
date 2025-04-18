@@ -2,6 +2,7 @@ import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
+import { SplitType } from 'split-type';
 
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
@@ -21,7 +22,7 @@ export const gsapTimelines = () => {
     });
 
     //text split
-    let flyingText = new SplitType("[flying-text]", { types: "chars", tagName: 'span' })
+    let flyingText = new SplitType("[flying-text]", { types: "chars" })
 
 
 
@@ -82,13 +83,13 @@ export const gsapTimelines = () => {
     let chapter1Tl = gsap.timeline({
         // yes, we can add it to an entire timeline!
         scrollTrigger: {
-            trigger: '.chapter-I-wrap',
+            trigger: '.chapter-sticky-wrap',
             pin: true,
             start: 'top top', // when the top of the trigger hits the top of the viewport
             end: '+=5000', // end after scrolling 500px beyond the start
             scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
             markers: true,
-            refreshPriority: 3
+            refreshPriority: 1
         }
     });
 
