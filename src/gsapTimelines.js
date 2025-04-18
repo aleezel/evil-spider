@@ -20,6 +20,11 @@ export const gsapTimelines = () => {
         yTo(e.clientY);
     });
 
+    //text split
+    let flyingText = new SplitType("[flying-text]", { types: "chars", tagName: 'span' })
+
+
+
     //vars
     const kwords = document.querySelectorAll(".div-keyword");
 
@@ -72,6 +77,24 @@ export const gsapTimelines = () => {
         .to({}, { duration: 10 })
 
         .addLabel('end');
+
+
+    let chapter1Tl = gsap.timeline({
+        // yes, we can add it to an entire timeline!
+        scrollTrigger: {
+            trigger: '.chapter-I-wrap',
+            pin: true,
+            start: 'top top', // when the top of the trigger hits the top of the viewport
+            end: '+=5000', // end after scrolling 500px beyond the start
+            scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+            markers: true,
+            refreshPriority: 3
+        }
+    });
+
+    chapter1Tl.set(flyingText.chars, { rotation: -200, y: '60svh' })
+        .to(flyingText.chars, { rotation: 200, y: '-10svh', ease: 'power4', stagger: 0.5 })
+    //.from('.chapter-I-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
 
 
 }
