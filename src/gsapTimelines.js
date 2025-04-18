@@ -93,8 +93,10 @@ export const gsapTimelines = () => {
         }
     });
 
-    chapter1Tl.set(flyingText.chars, { rotation: -200, y: '60svh' })
-        .to(flyingText.chars, { rotation: 200, y: '-10svh', ease: 'power4', stagger: 0.5 })
+    chapter1Tl.set(flyingText.chars, { y: '60svh' })
+        .set('.chapter-heading.is-chapter-i', { rotation: -200 })
+        .to('.chapter-heading.is-chapter-i', { rotation: 200, ease: 'power4' }, 0)
+        .to(flyingText.chars, { y: '-10svh', ease: 'power4', stagger: 0.5 }, 0)
     //.from('.chapter-I-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
 
 
