@@ -1,229 +1,134 @@
-// 1) Crear dinámicamente el contenedor para los logs
-const logContainer = document.createElement('div');
-logContainer.setAttribute('id', 'log-output');
-
-// Estilo para el contenedor de logs
-Object.assign(logContainer.style, {
-  position: 'fixed',
-  bottom: '0',
-  left: '0',
-  right: '0',
-  maxHeight: '200px',
-  overflowY: 'auto',
-  background: 'rgba(0, 0, 0, 0.7)',
-  color: '#fff',
-  fontSize: '12px',
-  padding: '10px',
-  boxSizing: 'border-box',
-  zIndex: '99999'
-});
-
-// Insertar el contenedor al final del body
-// document.body.appendChild(logContainer);
-document.body.prepend(logContainer);
-
-const message = document.createElement('div');
-// 2) Variables inyectadas por Vite
-const buildNumber = import.meta.env.VITE_BUILD_NUMBER;
-const commitSHA = import.meta.env.VITE_COMMIT_SHA;
-
-// 3) Mostrar valores en pantalla
-const textoparamostrar = `
-  La hora de inicio fue: ${import.meta.env.VITE_START_TIME}
-  Build Number: ${buildNumber || 'N/A'}
-  Commit SHA: ${commitSHA || 'N/A'}
-`;
-message.textContent = textoparamostrar
-logContainer.appendChild(message);
-
-import * as THREE from 'three';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-import { FishEyeShader } from './shaders/fisheyeShader.js';
-import { TextScrambleAnimation } from "./textScrambleAnimation.js";
-// import { TransitionsManager } from './transitions/main.js';
+import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsapTimelines } from "./gsapTimelines.js";
-import { SongManager } from "./songManager.js";
-import { Howl, Howler } from 'howler';
-try {
-  // Configuración inicial
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.z = 4;
+import { TextScrambleAnimation } from "./textScrambleAnimation.js";
+import { Howl } from "howler";
 
-  // Configuración del renderer
+// Inicialización del composer
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js"
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js"
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js"
+import { FishEyeShader } from "./shaders/fisheyeShader.js"
+
+// index.js
+// ---------
+// 1) Captura todo sólo cuando el DOM esté listo
+document.addEventListener("DOMContentLoaded", () => {
+  // 2) Logger en pantalla (VITE env vars)
+  const logContainer = document.createElement("div");
+  Object.assign(logContainer.style, {
+    position: "fixed",
+    bottom: "0",
+    left: "0",
+    right: "0",
+    maxHeight: "200px",
+    overflowY: "auto",
+    background: "rgba(0,0,0,0.7)",
+    color: "#fff",
+    fontSize: "12px",
+    padding: "10px",
+    boxSizing: "border-box",
+    zIndex: "99999",
+  });
+  document.body.prepend(logContainer);
+
+  const buildNumber = import.meta.env.VITE_BUILD_NUMBER || "N/A";
+  const commitSHA = import.meta.env.VITE_COMMIT_SHA || "N/A";
+  const startTime = import.meta.env.VITE_START_TIME || "N/A";
+
+  const msg = document.createElement("div");
+  msg.textContent = `
+    Hora de inicio: ${startTime}
+    Build Number: ${buildNumber}
+    Commit SHA: ${commitSHA}
+  `;
+  logContainer.appendChild(msg);
+
+  // 3) Three.js + EffectComposer
+  const canvas = document.querySelector("#effects");
+  if (!canvas) {
+    console.error("Canvas #effects no encontrado — verifique su HTML");
+    return;
+  }
+
   const renderer = new THREE.WebGLRenderer({
-    canvas: document.querySelector('#effects'),
+    canvas,
     antialias: true,
     alpha: true,
-    powerPreference: 'high-performance'
+    powerPreference: "high-performance",
   });
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  camera.position.z = 4;
 
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.autoClear = false;
 
-  // Configuración del EffectComposer
+
   const composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
-
-  // Añadir efectos post-procesamiento
   const fishEyePass = new ShaderPass(FishEyeShader);
   fishEyePass.uniforms.strength.value = 0.3;
   composer.addPass(fishEyePass);
 
-  // // Inicializar TransitionsManager
-  // const transitionsManager = new TransitionsManager(renderer, composer);
+  // Función para tamaño correcto
+  function onResize() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    if (w === 0 || h === 0) return; // evita framebuffers de tamaño cero
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+    composer.setSize(w, h);
+  }
+  window.addEventListener("resize", onResize, { passive: true });
+  onResize(); // llamada inicial
 
-  // Animación principal optimizada
-  // let lastFrameTime = performance.now();
-  const animate = () => {
-    // const deltaTime = currentTime - lastFrameTime;
-    // lastFrameTime = currentTime;
-
+  // 4) Loop de animación
+  function animate() {
     requestAnimationFrame(animate);
-
-    // renderer.clear();
     composer.render();
-  };
+  }
+  animate(); // arranca el loop
 
-  // Manejo de resize optimizado
-  // const resizeObserver = new ResizeObserver(entries => {
-  //   const { width, height } = entries[0].contentRect;
+  // 5) GSAP y ScrollTrigger
 
-  //   camera.aspect = width / height;
-  //   camera.updateProjectionMatrix();
+  gsap.registerPlugin(ScrollTrigger);
 
-  //   renderer.setSize(width, height);
-  //   composer.setSize(width, height);
-  // });
-
-  // resizeObserver.observe(renderer.domElement);
-
-  // window.addEventListener('resize', () => {
-  //   const width = window.innerWidth;
-  //   const height = window.innerHeight;
-  //   camera.aspect = width / height;
-  //   camera.updateProjectionMatrix();
-  //   renderer.setSize(width, height);
-  //   composer.setSize(width, height);
-  // });
-
-  // // Iniciar animación
-  // animate();
-
-  // Ejemplo de uso de la transición
-  // async function startSceneTransition() {
-  //   try {
-  //     const transition = await transitionsManager.createTransition(
-  //       'https://evilspider-webgl.alejandra-piedra.com/home-section.png',
-  //       'https://evilspider-webgl.alejandra-piedra.com/evil-spider.png'
-  //     );
-
-  //     transition.startTransition()
-  //   } catch (error) {
-  //     console.error('Transition failed:', error);
-  //   }
-  // }
-
-
-
-
+  // Asegúrate de que tu gsapTimelines verifica selectores antes de crear triggers
   gsapTimelines();
 
-  // scrombledTexts.forEach((textContainer) => {
-  //   const nestedTextElements = textContainer.querySelectorAll('h4');
-  //   ScrollTrigger.create({
-  //     trigger: textContainer,
-  //     onEnter: ({ progress, direction, isActive }) => {
-  //       TextScrambleAnimation(textContainer);
-  //     }
-  //   });
-  // }
-  //   // }
-  // );
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // El elemento ha entrado en el viewport
-
-        // Llamamos a la animación de scramble
-        const target = entry.target
-        TextScrambleAnimation(target);
-
-        // Si deseas que la animación ocurra solo una vez,
-        // puedes dejar de observar este elemento:
-        // obs.unobserve(entry.target);
-      }
-    });
-  }, {
-    root: null,     // Observa en relación al viewport
-    threshold: 0.1  // Umbral de visibilidad al 10%
-  });
-
-  // 3. Observamos cada elemento
-  const scrombledTexts = document.querySelectorAll('[terminal-text]')
-  scrombledTexts.forEach((textContainer) => {
-    const nestedTextElements = textContainer.querySelector('h4');
-
-    // Iniciamos la observación
-    if (nestedTextElements) {
-      observer.observe(nestedTextElements);
-    }
-  });
-
-  ScrollTrigger.sort();
-
-
-  let currentVol = 1
-  var sound = new Howl({
-    src: ['https://evilspider-webgl.alejandra-piedra.com/evil-spider.mp3'],
-    volume: currentVol,
-    onplayerror: function () {
-      sound.once('unlock', function () {
-        sound.play();
+  // 6) Text scramble con IntersectionObserver
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          TextScrambleAnimation(entry.target);
+          obs.unobserve(entry.target);
+        }
       });
     },
-    onloaderror(id, err) {
-      console.error('failed to load sound file:', { id, err })
-    }
+    { root: null, threshold: 0.1 }
+  );
+  document
+    .querySelectorAll("[terminal-text] h4")
+    .forEach((el) => observer.observe(el));
+
+  // 7) Gestión de audio con Howler
+  const sound = new Howl({
+    src: ["https://evilspider-webgl.alejandra-piedra.com/evil-spider.mp3"],
+    volume: 1,
+    onplayerror() {
+      sound.once("unlock", () => sound.play());
+    },
   });
-
-  const inicio = document.querySelector(".main-btn")
-  inicio.addEventListener("click", () => {
-    if (sound.playing()) {
-      sound.pause()
-      return
-    }
-    sound.play();
-  })
-
-  const soundButton = document.querySelector(".sound-btn")
-  soundButton.addEventListener("click", () => {
-    if (sound.playing()) {
-      sound.pause()
-      return
-    }
-    sound.play();
-  })
-
-  // const bajale = document.querySelector(".bajale")
-  // bajale.addEventListener("click", () => {
-  //   if (currentVol <= 0) {
-  //     return
-  //   }
-  //   currentVol += -0.1
-  //   sound.volume(currentVol);
-  // })
-
-  // const revientalabocina = document.querySelector(".revientalabocina")
-  // revientalabocina.addEventListener("click", () => {
-  //   currentVol = 1
-  //   sound.volume(currentVol);
-  // })
-
-} catch (error) {
-}
+  document.querySelectorAll(".main-btn, .sound-btn").forEach((btn) => {
+    btn.addEventListener("click", () =>
+      sound.playing() ? sound.pause() : sound.play()
+    );
+  });
+});
