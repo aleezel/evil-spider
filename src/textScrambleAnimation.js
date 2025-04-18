@@ -22,7 +22,7 @@ export const TextScrambleAnimation = (originalTextBox) => {
 
     // Configuración de la animación
     const originalChars = textBox.text().replace('|', '').split('');
-    const animationSpeed = Math.round(Number((80 * 36) / Number(originalChars))); // Velocidad en milisegundos (antes era 125)
+    const animationSpeed = 100 + 0.5 * originalChars.length; // Velocidad en milisegundos (antes era 125)
 
     // Función para generar números aleatorios en un rango
     const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;
@@ -34,7 +34,7 @@ export const TextScrambleAnimation = (originalTextBox) => {
      * con los caracteres originales uno por uno
      */
     function startScrambleText() {
-        const originalChars = textBox.text().replace('|', '').split('');
+        // const originalChars = textBox.text().replace('|', '').split('');
         textBox.css({
             // 'width': originalChars.length + 'ch',
             'animation': 'typing ' + ((animationSpeed * originalChars.length) / 1000) +
@@ -78,7 +78,7 @@ export const TextScrambleAnimation = (originalTextBox) => {
 
                 // Si todos los caracteres han sido revelados, detiene la animación
                 if (originalRevChars >= originalChars.length) {
-                    textBox.text(`${originalChars}`);
+                    textBox.text(`${textBox.text()}`);
                     clearInterval(animationInterval);
                 }
             }
