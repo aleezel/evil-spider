@@ -82,7 +82,7 @@ export const gsapTimelines = () => {
     heroSecTl
 
         .to(eyebrow, { yPercent: 0, autoAlpha: 1, duration: 1 })
-        .to(eyebrow, { yPercent: -100, duration: 1 })
+        .to(eyebrow, { yPercent: -1000, duration: 1 })
 
         .from('.div-keyword', { autoAlpha: 0 })
         .to(kwords, { autoAlpha: 1, stagger: { each: 0.2, from: "random" } })
