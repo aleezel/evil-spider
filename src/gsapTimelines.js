@@ -61,7 +61,7 @@ export const gsapTimelines = () => {
 
     // Animaciones secuenciales: entrada → centro → salida
     introTexts.forEach((textEl, i) => {
-        heroTimeline
+        heroSecTl
             .to(textEl, {
                 yPercent: -50, // llega al centro vertical
                 autoAlpha: 1,
