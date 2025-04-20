@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import SplitType from 'split-type';
+import { TextScrambleAnimation } from "./textScrambleAnimation";
 
 gsap.config({ force3D: false })
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
@@ -45,6 +46,8 @@ export const gsapTimelines = () => {
     const eyebrow = document.querySelector(".div-text.hero-head_eyebrow");
     // gsap.set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
     gsap.set(eyebrow, { yPercent: 60, autoAlpha: 0 });
+    gsap.set(flyingText.chars, { y: '60vh' })
+    gsap.set('.head-chars-wrap', { rotation: 90 })
 
     let heroSecTl = gsap.timeline({
         // yes, we can add it to an entire timeline!
@@ -70,7 +73,11 @@ export const gsapTimelines = () => {
             .to(textEl, {
                 yPercent: -50, // llega al centro vertical
                 autoAlpha: 1,
-                duration: 1
+                duration: 1,
+                onStart: () => {
+                    TextScrambleAnimation(this.targets()[0])
+                },
+
             })
             .to(textEl, {
                 yPercent: -150, // sale hacia arriba
@@ -108,10 +115,9 @@ export const gsapTimelines = () => {
         }
     });
 
-    chapter1Tl.set(flyingText.chars, { y: '60vh' })
-        .set('.head-chars-wrap', { rotation: 90 })
+    chapter1Tl
         .to('.head-chars-wrap', { rotation: -60, ease: 'power4' }, 0)
-        .to(flyingText.chars, { y: '-10svh', ease: 'power4', stagger: 0.5 }, 0)
+        .to(flyingText.chars, { y: '-10svh', ease: 'power4', stagger: 0.5, duration: 2 }, 0)
     //.from('.chapter-I-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
 
 

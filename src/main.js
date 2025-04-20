@@ -124,7 +124,12 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   document
     .querySelectorAll("[terminal-text] h4")
-    .forEach((el) => observer.observe(el));
+    .forEach((el) => {
+      const texto = el.textContent.trim().toLowerCase();
+      if (texto.includes('heading')) {
+        observer.observe(el);
+      }
+    });
 
   // 7) Gestión de audio con Howler
   const sound = new Howl({
