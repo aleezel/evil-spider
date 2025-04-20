@@ -41,6 +41,9 @@ export const gsapTimelines = () => {
         yPercent: 60,  // empiezan desde abajo
         autoAlpha: 0   // incluye opacity y visibility: hidden
     })
+
+    gsap.set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
+
     let heroSecTl = gsap.timeline({
         // yes, we can add it to an entire timeline!
         scrollTrigger: {
@@ -75,7 +78,7 @@ export const gsapTimelines = () => {
     })
 
     heroSecTl
-        .set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
+
         .to('.div-text.hero-head_eyebrow', { autoAlpha: 1, delay: 5 })
         .to('.div-text.hero-head_eyebrow', { y: 0 })
 
