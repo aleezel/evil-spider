@@ -1,90 +1,66 @@
 export const TextScrambleAnimation = (originalTextBox) => {
-    // Elementos y configuración
+    // 1. Referencia al elemento y configuración inicial
+    const $el = $(originalTextBox)
+        .addClass('scramble-text');
 
-    let textBox = $(originalTextBox)//.children('h4.first');
-    const specialCharacters = [
-        // Símbolos comunes
+    // Texto original dividido en caracteres
+    const originalChars = $el.text().replace('|', '').split('');
+    const length = originalChars.length;
+
+    // Fijar width en ch para que siempre mida length caracteres
+    $el.css('width', `${length}ch`);
+
+    // Caracteres usados en el “ruido”
+    const specialChars = [
         '!', '@', '#', '$', '%', '&', '*', '+', '-', '=', '?',
-        '/', '~', '^',
-
-        // Letras mayúsculas y minúsculas
-        'A', 'b', 'C', 'd', 'E', 'f', 'G', 'h', 'I', 'j',
-        'K', 'l', 'M', 'n', 'O', 'p', 'Q', 'r', 'S', 't',
-        'U', 'v', 'W', 'x', 'Y', 'z',
-
-        // Caracteres chinos y japoneses (ejemplos, pueden ampliarse)
-        '日', '本', '中', '国', '学', '生',
-
-        // Otros caracteres especiales
-        '{', '}', '[', ']', '<', '>', '¿', '¡'
+        '/', '~', '^', '日', '本', '中', '国', '学', '生', '{', '}', '[', ']', '<', '>', '¿', '¡'
     ];
 
+    // Velocidad de la animación en ms
+    const animationSpeed = 100 + 0.5 * length;
+    const revealStep = Math.round(length / 4);
 
-    // Configuración de la animación
-    const originalChars = textBox.text().replace('|', '').split('');
-    const animationSpeed = 100 + 0.5 * originalChars.length; // Velocidad en milisegundos (antes era 125)
+    // Generador de índice aleatorio
+    const rand = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
-    // Función para generar números aleatorios en un rango
-    const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+    function startScramble() {
+        let totalFrames = 0;  // total de iteraciones
+        let revealedChars = 0;  // cuántos originales ya mostramos
 
-    /**
-     * Inicia la animación de "scramble" (texto mezclado)
-     * Esta función toma el texto original y lo reemplaza gradualmente
-     * mostrando primero caracteres aleatorios que se van reemplazando
-     * con los caracteres originales uno por uno
-     */
-    function startScrambleText() {
-        // const originalChars = textBox.text().replace('|', '').split('');
-        textBox.css({
-            // 'width': originalChars.length + 'ch',
-            'animation': 'typing ' + ((animationSpeed * originalChars.length) / 1000) +
-                's steps(' + originalChars.length + ')'
-        });
+        const intervalId = setInterval(() => {
+            let displayText = '';
 
-        // Variables para controlar el progreso de la animación
-        let totalRevChars = 0;          // Contador de ciclos completados
-        let originalRevChars = 0;  // Número de caracteres ya revelados
-        // Configura el intervalo de actualización para la animación
-        let reveler = Math.round(Number((originalChars.length) / 4))
-        const animationInterval = setInterval(function () {
-            let displayText = "";
-            let originalCharIndex = 0; // sirve para llevar conteo de las letras
-            // Genera el texto a mostrar en cada ciclo usando for...of
-            for (const originalChar of originalChars) {
-                // Si el carácter debe ser revelado, muestra el original
-                if (originalCharIndex <= originalRevChars) {
-                    displayText += originalChar;
+            // Construimos siempre un string de longitud “length”
+            for (let i = 0; i < length; i++) {
+                if (i <= revealedChars) {
+                    // mostramos carácter original
+                    displayText += originalChars[i];
                 } else {
-                    // Sino, muestra un carácter aleatorio
-                    const randomoriginalCharIndex = getRandomNumber(0, specialCharacters.length);
-                    displayText += specialCharacters[randomoriginalCharIndex];
+                    // [Opción A] ruido: carácter aleatorio
+                    displayText += specialChars[rand(0, specialChars.length)];
+                    // [Opción B] en lugar de ruido, podrían ser espacios:
+                    // displayText += ' ';
                 }
-                originalCharIndex++;
             }
 
-            // Actualiza el texto en la página
-            textBox.text(`${displayText.slice(0, totalRevChars)}|`);
+            // Añadimos el cursor visible “|”
+            $el.text(displayText + '|');
 
-            // Incrementa el contador de ciclos
-            totalRevChars++;
-
-            if (textBox.css('visibility') === 'hidden') {
-                textBox.css('visibility', 'visible');
+            totalFrames++;
+            // cada revealStep iteraciones, aumentamos revealedChars
+            if (totalFrames >= revealStep) {
+                revealedChars++;
+                totalFrames = 0;
             }
-
-            // Verifica si es momento de revelar otro carácter
-            if (totalRevChars >= reveler) {
-                originalRevChars++;
-
-                // Si todos los caracteres han sido revelados, detiene la animación
-                if (originalRevChars >= originalChars.length) {
-                    textBox.text(`${textBox.text()}`);
-                    clearInterval(animationInterval);
-                }
+            // cuando ya revelamos todo, paramos
+            if (revealedChars >= length) {
+                clearInterval(intervalId);
+                // dejamos sólo el texto final (sin cursor opcionalmente)
+                $el.text(originalChars.join(''));
             }
         }, animationSpeed);
     }
 
-    // Inicia la animación cuando la página está lista
-    startScrambleText();
-}
+    // Arrancamos al cargar
+    startScramble();
+};
