@@ -42,7 +42,9 @@ export const gsapTimelines = () => {
         autoAlpha: 0   // incluye opacity y visibility: hidden
     })
 
-    gsap.set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
+    const eyebrow = document.querySelector(".div-text.hero-head_eyebrow");
+    // gsap.set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
+    gsap.set(eyebrow, { yPercent: 60, autoAlpha: 0 });
 
     let heroSecTl = gsap.timeline({
         // yes, we can add it to an entire timeline!
@@ -79,12 +81,8 @@ export const gsapTimelines = () => {
 
     heroSecTl
 
-        .to('.div-text.hero-head_eyebrow', {
-            yPercent: -50, // llega al centro vertical
-            autoAlpha: 1,
-            duration: 2
-        })
-        .to('.div-text.hero-head_eyebrow', { y: 0 })
+        .to(eyebrow, { yPercent: 0, autoAlpha: 1, duration: 1 })
+        .to(eyebrow, { yPercent: -100, duration: 1 })
 
         .from('.div-keyword', { autoAlpha: 0 })
         .to(kwords, { autoAlpha: 1, stagger: { each: 0.2, from: "random" } })
@@ -110,7 +108,7 @@ export const gsapTimelines = () => {
         }
     });
 
-    chapter1Tl.set(flyingText.chars, { y: '60svh' })
+    chapter1Tl.set(flyingText.chars, { y: '60vh' })
         .set('.head-chars-wrap', { rotation: 90 })
         .to('.head-chars-wrap', { rotation: -60, ease: 'power4' }, 0)
         .to(flyingText.chars, { y: '-10svh', ease: 'power4', stagger: 0.5 }, 0)
