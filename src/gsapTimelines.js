@@ -79,7 +79,11 @@ export const gsapTimelines = () => {
 
     heroSecTl
 
-        .to('.div-text.hero-head_eyebrow', { autoAlpha: 1, delay: 5 })
+        .to('.div-text.hero-head_eyebrow', {
+            yPercent: -50, // llega al centro vertical
+            autoAlpha: 1,
+            duration: 2
+        })
         .to('.div-text.hero-head_eyebrow', { y: 0 })
 
         .from('.div-keyword', { autoAlpha: 0 })
