@@ -32,6 +32,15 @@ export const gsapTimelines = () => {
     //ABSOLUTE SETS
     gsap.set('.div-keyword', { autoAlpha: 0 })
 
+
+    // Seleccionamos todos los textos secuenciales y palabras clave
+    const introTexts = gsap.utils.toArray(".div-introtext")
+    // Aseguramos que todos los textos inicien invisibles y sin desplazamiento
+    gsap.set(introTexts, {
+        xPercent: -50, // centrado horizontal
+        yPercent: 60,  // empiezan desde abajo
+        autoAlpha: 0   // incluye opacity y visibility: hidden
+    })
     let heroSecTl = gsap.timeline({
         // yes, we can add it to an entire timeline!
         scrollTrigger: {
@@ -46,23 +55,26 @@ export const gsapTimelines = () => {
     });
 
     heroSecTl.addLabel('intro')
-        .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
+        .from('.spider-sticky', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 10 }, 0)
         .to('.cursor-feedback', { autoAlpha: 1 }, 0)
         .to('.cursor-feedback', { autoAlpha: 0 }, 5)
 
-        //copy-1
-        .fromTo('.div-introtext.text-1', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0 }, 0)
-        .to({}, { duration: 3 })
-        .to('.div-introtext.text-1', { autoAlpha: 0, y: "-10vh" })
+    // Animaciones secuenciales: entrada → centro → salida
+    introTexts.forEach((textEl, i) => {
+        heroTimeline
+            .to(textEl, {
+                yPercent: -50, // llega al centro vertical
+                autoAlpha: 1,
+                duration: 1
+            })
+            .to(textEl, {
+                yPercent: -150, // sale hacia arriba
+                autoAlpha: 0,
+                duration: 1
+            }, "+=1") // espera 1s visible en centro antes de salir
+    })
 
-        .fromTo('.div-introtext.text-2', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0 }, ">-5")
-        .to({}, { duration: 3 })
-        .to('.div-introtext.text-2', { autoAlpha: 0, y: "-10vh" })
-
-        .fromTo('.div-introtext.text-3', { autoAlpha: 0, y: "60vh" }, { autoAlpha: 1, y: 0 }, ">-5")
-        .to({}, { duration: 3 })
-        .to('.div-introtext.text-3', { autoAlpha: 0, y: "-10vh" })
-
+    heroSecTl
         .set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
         .to('.div-text.hero-head_eyebrow', { autoAlpha: 1, delay: 5 })
         .to('.div-text.hero-head_eyebrow', { y: 0 })
@@ -75,7 +87,6 @@ export const gsapTimelines = () => {
         .from('.hero_spline', { opacity: 0 })
         .from('.main-text', { opacity: 0 })
         .from('.color-overlay', { opacity: 0 }, ">-0.5")
-        .to({}, { duration: 10 })
 
         .addLabel('end');
 
@@ -87,7 +98,7 @@ export const gsapTimelines = () => {
             start: 'top top', // when the top of the trigger hits the top of the viewport
             end: '+=5000', // end after scrolling 500px beyond the start
             scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
-            markers: {startColor: "white", endColor: "white", fontSize: "18px", fontWeight: "bold", indent: 20},
+            markers: { startColor: "white", endColor: "white", fontSize: "18px", fontWeight: "bold", indent: 20 },
             id: 2,
         }
     });
