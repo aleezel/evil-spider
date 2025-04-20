@@ -11,6 +11,8 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js"
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js"
 import { FishEyeShader } from "./shaders/fisheyeShader.js"
 
+gsap.config({ force3D: false })
+
 // index.js
 // ---------
 // 1) Captura todo sólo cuando el DOM esté listo

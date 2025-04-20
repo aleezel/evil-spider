@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import SplitType from 'split-type';
 
-
+gsap.config({ force3D: false })
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 export const gsapTimelines = () => {
