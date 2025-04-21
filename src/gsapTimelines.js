@@ -76,7 +76,11 @@ export const gsapTimelines = () => {
                 duration: 1,
                 onStart: (nodeElement) => {
                     console.log(nodeElement)
-                    TextScrambleAnimation(nodeElement[0])
+                    const textElement = nodeElement?.querySelector("h4")
+                    if (textElement) {
+                        console.log(textElement)
+                        TextScrambleAnimation(textElement)
+                    }
                 },
                 onStartParams: [textEl]
 
