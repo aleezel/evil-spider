@@ -74,9 +74,10 @@ export const gsapTimelines = () => {
                 yPercent: -50, // llega al centro vertical
                 autoAlpha: 1,
                 duration: 1,
-                onStart: () => {
-                    TextScrambleAnimation(this.targets()[0])
+                onStart: (nodeElement) => {
+                    TextScrambleAnimation(nodeElement[0])
                 },
+                onStartParams: [textEl]
 
             })
             .to(textEl, {
