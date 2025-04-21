@@ -32,7 +32,8 @@ export const gsapTimelines = () => {
 
     //ABSOLUTE SETS
     gsap.set('.div-keyword', { autoAlpha: 0 })
-
+    .set(flyingText.chars, { y: '30svh' })
+    .set('.head-chars-wrap', { rotation: 70 })
 
     // Seleccionamos todos los textos secuenciales y palabras clave
     const introTexts = gsap.utils.toArray(".div-introtext")
@@ -84,7 +85,7 @@ export const gsapTimelines = () => {
                 },
                 onStartParams: [textEl]
 
-            })
+            }, i*2)
             .to(textEl, {
                 yPercent: -150, // sale hacia arriba
                 autoAlpha: 0,
@@ -93,18 +94,17 @@ export const gsapTimelines = () => {
     })
 
     heroSecTl
-
-        .to(eyebrow, { yPercent: 0, autoAlpha: 1, duration: 1 })
-        .to(eyebrow, { yPercent: -1000, duration: 1 })
+        .to(eyebrow, { y: 0, autoAlpha: 1, duration: 1 })
+        .to(eyebrow, { y: "20svh", duration: 1 })
 
         .from('.div-keyword', { autoAlpha: 0 })
         .to(kwords, { autoAlpha: 1, stagger: { each: 0.2, from: "random" } })
-        .from('.spider-texture-wrap', { opacity: 0 })
         .from('.spider-heading', { opacity: 0 })
 
         .from('.hero_spline', { opacity: 0 })
+        .from('.spider-texture-wrap', { opacity: 0 })
         .from('.main-text', { opacity: 0 })
-        .from('.color-overlay', { opacity: 0 }, ">-0.5")
+        .from('.color-overlay', { opacity: 0 }, 25)
 
         .addLabel('end');
 
@@ -114,7 +114,7 @@ export const gsapTimelines = () => {
         scrollTrigger: {
             trigger: '.chapter-i-wrap',
             start: 'top top', // when the top of the trigger hits the top of the viewport
-            end: '+=5000', // end after scrolling 500px beyond the start
+            end: '+=3000', // end after scrolling 500px beyond the start
             scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
             markers: { startColor: "white", endColor: "white", fontSize: "18px", fontWeight: "bold", indent: 20 },
             id: 2,
@@ -122,10 +122,10 @@ export const gsapTimelines = () => {
         }
     });
 
-    chapter1Tl
-        .to('.head-chars-wrap', { rotation: -60, ease: 'power4', duration: 5 }, 0)
-        .to(flyingText.chars, { y: '-10svh', ease: 'power4', stagger: 0.5, duration: 2 }, 0)
-    //.from('.chapter-I-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
+    chapter1Tl 
+    .from('.chapter-I-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
+    .to('.head-chars-wrap', { rotation: 0, ease: 'back', duration:10 }, 0)
+    .to(flyingText.chars, { y: '0svh', ease: 'power4', duration: 7, stagger: 0.2}, 0.5)
 
 
 }
