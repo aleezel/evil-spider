@@ -118,11 +118,12 @@ export const gsapTimelines = () => {
             scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
             markers: { startColor: "white", endColor: "white", fontSize: "18px", fontWeight: "bold", indent: 20 },
             id: 2,
+            pin: true
         }
     });
 
     chapter1Tl
-        .to('.head-chars-wrap', { rotation: -60, ease: 'power4' }, 0)
+        .to('.head-chars-wrap', { rotation: -60, ease: 'power4', duration: 5 }, 0)
         .to(flyingText.chars, { y: '-10svh', ease: 'power4', stagger: 0.5, duration: 2 }, 0)
     //.from('.chapter-I-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
 
