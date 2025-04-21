@@ -75,6 +75,7 @@ export const gsapTimelines = () => {
                 autoAlpha: 1,
                 duration: 1,
                 onStart: (nodeElement) => {
+                    console.log(nodeElement)
                     TextScrambleAnimation(nodeElement[0])
                 },
                 onStartParams: [textEl]
