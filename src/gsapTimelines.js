@@ -9,7 +9,7 @@ gsap.config({ force3D: false })
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 export const gsapTimelines = () => {
-    let textSplit = new splitType("[text-split]", {
+    let textSplit = new SplitType("[text-split]", {
         types: "words, chars",
         tagName: "span"
     });
