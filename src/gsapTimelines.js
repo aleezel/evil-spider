@@ -9,6 +9,10 @@ gsap.config({ force3D: false })
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 export const gsapTimelines = () => {
+    let textSplit = new splitType("[text-split]", {
+        types: "words, chars",
+        tagName: "span"
+    });
     // // console.log("gsapTimelines")
     //cursor
     gsap.set(".cursor", { xPercent: -50, yPercent: -50 });
@@ -32,8 +36,8 @@ export const gsapTimelines = () => {
 
     //ABSOLUTE SETS
     gsap.set('.div-keyword', { autoAlpha: 0 })
-    .set(flyingText.chars, { y: '30svh' })
-    .set('.head-chars-wrap', { rotation: 70 })
+    gsap.set(flyingText.chars, { y: '30svh' })
+    gsap.set('.head-chars-wrap', { rotation: 70 })
 
     // Seleccionamos todos los textos secuenciales y palabras clave
     const introTexts = gsap.utils.toArray(".div-introtext")
@@ -47,8 +51,7 @@ export const gsapTimelines = () => {
     const eyebrow = document.querySelector(".div-text.hero-head_eyebrow");
     // gsap.set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
     gsap.set(eyebrow, { yPercent: 60, autoAlpha: 0 });
-    gsap.set(flyingText.chars, { y: '60vh' })
-    gsap.set('.head-chars-wrap', { rotation: 90 })
+
 
     let heroSecTl = gsap.timeline({
         // yes, we can add it to an entire timeline!
@@ -85,7 +88,7 @@ export const gsapTimelines = () => {
                 },
                 onStartParams: [textEl]
 
-            }, i*2)
+            }, ">-0.5")
             .to(textEl, {
                 yPercent: -150, // sale hacia arriba
                 autoAlpha: 0,
@@ -94,17 +97,17 @@ export const gsapTimelines = () => {
     })
 
     heroSecTl
-        .to(eyebrow, { y: 0, autoAlpha: 1, duration: 1 })
+        .to(eyebrow, { y: 0, autoAlpha: 1, duration: 1 }, ">-0.5")
         .to(eyebrow, { y: "20svh", duration: 1 })
 
-        .from('.div-keyword', { autoAlpha: 0 })
+        .from('.div-keyword', { autoAlpha: 0 }, ">-0.5")
         .to(kwords, { autoAlpha: 1, stagger: { each: 0.2, from: "random" } })
         .from('.spider-heading', { opacity: 0 })
 
         .from('.hero_spline', { opacity: 0 })
-        .from('.spider-texture-wrap', { opacity: 0 })
-        .from('.main-text', { opacity: 0 })
-        .from('.color-overlay', { opacity: 0 }, 25)
+        .from('.spider-texture-wrap', { opacity: 0, duration: 2 }, ">-0.5")
+        .from('.main-text', { opacity: 0 }, ">-2")
+        .from('.color-overlay', { opacity: 0, duration: 10 }, 20)
 
         .addLabel('end');
 
@@ -122,10 +125,10 @@ export const gsapTimelines = () => {
         }
     });
 
-    chapter1Tl 
-    .from('.chapter-I-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
-    .to('.head-chars-wrap', { rotation: 0, ease: 'back', duration:10 }, 0)
-    .to(flyingText.chars, { y: '0svh', ease: 'power4', duration: 7, stagger: 0.2}, 0.5)
+    chapter1Tl
+        .from('.chapter-I-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, -1)
+        .to('.head-chars-wrap', { rotation: 0, ease: 'back', duration: 10 }, 0)
+        .to(flyingText.chars, { y: '0svh', ease: 'power4', duration: 7, stagger: 0.2 }, 0.5)
 
 
 }
