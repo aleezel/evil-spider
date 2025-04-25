@@ -47,7 +47,7 @@ export const gsapTimelines = () => {
         yPercent: 60,  // empiezan desde abajo
         autoAlpha: 0   // incluye opacity y visibility: hidden
     })
-    gsap.set(".div-introtext.text-1",{xPercent: -50})
+    gsap.set(".div-introtext.text-1", { xPercent: -50 })
 
     const eyebrow = document.querySelector(".div-text.hero-head_eyebrow");
     // gsap.set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
@@ -94,7 +94,7 @@ export const gsapTimelines = () => {
                 yPercent: -150, // sale hacia arriba
                 autoAlpha: 0,
                 duration: 1
-            }, "+=1") // espera 1s visible en centro antes de salir
+            }, i * 2 + 0.5) // espera 1s visible en centro antes de salir
     })
 
     heroSecTl
