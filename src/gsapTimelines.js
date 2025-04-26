@@ -1,5 +1,4 @@
 import { gsap } from "gsap";
-
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import SplitType from 'split-type';
@@ -8,7 +7,12 @@ import { TextScrambleAnimation } from "./textScrambleAnimation";
 gsap.config({ force3D: false })
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
+
 export const gsapTimelines = () => {
+    window.addEventListener('load', () => {
+        ScrollTrigger.refresh(true);
+    })
+
     let textSplit = new SplitType("[text-split]", {
         types: "words, chars",
         tagName: "span"
@@ -27,7 +31,10 @@ export const gsapTimelines = () => {
     }, { passive: true });
 
     //text split
-    let flyingText = new SplitType("[flying-text]", { types: "chars" })
+    let flyingTextSplit = new SplitType("[flying-text]", { types: "chars" })
+    
+    let flyingText = document.querySelectorAll("[flying-text]")
+    
 
 
 
@@ -44,14 +51,14 @@ export const gsapTimelines = () => {
     // Aseguramos que todos los textos inicien invisibles y sin desplazamiento
     gsap.set(introTexts, {
         xPercent: -50, // centrado horizontal
-        yPercent: 60,  // empiezan desde abajo
+        yPercent: 150,  // empiezan desde abajo
         autoAlpha: 0   // incluye opacity y visibility: hidden
     })
     gsap.set(".div-introtext.text-1", { xPercent: -50 })
 
     const eyebrow = document.querySelector(".div-text.hero-head_eyebrow");
     // gsap.set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
-    gsap.set(eyebrow, { yPercent: 150, autoAlpha: 0 });
+    gsap.set(eyebrow, { yPercent: 60, autoAlpha: 0 });
 
 
     let heroSecTl = gsap.timeline({
@@ -63,7 +70,9 @@ export const gsapTimelines = () => {
             end: '+=5000', // end after scrolling 500px beyond the start
             scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
             markers: true,
-            refreshPriority: 2
+            refreshPriority: 2,
+            invalidateOnRefresh: true, // Add this to recalculate on resize
+            pinSpacing: true // Ensure pin spacing is properly calculated
         }
     });
 
@@ -108,7 +117,7 @@ export const gsapTimelines = () => {
         .from('.hero_spline', { opacity: 0 })
         .from('.spider-texture-wrap', { opacity: 0, duration: 2 }, ">-0.5")
         .from('.main-text', { opacity: 0 }, ">-2")
-        .from('.color-overlay', { opacity: 0, duration: 10 }, 20)
+        .from('.color-overlay', { opacity: 0, duration: 5 }, 12)
 
         .addLabel('end');
 

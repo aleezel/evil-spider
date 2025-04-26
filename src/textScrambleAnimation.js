@@ -23,7 +23,7 @@ export const TextScrambleAnimation = (originalTextBox) => {
     // Configuración de la animación
     const originalChars = textBox.text().replace('|', '').split('');
     const whiteSpaces = " ".repeat(originalChars.length)
-    const animationSpeed = 100 + 0.5 * originalChars.length; // Velocidad en milisegundos (antes era 125)
+    const animationSpeed = 50 + 0.5 * originalChars.length; // Velocidad en milisegundos (antes era 125)
 
     // Función para generar números aleatorios en un rango
     const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;

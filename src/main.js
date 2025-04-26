@@ -18,6 +18,12 @@ gsap.config({ force3D: false })
 // 1) Captura todo sólo cuando el DOM esté listo
 // window.Webflow && window.Webflow.push(function () {
 document.addEventListener("DOMContentLoaded", () => {
+  gsap.registerPlugin(ScrollTrigger);
+  
+  //Avoid scrolltrigger hijacking by in
+  window.addEventListener('load', () => {
+    gsapTimelines();
+  })
   // 2) Logger en pantalla (VITE env vars)
   const logContainer = document.createElement("div");
   Object.assign(logContainer.style, {
@@ -92,7 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
     composer.setSize(w, h);
+    if(window.ScrollTrigger){
+      ScrollTrigger.refresh();
+    }
   }
+
   window.addEventListener("resize", onResize, { passive: true });
   onResize(); // llamada inicial
 
@@ -103,12 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   animate(); // arranca el loop
 
-  // 5) GSAP y ScrollTrigger
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Asegúrate de que tu gsapTimelines verifica selectores antes de crear triggers
-  gsapTimelines();
 
   // 6) Text scramble con IntersectionObserver
   const observer = new IntersectionObserver(
@@ -134,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 7) Gestión de audio con Howler
   const sound = new Howl({
     src: ["https://evilspider-webgl.alejandra-piedra.com/evil-spider.mp3"],
-    volume: 1,
+    volume: 0.3,
     onplayerror() {
       sound.once("unlock", () => sound.play());
     },
