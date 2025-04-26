@@ -133,9 +133,9 @@ export const gsapTimelines = () => {
     });
 
     chapter1Tl
-        .from('.chapter-i-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, -1)
+        .from('.chapter-i-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
         .to('.head-chars-wrap', { rotation: 0, ease: 'back', duration: 10 }, 0)
-        .to(flyingText.chars, { y: '0svh', ease: 'power4', duration: 7, stagger: 0.2 }, 0.5)
+        .to(flyingText.chars, { y: '0svh', ease: 'power4', duration: 7, stagger: 0.2 }, ">")
 
 
 }

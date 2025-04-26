@@ -23,6 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
   //Avoid scrolltrigger hijacking by in
   window.addEventListener('load', () => {
     gsapTimelines();
+
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+  }, 100);
   })
   // 2) Logger en pantalla (VITE env vars)
   const logContainer = document.createElement("div");
