@@ -117,7 +117,7 @@ export const gsapTimelines = () => {
         .from('.hero_spline', { opacity: 0 })
         .from('.spider-texture-wrap', { opacity: 0, duration: 2 }, ">-0.5")
         .from('.main-text', { opacity: 0 }, ">-2")
-        .from('.color-overlay', { opacity: 0, duration: 5 }, 12)
+        .from('.color-overlay', { opacity: 0, duration: 5 }, 22)
 
         .addLabel('end');
 
