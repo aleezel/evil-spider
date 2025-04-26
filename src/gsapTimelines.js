@@ -78,7 +78,7 @@ export const gsapTimelines = () => {
             .to(textEl, {
                 yPercent: -50, // llega al centro vertical
                 autoAlpha: 1,
-                duration: 1,
+                duration: 1.5,
                 onStart: (nodeElement) => {
                     console.log(nodeElement)
                     const textElement = nodeElement?.querySelector("h4")
@@ -94,7 +94,7 @@ export const gsapTimelines = () => {
                 yPercent: -150, // sale hacia arriba
                 autoAlpha: 0,
                 duration: 2
-            }, (i * 2) + 3.5) // espera 1s visible en centro antes de salir
+            }, (i * 2) + 2.5) // espera 1s visible en centro antes de salir
     })
 
     heroSecTl
