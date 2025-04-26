@@ -9,9 +9,9 @@ gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 
 export const gsapTimelines = () => {
-    window.addEventListener('load', () => {
-        ScrollTrigger.refresh(true);
-    })
+    // window.addEventListener('load', () => {
+    //     ScrollTrigger.refresh(true);
+    // })
 
     let textSplit = new SplitType("[text-split]", {
         types: "words, chars",
@@ -31,9 +31,7 @@ export const gsapTimelines = () => {
     }, { passive: true });
 
     //text split
-    let flyingTextSplit = new SplitType("[flying-text]", { types: "chars" })
-    
-    let flyingText = document.querySelectorAll("[flying-text]")
+    let flyingText = new SplitType("[flying-text]", { types: "chars" })
     
 
 
