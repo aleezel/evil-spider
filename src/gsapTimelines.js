@@ -69,7 +69,7 @@ export const gsapTimelines = () => {
             scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
             markers: true,
             refreshPriority: 2,
-            //invalidateOnRefresh: true, // Add this to recalculate on resize
+            invalidateOnRefresh: true, // Add this to recalculate on resize
         }
     });
 
