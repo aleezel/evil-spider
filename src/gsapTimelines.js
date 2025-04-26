@@ -93,8 +93,8 @@ export const gsapTimelines = () => {
             .to(textEl, {
                 yPercent: -150, // sale hacia arriba
                 autoAlpha: 0,
-                duration: 1
-            }, (i * 2) + 2) // espera 1s visible en centro antes de salir
+                duration: 2
+            }, (i * 2) + 3.5) // espera 1s visible en centro antes de salir
     })
 
     heroSecTl
