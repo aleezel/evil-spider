@@ -93,13 +93,13 @@ export const gsapTimelines = () => {
             .to(textEl, {
                 yPercent: -150, // sale hacia arriba
                 autoAlpha: 0,
-                duration: 1
+                duration: 2
             }, (i * 2) + 1) // espera 1s visible en centro antes de salir
     })
 
     heroSecTl
         .to(eyebrow, { y: 0, autoAlpha: 1, duration: 1 }, ">-0.5")
-        .to(eyebrow, { y: "20svh", duration: 1 })
+        .to(eyebrow, { y: "-20svh", duration: 1 })
 
         .from('.div-keyword', { autoAlpha: 0 }, ">-0.5")
         .to(kwords, { autoAlpha: 1, stagger: { each: 0.2, from: "random" } })
