@@ -51,7 +51,7 @@ export const gsapTimelines = () => {
 
     const eyebrow = document.querySelector(".div-text.hero-head_eyebrow");
     // gsap.set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
-    gsap.set(eyebrow, { yPercent: 60, autoAlpha: 0 });
+    gsap.set(eyebrow, { yPercent: 150, autoAlpha: 0 });
 
 
     let heroSecTl = gsap.timeline({
@@ -91,9 +91,9 @@ export const gsapTimelines = () => {
 
             }, i * 2)
             .to(textEl, {
-                yPercent: -150, // sale hacia arriba
+                yPercent: -250, // sale hacia arriba
                 autoAlpha: 0,
-                duration: 2
+                duration: 1.5
             }, (i * 2) + 2.5) // espera 1s visible en centro antes de salir
     })
 
@@ -127,7 +127,7 @@ export const gsapTimelines = () => {
     });
 
     chapter1Tl
-        .from('.chapter-I-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, -1)
+        .from('.chapter-i-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, -1)
         .to('.head-chars-wrap', { rotation: 0, ease: 'back', duration: 10 }, 0)
         .to(flyingText.chars, { y: '0svh', ease: 'power4', duration: 7, stagger: 0.2 }, 0.5)
 
