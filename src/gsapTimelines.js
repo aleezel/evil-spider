@@ -72,7 +72,6 @@ export const gsapTimelines = () => {
             markers: true,
             refreshPriority: 2,
             invalidateOnRefresh: true, // Add this to recalculate on resize
-            pinSpacing: true // Ensure pin spacing is properly calculated
         }
     });
 
