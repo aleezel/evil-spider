@@ -21,13 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
   
   //Avoid scrolltrigger hijacking by in
-  window.addEventListener('load', () => {
-    gsapTimelines();
+  // window.addEventListener('load', () => {
+    
 
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-  }, 100);
-  })
+  //   setTimeout(() => {
+  //     ScrollTrigger.refresh();
+  // }, 100);
+  // })
+  gsapTimelines();
   // 2) Logger en pantalla (VITE env vars)
   const logContainer = document.createElement("div");
   Object.assign(logContainer.style, {
