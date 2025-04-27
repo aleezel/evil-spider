@@ -20,15 +20,15 @@ gsap.config({ force3D: false })
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
   
-  //Avoid scrolltrigger hijacking by in
-  // window.addEventListener('load', () => {
-    
+  Avoid scrolltrigger hijacking by in
+  window.addEventListener('load', () => {
+      gsapTimelines();
 
-  //   setTimeout(() => {
-  //     ScrollTrigger.refresh();
-  // }, 100);
-  // })
-  gsapTimelines();
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+  }, 100);
+  })
+  
   // 2) Logger en pantalla (VITE env vars)
   const logContainer = document.createElement("div");
   Object.assign(logContainer.style, {
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 7) Gestión de audio con Howler
   const sound = new Howl({
     src: ["https://evilspider-webgl.alejandra-piedra.com/evil-spider.mp3"],
-    volume: 0.3,
+    volume: 0.1,
     onplayerror() {
       sound.once("unlock", () => sound.play());
     },

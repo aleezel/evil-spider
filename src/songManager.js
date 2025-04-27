@@ -6,7 +6,7 @@ export class SongManager {
 
         this.sound = new Howl({
             src: [this.filename],
-            volume: 0.2,
+            volume: 0.1,
             loop: true,
             onloaderror(id, err) {
                 console.warn('failed to load sound file:', { id, err })
