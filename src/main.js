@@ -20,7 +20,7 @@ gsap.config({ force3D: false })
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
   
-  Avoid scrolltrigger hijacking by in
+  //Avoid scrolltrigger hijacking by in
   window.addEventListener('load', () => {
       gsapTimelines();
 
