@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsapTimelines } from "./gsapTimelines.js";
 import { TextScrambleAnimation } from "./textScrambleAnimation.js";
+import { chapter1 } from "./chapter-1.js";
 import { Howl } from "howler";
 
 // Inicialización del composer
