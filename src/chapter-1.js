@@ -14,7 +14,7 @@ export const chapter1 = () => {
 
         //Intro text
         const introChap1Texts = gsap.utils.toArray(".chapter1-intro")
-        gsap.set(introTexts, {
+        gsap.set(introChap1Texts, {
             xPercent: -50, // centrado horizontal
             yPercent: 150,  // empiezan desde abajo
             autoAlpha: 0   // incluye opacity y visibility: hidden
