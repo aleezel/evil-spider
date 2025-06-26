@@ -154,5 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sound.playing() ? sound.pause() : sound.play()
     );
   });
+
+  chapter1();
 });
 // });

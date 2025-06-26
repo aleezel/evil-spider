@@ -137,40 +137,78 @@ export const chapter1 = () => {
         }
       });
       
-      $(".svg_blureffect").each(function (index) {
-          $(this).parent().attr("style", "filter: url(#rgb-reveal-effect-" + index +");");
-        $(this).find("filter").attr("id", "rgb-reveal-effect-" + index);
-        let matrix = document.querySelector('feColorMatrix');
-        // Parse initial matrix values
-        let initialValues = matrix.getAttribute('values').trim().split(/\s+/).map(Number);
-      
-        // Define the target values (e.g. blueish tint)
-        let targetValues = [
-          1, 0, 0, 0, 0,
-          0, 1, 0, 0, 0,
-          0, 0, 1, 0, 0,
-          0, 0, 0, 1, 0
-        ];
+      // Blur effect animation for each chapter section
+      $(".chapter-section").each(function(sectionIndex) {
+        const $section = $(this);
         
-        let animVals = { vals: [...initialValues] };
-      
-        let blurTl = gsap.timeline({
-            defaults: { ease:"power2.out"}
+        $section.find(".svg_blureffect").each(function (index) {
+          const $svgEffect = $(this);
+          const uniqueId = `rgb-reveal-effect-${sectionIndex}-${index}`;
+          
+          $svgEffect.parent().attr("style", `filter: url(#${uniqueId});`);
+          $svgEffect.find("filter").attr("id", uniqueId);
+          
+          // Get the matrix element within this specific SVG
+          let matrix = $svgEffect.find('feColorMatrix')[0];
+          if (!matrix) return; // Skip if no matrix found
+          
+          // Parse initial matrix values
+          let initialValues = matrix.getAttribute('values').trim().split(/\s+/).map(Number);
+        
+          // Define the target values (e.g. normal/identity matrix)
+          let targetValues = [
+            1, 0, 0, 0, 0,
+            0, 1, 0, 0, 0,
+            0, 0, 1, 0, 0,
+            0, 0, 0, 1, 0
+          ];
+          
+          // Create animation timeline
+          let blurTl = gsap.timeline({
+            defaults: { ease: "power2.out" },
+            scrollTrigger: {
+              trigger: $section[0],
+              start: "top 80%",
+              end: "bottom 20%",
+              toggleActions: "play none none reverse",
+              onEnter: () => {
+                console.log(`Blur animation triggered for section ${sectionIndex}`);
+              },
+              onLeave: () => {
+                console.log(`Blur animation reversed for section ${sectionIndex}`);
+              },
+              onEnterBack: () => {
+                console.log(`Blur animation re-triggered for section ${sectionIndex}`);
+              }
+            }
+          });
+          
+          // Reset animation values for consistent replay
+          let animVals = { vals: [...initialValues] };
+          
+          // Set initial blur state
+          gsap.set($svgEffect.find("[stdDeviation]"), {attr: {stdDeviation: 13}});
+          gsap.set($svgEffect.find("[dx]"), {attr: {dx: 5}});
+          matrix.setAttribute("values", initialValues.map(v => v.toFixed(3)).join(' '));
+          
+          // Animation sequence
+          blurTl.to($svgEffect.find("[stdDeviation]"), {
+            attr: {stdDeviation: 0}, 
+            duration: 0.7
+          })
+          .to($svgEffect.find("[dx]"), {
+            attr: {dx: 0}
+          }, "<")
+          .to(animVals.vals, {
+            endArray: targetValues,
+            duration: 0.6,
+            onUpdate: () => {
+              matrix.setAttribute("values", animVals.vals.map(v => v.toFixed(3)).join(' '));
+            }
+          }, '<+0.4');
         });
-        
-        blurTl.fromTo($(this).find("[stdDeviation]"),
-            {attr: {stdDeviation: 13} },
-            {attr: {stdDeviation: 0, duration: 0.7} }
-        );
-        blurTl.to($(this).find("[dx]"), {attr: {dx: 0} }, "<"  );
-        blurTl.to(animVals.vals, {
-          endArray: targetValues,
-          onUpdate: () => {
-            matrix.setAttribute("values", animVals.vals.map(v => v.toFixed(3)).join(' '));
-          }
-        }, '<+0.4');
-      
       });
+      
       
       
       
