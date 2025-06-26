@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //Avoid scrolltrigger hijacking by in
   window.addEventListener('load', () => {
       gsapTimelines();
+      chapter1();
 
     setTimeout(() => {
       ScrollTrigger.refresh();
@@ -155,6 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   });
 
-  chapter1();
+  
 });
 // });

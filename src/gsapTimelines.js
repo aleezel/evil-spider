@@ -119,23 +119,6 @@ export const gsapTimelines = () => {
         .addLabel('end');
 
 
-    let chapter1Tl = gsap.timeline({
-        // yes, we can add it to an entire timeline!
-        scrollTrigger: {
-            trigger: '.chapter-i-wrap',
-            start: 'top top', // when the top of the trigger hits the top of the viewport
-            end: '+=3000', // end after scrolling 500px beyond the start
-            scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
-            markers: { startColor: "white", endColor: "white", fontSize: "18px", fontWeight: "bold", indent: 20 },
-            id: 2,
-            pin: true
-        }
-    });
-
-    chapter1Tl
-        .from('.chapter-i-wrap', { backgroundImage: "linear-gradient(#AB074F, #8F1E73)", duration: 20 }, 0)
-        .to('.head-chars-wrap', { rotation: 0, ease: 'back', duration: 10 }, 0)
-        .to(flyingText.chars, { y: '0svh', ease: 'power4', duration: 7, stagger: 0.2 }, ">")
-
+   
 
 }
