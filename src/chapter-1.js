@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 
 export const chapter1 = () => {
-    document.addEventListener("DOMContentLoaded", (event) => {
+ 
         gsap.registerPlugin(ScrollTrigger)
 
         //Intro text
@@ -214,7 +214,7 @@ export const chapter1 = () => {
       
       
         
-      });
+      
       
       /**
        * Spline Lazy Loader with Deactivation
