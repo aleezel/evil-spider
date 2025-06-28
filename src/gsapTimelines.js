@@ -13,10 +13,10 @@ export const gsapTimelines = () => {
     //     ScrollTrigger.refresh(true);
     // })
 
-    let textSplit = new SplitType("[text-split]", {
-        types: "words, chars",
-        tagName: "span"
-    });
+    const kwords = document.querySelectorAll(".div-keyword");
+
+
+
     // // console.log("gsapTimelines")
     //cursor
     gsap.set(".cursor", { xPercent: -50, yPercent: -50 });
