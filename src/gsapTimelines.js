@@ -30,19 +30,7 @@ export const gsapTimelines = () => {
         yTo(e.clientY);
     }, { passive: true });
 
-    //text split
-    let flyingText = new SplitType("[flying-text]", { types: "chars" })
-    
 
-
-
-    //vars
-    const kwords = document.querySelectorAll(".div-keyword");
-
-    //ABSOLUTE SETS
-    gsap.set('.div-keyword', { autoAlpha: 0 })
-    gsap.set(flyingText.chars, { y: '30svh' })
-    gsap.set('.head-chars-wrap', { rotation: 70 })
 
     // Seleccionamos todos los textos secuenciales y palabras clave
     const introTexts = gsap.utils.toArray(".div-introtext")
@@ -111,14 +99,12 @@ export const gsapTimelines = () => {
         .to(kwords, { autoAlpha: 1, stagger: { each: 0.2, from: "random" } })
         .from('.spider-heading', { opacity: 0 })
 
-        .from('.hero_spline', { opacity: 0 })
+        .from('.hero_spline', { autoAlpha: 0 })
         .from('.spider-texture-wrap', { opacity: 0, duration: 2 }, ">-0.5")
         .from('.main-text', { opacity: 0 }, ">-2")
-        .from('.color-overlay', { opacity: 0, duration: 5 }, 22)
+        .from('.color-overlay', { opacity: 0, duration: 6 }, 12)
 
         .addLabel('end');
 
-
-   
 
 }

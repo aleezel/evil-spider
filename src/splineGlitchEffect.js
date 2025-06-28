@@ -3,6 +3,7 @@ import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { GlitchRGBShader } from "./shaders/glitchRGBShader.js";
+import { html2canvas } from 'html2canvas';
 
 export class SplineGlitchEffect {
     constructor() {
