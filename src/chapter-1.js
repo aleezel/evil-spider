@@ -68,10 +68,9 @@ export const chapter1 = () => {
             .add('titleOut')
             
             // Initialize glitch effect after titleOut
-            .call(() => {
-                splineGlitchEffect.init();
-                splineGlitchEffect.start();
-                console.log('Glitch effect started');
+            .call(async () => {
+                await splineGlitchEffect.init();
+                await splineGlitchEffect.start();
             }, null, 'titleOut')
             
             // Animate glitch parameters with scroll-reactive values
@@ -333,48 +332,6 @@ export const chapter1 = () => {
             this.unloadObserver.observe(container);
           });
         }
-      
-        /**
-         * Add a placeholder while waiting for Spline to load
-         */
-       /* addPlaceholder(container) {
-          const placeholder = document.createElement('div');
-          placeholder.className = 'spline-placeholder';
-          placeholder.innerHTML = '<div class="spline-loading">3D content will load when visible</div>';
-          
-          // Add styling to the placeholder
-          if (!document.querySelector('#spline-placeholder-styles')) {
-            const style = document.createElement('style');
-            style.id = 'spline-placeholder-styles';
-            style.textContent = `
-              .spline-placeholder {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: rgba(0, 0, 0, 0.1);
-                z-index: 1;
-              }
-              .spline-loading {
-                padding: 10px 20px;
-                background: rgba(0, 0, 0, 0.7);
-                color: white;
-                border-radius: 4px;
-                font-family: sans-serif;
-                font-size: 14px;
-              }
-            `;
-            document.head.appendChild(style);
-          }
-          
-          // Add placeholder to container
-          container.style.position = 'relative';
-          container.appendChild(placeholder);
-        }*/
       
         /**
          * Load the Spline script and initialize the Spline viewer

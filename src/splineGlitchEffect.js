@@ -15,10 +15,14 @@ export class SplineGlitchEffect {
         this.isActive = false;
         this.animationId = null;
         this.startTime = 0;
+        this.captureCanvas = null;
+        this.texture = null;
+        this.material = null;
+        this.originalBodyOverflow = null;
     }
 
-    init() {
-        // Create overlay canvas
+    async init() {
+        // Create full-screen overlay canvas
         this.canvas = document.createElement('canvas');
         this.canvas.style.position = 'fixed';
         this.canvas.style.top = '0';
@@ -26,8 +30,7 @@ export class SplineGlitchEffect {
         this.canvas.style.width = '100%';
         this.canvas.style.height = '100%';
         this.canvas.style.pointerEvents = 'none';
-        this.canvas.style.zIndex = '9999';
-        this.canvas.style.mixBlendMode = 'screen'; // Blend mode for overlay effect
+        this.canvas.style.zIndex = '10000';
         this.canvas.style.opacity = '0';
         document.body.appendChild(this.canvas);
 
@@ -35,8 +38,9 @@ export class SplineGlitchEffect {
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: false,
-            alpha: true,
+            alpha: false,
             powerPreference: "high-performance",
+            preserveDrawingBuffer: true
         });
 
         // Create scene and camera
@@ -46,17 +50,21 @@ export class SplineGlitchEffect {
         // Create a plane geometry that covers the screen
         const geometry = new THREE.PlaneGeometry(2, 2);
         
-        // Create material with a simple texture (we'll use the screen content)
-        const material = new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            transparent: true,
-            opacity: 0.8
+        // Create texture from captured content
+        this.texture = new THREE.Texture();
+        this.texture.format = THREE.RGBAFormat;
+        this.texture.type = THREE.UnsignedByteType;
+        
+        // Create material that will display the captured content
+        this.material = new THREE.MeshBasicMaterial({
+            map: this.texture,
+            transparent: false
         });
         
-        const mesh = new THREE.Mesh(geometry, material);
+        const mesh = new THREE.Mesh(geometry, this.material);
         this.scene.add(mesh);
 
-        // Set up post-processing
+        // Set up post-processing with our custom shader
         this.composer = new EffectComposer(this.renderer);
         this.composer.addPass(new RenderPass(this.scene, this.camera));
         
@@ -77,6 +85,68 @@ export class SplineGlitchEffect {
         this.onResize();
     }
 
+    async captureViewport() {
+        // Create a temporary canvas to capture the current viewport
+        const captureCanvas = document.createElement('canvas');
+        const captureCtx = captureCanvas.getContext('2d');
+        
+        captureCanvas.width = window.innerWidth;
+        captureCanvas.height = window.innerHeight;
+        
+        // Use html2canvas to capture the current page content
+        try {
+            const html2canvas = await import('html2canvas');
+            const canvas = await html2canvas.default(document.body, {
+                width: window.innerWidth,
+                height: window.innerHeight,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null,
+                ignoreElements: (element) => {
+                    // Ignore our own canvas
+                    return element === this.canvas;
+                }
+            });
+            
+            // Update the texture with the captured content
+            this.texture.image = canvas;
+            this.texture.needsUpdate = true;
+            
+            return true;
+        } catch (error) {
+            console.warn('html2canvas not available, using alternative capture method');
+            return this.alternativeCaptureMethod();
+        }
+    }
+
+    alternativeCaptureMethod() {
+        // Fallback: create a simple representation
+        const canvas = document.createElement('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const ctx = canvas.getContext('2d');
+        
+        // Fill with a gradient or pattern as fallback
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, '#1a1a1a');
+        gradient.addColorStop(1, '#2a2a2a');
+        
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Add some text elements as visual reference
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.font = '48px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('GLITCH EFFECT ACTIVE', canvas.width / 2, canvas.height / 2);
+        
+        this.texture.image = canvas;
+        this.texture.needsUpdate = true;
+        
+        return true;
+    }
+
     setupResize() {
         window.addEventListener('resize', () => this.onResize(), { passive: true });
     }
@@ -91,23 +161,59 @@ export class SplineGlitchEffect {
         this.composer.setSize(width, height);
     }
 
-    start() {
+    async start() {
         if (this.isActive) return;
+        
+        console.log('Starting glitch effect...');
+        
+        // Capture the current viewport
+        await this.captureViewport();
+        
+        // Store original body overflow to restore later
+        this.originalBodyOverflow = document.body.style.overflow;
+        
+        // Smooth transition to hide original content
+        // but keep it in the DOM so Spline continues running
+        document.body.style.transition = 'opacity 0.3s ease-out';
+        document.body.style.opacity = '0';
+        
+        // Show our distorted version with transition
+        this.canvas.style.transition = 'opacity 0.3s ease-in';
+        this.canvas.style.opacity = '1';
         
         this.isActive = true;
         this.startTime = Date.now();
-        this.canvas.style.opacity = '1';
         this.animate();
+        
+        console.log('Glitch effect started');
     }
 
     stop() {
+        if (!this.isActive) return;
+        
+        console.log('Stopping glitch effect...');
+        
         this.isActive = false;
+        
+        // Hide the distorted version with transition
+        this.canvas.style.transition = 'opacity 0.3s ease-out';
         this.canvas.style.opacity = '0';
+        
+        // Show the original content again with transition
+        document.body.style.transition = 'opacity 0.3s ease-in';
+        document.body.style.opacity = '1';
+        
+        // Restore original overflow
+        if (this.originalBodyOverflow !== null) {
+            document.body.style.overflow = this.originalBodyOverflow;
+        }
         
         if (this.animationId) {
             cancelAnimationFrame(this.animationId);
             this.animationId = null;
         }
+        
+        console.log('Glitch effect stopped');
     }
 
     animate() {
@@ -141,8 +247,22 @@ export class SplineGlitchEffect {
     dispose() {
         this.stop();
         
+        // Restore original content visibility
+        document.body.style.opacity = '1';
+        if (this.originalBodyOverflow !== null) {
+            document.body.style.overflow = this.originalBodyOverflow;
+        }
+        
         if (this.canvas && this.canvas.parentNode) {
             this.canvas.parentNode.removeChild(this.canvas);
+        }
+        
+        if (this.texture) {
+            this.texture.dispose();
+        }
+        
+        if (this.material) {
+            this.material.dispose();
         }
         
         if (this.renderer) {

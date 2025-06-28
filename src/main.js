@@ -5,6 +5,7 @@ import { gsapTimelines } from "./gsapTimelines.js";
 import { TextScrambleAnimation } from "./textScrambleAnimation.js";
 import { chapter1 } from "./chapter-1.js";
 import { Howl } from "howler";
+import "./debugGlitch.js"; // Debug utilities for development
 
 // Inicialización del composer
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js"
