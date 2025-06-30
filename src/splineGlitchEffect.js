@@ -3,7 +3,7 @@ import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { GlitchRGBShader } from "./shaders/glitchRGBShader.js";
-import { html2canvas } from 'html2canvas';
+import html2canvas from 'html2canvas';
 
 export class SplineGlitchEffect {
     constructor() {
@@ -16,13 +16,15 @@ export class SplineGlitchEffect {
         this.isActive = false;
         this.animationId = null;
         this.startTime = 0;
-        this.captureCanvas = null;
         this.texture = null;
         this.material = null;
         this.originalBodyOverflow = null;
+        this.mesh = null;
     }
 
     async init() {
+        console.log('Inicializando efecto glitch...');
+        
         // Create full-screen overlay canvas
         this.canvas = document.createElement('canvas');
         this.canvas.style.position = 'fixed';
@@ -33,13 +35,14 @@ export class SplineGlitchEffect {
         this.canvas.style.pointerEvents = 'none';
         this.canvas.style.zIndex = '10000';
         this.canvas.style.opacity = '0';
+        this.canvas.style.backgroundColor = 'transparent';
         document.body.appendChild(this.canvas);
 
         // Set up WebGL renderer
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: false,
-            alpha: false,
+            alpha: true,
             powerPreference: "high-performance",
             preserveDrawingBuffer: true
         });
@@ -51,10 +54,15 @@ export class SplineGlitchEffect {
         // Create a plane geometry that covers the screen
         const geometry = new THREE.PlaneGeometry(2, 2);
         
-        // Create texture from captured content
+        // Create texture that will hold the captured content
         this.texture = new THREE.Texture();
         this.texture.format = THREE.RGBAFormat;
         this.texture.type = THREE.UnsignedByteType;
+        this.texture.minFilter = THREE.LinearFilter;
+        this.texture.magFilter = THREE.LinearFilter;
+        this.texture.wrapS = THREE.ClampToEdgeWrapping;
+        this.texture.wrapT = THREE.ClampToEdgeWrapping;
+        this.texture.flipY = false;
         
         // Create material that will display the captured content
         this.material = new THREE.MeshBasicMaterial({
@@ -62,8 +70,8 @@ export class SplineGlitchEffect {
             transparent: false
         });
         
-        const mesh = new THREE.Mesh(geometry, this.material);
-        this.scene.add(mesh);
+        this.mesh = new THREE.Mesh(geometry, this.material);
+        this.scene.add(this.mesh);
 
         // Set up post-processing with our custom shader
         this.composer = new EffectComposer(this.renderer);
@@ -84,67 +92,112 @@ export class SplineGlitchEffect {
 
         this.setupResize();
         this.onResize();
+        
+        console.log('Efecto glitch inicializado correctamente');
     }
 
     async captureViewport() {
-        // Create a temporary canvas to capture the current viewport
-        const captureCanvas = document.createElement('canvas');
-        const captureCtx = captureCanvas.getContext('2d');
+        console.log('Capturando viewport con html2canvas...');
         
-        captureCanvas.width = window.innerWidth;
-        captureCanvas.height = window.innerHeight;
-        
-        // Use html2canvas to capture the current page content
         try {
-            const html2canvas = await import('html2canvas');
-            const canvas = await html2canvas.default(document.body, {
+            // Hide our canvas temporarily to avoid capturing it
+            this.canvas.style.display = 'none';
+            
+            // Use html2canvas to render the document body
+            const canvasElement = await html2canvas(document.body, {
+                allowTaint: true,
+                useCORS: true,
+                logging: false,
                 width: window.innerWidth,
                 height: window.innerHeight,
-                useCORS: true,
-                allowTaint: true,
+                scrollX: 0,
+                scrollY: 0,
+                windowWidth: window.innerWidth,
+                windowHeight: window.innerHeight,
                 backgroundColor: null,
-                ignoreElements: (element) => {
-                    // Ignore our own canvas
-                    return element === this.canvas;
+                removeContainer: true,
+                foreignObjectRendering: true,
+                scale: 1,
+                onclone: (clonedDoc) => {
+                    // Remove any existing glitch canvases from the clone
+                    const glitchCanvases = clonedDoc.querySelectorAll('canvas[style*="z-index: 10000"]');
+                    glitchCanvases.forEach(canvas => canvas.remove());
+                    
+                    // Ensure Spline elements are visible in the clone
+                    const splineElements = clonedDoc.querySelectorAll('spline-viewer');
+                    splineElements.forEach(el => {
+                        el.style.visibility = 'visible';
+                        el.style.opacity = '1';
+                    });
                 }
             });
             
-            // Update the texture with the captured content
-            this.texture.image = canvas;
+            // Show our canvas again
+            this.canvas.style.display = 'block';
+            
+            // Update the texture with the captured canvas
+            this.texture.image = canvasElement;
             this.texture.needsUpdate = true;
             
+            console.log('Viewport capturado exitosamente');
             return true;
+            
         } catch (error) {
-            console.warn('html2canvas not available, using alternative capture method');
+            console.error('Error capturando viewport:', error);
+            
+            // Show our canvas again in case of error
+            this.canvas.style.display = 'block';
+            
+            // Fallback to alternative method
             return this.alternativeCaptureMethod();
         }
     }
 
     alternativeCaptureMethod() {
-        // Fallback: create a simple representation
-        const canvas = document.createElement('canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        console.log('Usando método de captura alternativo...');
         
-        const ctx = canvas.getContext('2d');
+        // Create a fallback canvas with current viewport dimensions
+        const fallbackCanvas = document.createElement('canvas');
+        fallbackCanvas.width = window.innerWidth;
+        fallbackCanvas.height = window.innerHeight;
         
-        // Fill with a gradient or pattern as fallback
-        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        gradient.addColorStop(0, '#1a1a1a');
-        gradient.addColorStop(1, '#2a2a2a');
+        const ctx = fallbackCanvas.getContext('2d');
+        
+        // Create a gradient background
+        const gradient = ctx.createLinearGradient(0, 0, fallbackCanvas.width, fallbackCanvas.height);
+        gradient.addColorStop(0, '#000000');
+        gradient.addColorStop(0.5, '#1a1a2e');
+        gradient.addColorStop(1, '#16213e');
         
         ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillRect(0, 0, fallbackCanvas.width, fallbackCanvas.height);
         
-        // Add some text elements as visual reference
+        // Add some visual noise
+        const imageData = ctx.getImageData(0, 0, fallbackCanvas.width, fallbackCanvas.height);
+        const data = imageData.data;
+        
+        for (let i = 0; i < data.length; i += 4) {
+            if (Math.random() > 0.98) {
+                const noise = Math.random() * 50;
+                data[i] += noise;     // R
+                data[i + 1] += noise; // G
+                data[i + 2] += noise; // B
+            }
+        }
+        
+        ctx.putImageData(imageData, 0, 0);
+        
+        // Add some text overlay
         ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-        ctx.font = '48px Arial';
+        ctx.font = 'bold 36px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('GLITCH EFFECT ACTIVE', canvas.width / 2, canvas.height / 2);
+        ctx.fillText('GLITCH EFFECT ACTIVE', fallbackCanvas.width / 2, fallbackCanvas.height / 2);
         
-        this.texture.image = canvas;
+        // Update texture
+        this.texture.image = fallbackCanvas;
         this.texture.needsUpdate = true;
         
+        console.log('Método alternativo completado');
         return true;
     }
 
@@ -165,42 +218,48 @@ export class SplineGlitchEffect {
     async start() {
         if (this.isActive) return;
         
-        console.log('Starting glitch effect...');
+        console.log('Iniciando efecto glitch...');
         
         // Capture the current viewport
-        await this.captureViewport();
+        const captureSuccess = await this.captureViewport();
         
-        // Store original body overflow to restore later
+        if (!captureSuccess) {
+            console.error('Error al capturar viewport');
+            return;
+        }
+        
+        // Store original body overflow
         this.originalBodyOverflow = document.body.style.overflow;
         
-        // Smooth transition to hide original content
-        // but keep it in the DOM so Spline continues running
+        // Hide original content with smooth transition
         document.body.style.transition = 'opacity 0.3s ease-out';
         document.body.style.opacity = '0';
         
-        // Show our distorted version with transition
-        this.canvas.style.transition = 'opacity 0.3s ease-in';
-        this.canvas.style.opacity = '1';
+        // Wait a bit then show the distorted version
+        setTimeout(() => {
+            this.canvas.style.transition = 'opacity 0.3s ease-in';
+            this.canvas.style.opacity = '1';
+        }, 300);
         
         this.isActive = true;
         this.startTime = Date.now();
         this.animate();
         
-        console.log('Glitch effect started');
+        console.log('Efecto glitch iniciado');
     }
 
     stop() {
         if (!this.isActive) return;
         
-        console.log('Stopping glitch effect...');
+        console.log('Deteniendo efecto glitch...');
         
         this.isActive = false;
         
-        // Hide the distorted version with transition
+        // Hide distorted version
         this.canvas.style.transition = 'opacity 0.3s ease-out';
         this.canvas.style.opacity = '0';
         
-        // Show the original content again with transition
+        // Show original content
         document.body.style.transition = 'opacity 0.3s ease-in';
         document.body.style.opacity = '1';
         
@@ -214,7 +273,7 @@ export class SplineGlitchEffect {
             this.animationId = null;
         }
         
-        console.log('Glitch effect stopped');
+        console.log('Efecto glitch detenido');
     }
 
     animate() {
@@ -224,7 +283,9 @@ export class SplineGlitchEffect {
         
         // Update time uniform
         const currentTime = (Date.now() - this.startTime) * 0.001;
-        this.glitchPass.uniforms.time.value = currentTime;
+        if (this.glitchPass && this.glitchPass.uniforms.time) {
+            this.glitchPass.uniforms.time.value = currentTime;
+        }
         
         this.composer.render();
     }
@@ -246,6 +307,8 @@ export class SplineGlitchEffect {
 
     // Clean up resources
     dispose() {
+        console.log('Limpiando recursos del efecto glitch...');
+        
         this.stop();
         
         // Restore original content visibility
@@ -273,6 +336,8 @@ export class SplineGlitchEffect {
         if (this.composer) {
             this.composer.dispose();
         }
+        
+        console.log('Recursos limpiados');
     }
 }
 
