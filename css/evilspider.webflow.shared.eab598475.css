@@ -2755,8 +2755,8 @@ p {
   z-index: 996;
   pointer-events: none;
   background-color: #0000;
-  width: 84px;
-  height: 84px;
+  width: 32px;
+  height: 32px;
   position: fixed;
   top: 0;
   left: 0;
@@ -2898,10 +2898,6 @@ p {
 .kw-1, .kw-2, .kw-3, .kw-4, .kw-5, .kw-6, .kw-7, .kw-8 {
   font-size: 18px;
   font-weight: 500;
-}
-
-.cursor-svg {
-  width: 84px;
 }
 
 .cursor-feedback {
@@ -3342,7 +3338,7 @@ p {
   }
 
   .cursor-svg {
-    height: 84px;
+    height: 100%;
   }
 
   .heading-wrap, .chapter-heading {
