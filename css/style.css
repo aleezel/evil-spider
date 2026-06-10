@@ -175,6 +175,145 @@ td, th {
   font-style: normal;
 }
 
+
+a {
+        text-decoration: none;
+      }
+
+      @keyframes blink {
+        0% {
+          opacity: 1
+        }
+
+        100% {
+          opacity: 0.3
+        }
+      }
+
+      p.btn-text {
+        animation-name: blink;
+        animation-duration: 1.5s;
+        animation-timing-function: steps(2, jump-none);
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes infScanLines {
+        0% {
+          transform: translate(0px)
+        }
+
+        ;
+
+        . 100% {
+          transform: translate(200px)
+        }
+
+        ;
+      }
+
+      .texture_scan-lines {
+        background-repeat: repeat-y;
+        animation: infScanLines .5s linear infinite;
+      }
+
+      /*@keyframes typing {
+  	0% { width: 0 }
+	}*/
+
+      .cursor-feedback,
+      .logo-wrap {
+        mix-blend-mode: difference;
+      }
+
+      .section .is-chapter-I {
+        position: relative;
+        height: 400vh;
+        /* enough scroll */
+        width: 100%;
+      }
+
+      /* Only Spline is sticky! */
+      .spline-wrapper {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+        overflow: hidden;
+      }
+
+      .text-scroll-section {
+        /* DO NOT set sticky here */
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      /* sticky-container inside remains flexed */
+      .sticky-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+
+/* Home section */
+
+.mag-zone{
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position:relative;
+  cursor:pointer;
+}
+
+.main-mag-btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  will-change: transform;
+  padding: 16px 58px;
+}
+
+.btn-text {
+  color: var(--btn-name);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  font-family: Handjet Variable, Tahoma, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 80%;
+  position:relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.btn-background {
+  background-color: #ff22394d;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.btn-corners {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0% auto auto 0%;
+}
+
 [class^="w-icon-"], [class*=" w-icon-"] {
   speak: none;
   font-variant: normal;
@@ -2191,11 +2330,7 @@ p {
   font-weight: 900;
 }
 
-.main-btn {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
+
 
 .chapter-head {
   color: #e41919;
@@ -2401,32 +2536,7 @@ p {
   height: 100%;
 }
 
-.btn-text {
-  color: var(--btn-name);
-  letter-spacing: .09em;
-  text-transform: uppercase;
-  font-family: Handjet Variable, Tahoma, sans-serif;
-  font-size: 32px;
-  font-weight: 400;
-  line-height: 80%;
-}
 
-.btn-background {
-  background-color: #ff22394d;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-  padding: 16px 58px;
-  display: flex;
-  position: relative;
-}
-
-.btn-corners {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0% auto auto 0%;
-}
 
 .spider-texture-wrap {
   z-index: 4;

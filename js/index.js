@@ -119,7 +119,68 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     window.SmoothScroll = new Scroll();
 
-//
+//Magnetic button
+
+const zone = document.querySelector('.mag-zone');
+var bgStrenght = 0.4;
+var labelStrenght = 0.5;
+var cornersStrenght = 0.45;
+
+var magBtn = zone.querySelector('.btn-background')
+var magLabel = zone.querySelector('.btn-text');
+var magCorners = zone.querySelector('.btn-corners');
+
+zone.addEventListener('mousemove', (e) => {
+	const rect = zone.getBoundingClientRect();
+	const x = gsap.utils.mapRange(rect.left, rect.right, -rect.width / 2, rect.width / 2, e.clientX);
+	const y = gsap.utils.mapRange(rect.top, rect.bottom, -rect.height / 2, rect.height / 2, e.clientY);
+
+	gsap.to(magBtn, {
+		x: x * bgStrenght,
+		y: y * bgStrenght,
+		duration: 0.4,
+		ease: 'power2.out',
+		overwrite: true
+	});
+	gsap.to(magLabel, {
+		x: x * labelStrenght,
+		y: y * labelStrenght,
+		duration: 0.4,
+		ease: 'power2.out',
+		overwrite: true
+	})
+	gsap.to(magCorners, {
+		x: x * cornersStrenght,
+		y: y * cornersStrenght,
+		duration: 0.4,
+		ease: 'power2.out',
+		overwrite: true
+	})
+});
+
+zone.addEventListener('mouseleave', () => {
+	gsap.to(magBtn, {
+		x:0,
+		y:0,
+		duration: 0.9,
+		ease: 'elastic.out(1, 0.75)',
+		overwrite: true
+	})
+	gsap.to(magLabel, {
+		x: 0,
+		y: 0,
+		duration: 0.9,
+		ease: 'elastic.out(1.4, 0.75)',
+		overwrite: true
+	})
+	gsap.to(magCorners, {
+		x: 0,
+		y: 0,
+		duration: 0.9,
+		ease: 'elastic.out(1.4, 0.5)',
+		overwrite: true
+	})
+});
 
 
 
