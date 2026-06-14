@@ -221,12 +221,12 @@ export class SplineGlitchEffect {
         console.log('Iniciando efecto glitch...');
         
         // Capture the current viewport
-        const captureSuccess = await this.captureViewport();
+        // const captureSuccess = await this.captureViewport();
         
-        if (!captureSuccess) {
-            console.error('Error al capturar viewport');
-            return;
-        }
+        // if (!captureSuccess) {
+        //     console.error('Error al capturar viewport');
+        //     return;
+        // }
         
         // Store original body overflow
         this.originalBodyOverflow = document.body.style.overflow;

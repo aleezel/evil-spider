@@ -79,57 +79,57 @@ export const chapter1 = () => {
         .to(flyingTextSplit.chars, { y: '0svh', ease: 'back', duration: 12, stagger: 0.4 }, "<+=1")
         .add('titleOut')
         
-        // Initialize glitch effect after titleOut
-        .call(async () => {
-            await splineGlitchEffect.init();
-            await splineGlitchEffect.start();
-        }, null, 'titleOut')
+        // // Initialize glitch effect after titleOut
+        // .call(async () => {
+        //     await splineGlitchEffect.init();
+        //     await splineGlitchEffect.start();
+        // }, null, 'titleOut')
         
         // Animate glitch parameters with scroll-reactive values
-        .to({}, {
-            duration: 5,
-            onUpdate: function() {
-                const progress = this.progress();
-                const scrollProgress = ScrollTrigger.getById(timeline.scrollTrigger.id)?.progress || 0;
+        // .to({}, {
+        //     duration: 5,
+        //     onUpdate: function() {
+        //         const progress = this.progress();
+        //         const scrollProgress = ScrollTrigger.getById(timeline.scrollTrigger.id)?.progress || 0;
                 
-                // RGB Shift - peaks in the middle of the effect
-                const rgbShift = Math.sin(progress * Math.PI) * 15 * (1 + scrollProgress);
+        //         // RGB Shift - peaks in the middle of the effect
+        //         const rgbShift = Math.sin(progress * Math.PI) * 15 * (1 + scrollProgress);
                 
-                // Glitch Intensity - builds up and fades
-                const glitchIntensity = Math.sin(progress * Math.PI) * 0.8;
+        //         // Glitch Intensity - builds up and fades
+        //         const glitchIntensity = Math.sin(progress * Math.PI) * 0.8;
                 
-                // Lateral Distortion - maximum disruption
-                const lateralDistortion = Math.sin(progress * Math.PI * 2) * 2.5 * (1 + scrollProgress * 2);
+        //         // Lateral Distortion - maximum disruption
+        //         const lateralDistortion = Math.sin(progress * Math.PI * 2) * 2.5 * (1 + scrollProgress * 2);
                 
-                // Digital Noise - random spikes
-                const digitalNoise = Math.random() > 0.7 ? Math.random() * 0.6 : Math.sin(progress * Math.PI) * 0.3;
+        //         // Digital Noise - random spikes
+        //         const digitalNoise = Math.random() > 0.7 ? Math.random() * 0.6 : Math.sin(progress * Math.PI) * 0.3;
                 
-                // Color Distortion - builds up gradually
-                const colorDistortion = progress * 0.7;
+        //         // Color Distortion - builds up gradually
+        //         const colorDistortion = progress * 0.7;
                 
-                // Scanlines - constant but varies with scroll
-                const scanLines = 0.2 + scrollProgress * 0.3;
+        //         // Scanlines - constant but varies with scroll
+        //         const scanLines = 0.2 + scrollProgress * 0.3;
                 
-                // Pixelation - intermittent
-                const pixelation = Math.random() > 0.8 ? Math.random() * 0.1 : 0;
+        //         // Pixelation - intermittent
+        //         const pixelation = Math.random() > 0.8 ? Math.random() * 0.1 : 0;
                 
-                splineGlitchEffect.updateEffect({
-                    rgbShift,
-                    glitchIntensity,
-                    lateralDistortion,
-                    digitalNoise,
-                    colorDistortion,
-                    scanLines,
-                    pixelation
-                });
-            }
-        }, 'titleOut+=0.2')
+        //         splineGlitchEffect.updateEffect({
+        //             rgbShift,
+        //             glitchIntensity,
+        //             lateralDistortion,
+        //             digitalNoise,
+        //             colorDistortion,
+        //             scanLines,
+        //             pixelation
+        //         });
+        //     }
+        // }, 'titleOut+=0.2')
         
-        // Stop glitch effect after 5 seconds
-        .call(() => {
-            splineGlitchEffect.stop();
-            console.log('Glitch effect stopped');
-        }, null, 'titleOut+=5.2')
+        // // Stop glitch effect after 5 seconds
+        // .call(() => {
+        //     splineGlitchEffect.stop();
+            // console.log('Glitch effect stopped');
+        // }, null, 'titleOut+=5.2')
         
     //.to(flyingTextSplit.chars, { y: '-12svh', ease: 'expoScale(0.5,7,power2.out)', duration: 12, stagger:{each: 0.4, from: "end"} }, 'titleOut')
      //.to('.head-chars-wrap', { rotation: -5, opacity: 0, ease: 'expoScale(0.5,7,power2.out)', duration: 10 }, 'titleOut')

@@ -1,5 +1,5 @@
-import * as THREE from "three";
 import { gsap } from "gsap";
+import * as THREE from "three";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsapTimelines } from "./gsapTimelines.js";
 import { TextScrambleAnimation } from "./textScrambleAnimation.js";
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 100);
   })
 
-  testGlitchEffect();
+  // testGlitchEffect();
   
   // 2) Logger en pantalla (VITE env vars)
   const logContainer = document.createElement("div");
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  testGlitchEffect();
+  // testGlitchEffect();
 
   /**
        * Spline Lazy Loader with Deactivation
@@ -462,9 +462,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       
       // Cleanup glitch effect on page unload
-      window.addEventListener('beforeunload', () => {
-        splineGlitchEffect.dispose();
-      });
+      // window.addEventListener('beforeunload', () => {
+      //   splineGlitchEffect.dispose();
+      // });
 
   
 });
