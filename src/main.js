@@ -36,6 +36,33 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   testGlitchEffect();
+
+  //Whole page animations
+  gsap.set('.cursor', {
+    xPercent: -50,
+    yPercent: -50,
+  })
+  .set('.cursor-feedback', {
+    autoAlpha: 0,
+  })
+
+  let cursorEase = 'back(1.2)';
+  let xTo = gsap.quickTo('.cursor', 'x', {
+    duration: 0.4,
+    ease: cursorEase
+  }),
+      yTo = gsap.quickTo('.cursor', 'y', {
+        duration: 0.4,
+        ease: cursorEase
+  });
+
+window.addEventListener('mousemove', (e) => {
+  xTo(e.pageX);
+  yTo(e.pageY);
+})
+
+
+
   
   // 2) Logger en pantalla (VITE env vars)
   const logContainer = document.createElement("div");
