@@ -1,12 +1,15 @@
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+import { SplitText } from "gsap/SplitText";
 import { gsapTimelines } from "./gsapTimelines.js";
 import { TextScrambleAnimation } from "./textScrambleAnimation.js";
 import { chapter1 } from "./chapter-1.js";
 import { Howl } from "howler";
 import { testGlitchEffect } from "./debugGlitch.js"; // Debug utilities for development
 import html2canvas from 'html2canvas';
+import { MagneticElements } from "./magneticEl.js";
 
 // Inicialización del composer
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js"
@@ -21,7 +24,7 @@ gsap.config({ force3D: false })
 // 1) Captura todo sólo cuando el DOM esté listo
 // window.Webflow && window.Webflow.push(function () {
 document.addEventListener("DOMContentLoaded", () => {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
   
   //Avoid scrolltrigger hijacking by in
   window.addEventListener('load', () => {
@@ -36,13 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   testGlitchEffect();
+  MagneticElements();
 
   //Whole page animations
   gsap.set('.cursor', {
     xPercent: -50,
     yPercent: -50,
   })
-  .set('.cursor-feedback', {
+  gsap.set('.cursor-feedback', {
     autoAlpha: 0,
   })
 
@@ -56,10 +60,12 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: cursorEase
   });
 
-window.addEventListener('mousemove', (e) => {
-  xTo(e.pageX);
-  yTo(e.pageY);
-})
+  window.addEventListener('mousemove', (e) => {
+    xTo(e.pageX);
+    yTo(e.pageY);
+  })
+
+
 
 
 
