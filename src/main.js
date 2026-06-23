@@ -9,7 +9,9 @@ import { chapter1 } from "./chapter-1.js";
 import { Howl } from "howler";
 import { testGlitchEffect } from "./debugGlitch.js"; // Debug utilities for development
 import html2canvas from 'html2canvas';
+import "@lottiefiles/dotlottie-web";
 import { MagneticElements } from "./magneticEl.js";
+import { preloader } from "./preloader.js";
 
 // Inicialización del composer
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js"
@@ -40,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   testGlitchEffect();
   MagneticElements();
+  preloader();
 
   //Whole page animations
   gsap.set('.cursor', {

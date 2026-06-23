@@ -13,6 +13,8 @@
     "vite-plugin-glsl": "^1.4.0"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-web": "^0.74.0",
+    "@lottiefiles/lottie-player": "^2.0.12",
     "@types/three": "^0.175.0",
     "gsap": "^3.15.0",
     "howler": "^2.2.4",

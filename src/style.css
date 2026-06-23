@@ -2888,16 +2888,23 @@ p {
 .preloader {
   z-index: 9999;
   background-color: #f11d9c;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 100vh;
-  display: none;
+  display: flex;
   position: fixed;
+  opacity: 100%;
+  top: 0;
+}
+
+.lottie-wrap{
+  justify-content: center;
+  display:inline-flex;
+  align-items: center;
+  width: 100%;
 }
 
 .lottie-red {
-  z-index: 999;
+  z-index: 10000;
   mix-blend-mode: screen;
   width: 203px;
   position: absolute;
@@ -2913,9 +2920,10 @@ p {
 }
 
 .lottie-blue {
-  z-index: 999;
+  z-index: 10000;
   mix-blend-mode: screen;
   width: 203px;
+  height: 100%;
   position: absolute;
   transform: translate(-51%);
 }
