@@ -2,8 +2,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import SplitType from 'split-type';
-import { TextScrambleAnimation } from "./textScrambleAnimation";
-import { splineGlitchEffect } from "./splineGlitchEffect";
+/* import { TextScrambleAnimation } from "./textScrambleAnimation"; */
+// import { splineGlitchEffect } from "./splineGlitchEffect";
 
 gsap.config({ force3D: false })
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
@@ -20,6 +20,7 @@ export const chapter1 = () => {
     });
 
     // Timeline para elementos relativos que desaparecen con scroll
+    // ARREGLAR ACÁ ABAJO
     const relativeTimeline = gsap.timeline({
         scrollTrigger: {
             trigger: '.textIntro-wrap', // contenedor de textos de introducción
@@ -38,11 +39,9 @@ export const chapter1 = () => {
                 autoAlpha: 1,
                 duration: 1.5,
                 onStart: (nodeElement) => {
-                    console.log(nodeElement)
                     const textElement = nodeElement?.querySelector("h4")
                     if (textElement) {
-                        console.log(textElement)
-                        TextScrambleAnimation(textElement)
+                        /* TextScrambleAnimation(textElement) */
                     }
                 },
                 onStartParams: [textEl]
@@ -79,14 +78,14 @@ export const chapter1 = () => {
         .to(flyingTextSplit.chars, { y: '0svh', ease: 'back', duration: 12, stagger: 0.4 }, "<+=1")
         .add('titleOut')
         
-        // Initialize glitch effect after titleOut
+       /*  // Initialize glitch effect after titleOut
         .call(async () => {
             await splineGlitchEffect.init();
             await splineGlitchEffect.start();
-        }, null, 'titleOut')
+        }, null, 'titleOut') */
         
         // Animate glitch parameters with scroll-reactive values
-        .to({}, {
+        /* .to({}, {
             duration: 5,
             onUpdate: function() {
                 const progress = this.progress();
@@ -123,19 +122,17 @@ export const chapter1 = () => {
                     pixelation
                 });
             }
-        }, 'titleOut+=0.2')
+        }, 'titleOut+=0.2') */
         
-        // Stop glitch effect after 5 seconds
+        /* // Stop glitch effect after 5 seconds
         .call(() => {
             splineGlitchEffect.stop();
             console.log('Glitch effect stopped');
-        }, null, 'titleOut+=5.2')
+        }, null, 'titleOut+=5.2') */
         
     //.to(flyingTextSplit.chars, { y: '-12svh', ease: 'expoScale(0.5,7,power2.out)', duration: 12, stagger:{each: 0.4, from: "end"} }, 'titleOut')
      //.to('.head-chars-wrap', { rotation: -5, opacity: 0, ease: 'expoScale(0.5,7,power2.out)', duration: 10 }, 'titleOut')
 
-    console.log(flyingTextSplit.chars)
-    
     // Parallax effect para elementos con data-speed
     gsap.to("[data-speed]", {
         y: (i, el) => (1 - parseFloat(el.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window) ,

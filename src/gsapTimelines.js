@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import SplitType from 'split-type';
-import { TextScrambleAnimation } from "./textScrambleAnimation";
+/* import { TextScrambleAnimation } from "./textScrambleAnimation"; */
 
 gsap.config({ force3D: false })
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
@@ -74,11 +74,9 @@ export const gsapTimelines = () => {
                 autoAlpha: 1,
                 duration: 1.5,
                 onStart: (nodeElement) => {
-                    console.log(nodeElement)
                     const textElement = nodeElement?.querySelector("h4")
                     if (textElement) {
-                        console.log(textElement)
-                        TextScrambleAnimation(textElement)
+                        /* TextScrambleAnimation(textElement) */
                     }
                 },
                 onStartParams: [textEl]

@@ -1,17 +1,18 @@
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { SplitText } from "gsap/SplitText";
 import { gsapTimelines } from "./gsapTimelines.js";
-import { TextScrambleAnimation } from "./textScrambleAnimation.js";
-import { chapter1 } from "./chapter-1.js";
+/* import { TextScrambleAnimation } from "./textScrambleAnimation.js";
+ */import { chapter1 } from "./chapter-1.js";
 import { Howl } from "howler";
-import { testGlitchEffect } from "./debugGlitch.js"; // Debug utilities for development
-import html2canvas from 'html2canvas';
+/* import { testGlitchEffect } from "./debugGlitch.js"; // Debug utilities for development
+ */import html2canvas from 'html2canvas';
 import "@lottiefiles/dotlottie-web";
 import { MagneticElements } from "./magneticEl.js";
 import { preloader } from "./preloader.js";
+import { scrambleTextJp } from "./scrambleText-jp.js";
 
 // Inicialización del composer
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js"
@@ -20,13 +21,14 @@ import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js"
 import { FishEyeShader } from "./shaders/fisheyeShader.js"
 
 gsap.config({ force3D: false })
+  gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
 
 // index.js
 // ---------
 // 1) Captura todo sólo cuando el DOM esté listo
 // window.Webflow && window.Webflow.push(function () {
 document.addEventListener("DOMContentLoaded", () => {
-  gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
+  gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
   
   //Avoid scrolltrigger hijacking by in
   window.addEventListener('load', () => {
@@ -40,9 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 100);
   })
 
-  testGlitchEffect();
   MagneticElements();
   preloader();
+  scrambleTextJp();
 
   //Whole page animations
   gsap.set('.cursor', {
@@ -102,11 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
       Commit SHA: ${commitSHA}
     `;
   logContainer.appendChild(msg);
-  console.log(`
-      Hora de inicio: ${startTime}
-      Build Number: ${buildNumber}
-      Commit SHA: ${commitSHA}
-    `)
 
   // 3) Three.js + EffectComposer
   const canvas = document.querySelector("#effects");
@@ -168,21 +165,21 @@ document.addEventListener("DOMContentLoaded", () => {
     (entries, obs) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          TextScrambleAnimation(entry.target);
+          /* TextScrambleAnimation(entry.target); */
           obs.unobserve(entry.target);
         }
       });
     },
     { root: null, threshold: 0.1 }
   );
-  document
+  /* document
     .querySelectorAll("[terminal-text] h4")
     .forEach((el) => {
       const texto = el.textContent.trim().toLowerCase();
       if (texto.includes('heading')) {
         observer.observe(el);
       }
-    });
+    }); */
 
   // 7) Gestión de audio con Howler
   const sound = new Howl({
@@ -199,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  testGlitchEffect();
+  /* testGlitchEffect(); */
 
   /**
        * Spline Lazy Loader with Deactivation
@@ -497,11 +494,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
       
-      // Cleanup glitch effect on page unload
+      /* // Cleanup glitch effect on page unload
       window.addEventListener('beforeunload', () => {
         splineGlitchEffect.dispose();
       });
-
+ */
   
 });
 // });

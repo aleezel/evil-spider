@@ -6,7 +6,6 @@ export const preloader = () => {
         const preloader = document.getElementsByClassName('preloader')
 
         gsap.to(preloader, {
-            onStart: console.log("hola"),
             delay: 3,
             duration: 1,
             autoAlpha: 0,

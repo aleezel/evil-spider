@@ -1,3 +1,62 @@
+*,
+::after,
+::before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-scroll-chaining: none;
+  overscroll-behavior: none;
+  overflow: hidden;
+}
+
+@media (min-width: 991px) {
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+input,
+textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+::-webkit-scrollbar {
+  -ms-overflow-style: none;
+  display: none;
+  overflow: -moz-scrollbars-none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.grid {
+  display: none;
+}
+
+.logo {
+  mix-blend-mode: difference;
+}
+
+.overlay_ui {
+  mix-blend-mode: difference;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -299,20 +358,11 @@ a {
       @keyframes infScanLines {
         0% {
           transform: translate(0px)
-        }
+        };
 
-        ;
-
-        . 100% {
+        100% {
           transform: translate(200px)
-        }
-
-        ;
-      }
-
-      .texture_scan-lines {
-        background-repeat: repeat-y;
-        animation: infScanLines .5s linear infinite;
+        };
       }
 
       /*@keyframes typing {
@@ -514,10 +564,6 @@ html.w-mod-touch * {
 
 input.w-button {
   -webkit-appearance: button;
-}
-
-html[data-w-dynpage] [data-w-cloak] {
-  color: #0000 !important;
 }
 
 .w-code-block {
@@ -2585,7 +2631,7 @@ p {
   opacity: .08;
   pointer-events: none;
   mix-blend-mode: overlay;
-  background-image: url("assets/0ce4bb3d13995042f29f1d72c0953413_scan-20lines.webp");
+  background-image: url("assets/tx-scan-lines.webp");
   background-position: 50% 0;
   background-repeat: repeat-y;
   background-size: auto;
@@ -2595,6 +2641,7 @@ p {
   display: block;
   position: fixed;
   transform: translate(0, -20px);
+  animation: infScanLines .5s linear infinite;
 }
 
 .texture_halftone {
@@ -2603,7 +2650,7 @@ p {
   filter: hue-rotate(180deg);
   pointer-events: none;
   mix-blend-mode: soft-light;
-  background-image: url("assets/3dcfe6850df210b8ed8e34e8110cce33_halftone.webp");
+  background-image: url("assets/tx-halftone.webp");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -3282,7 +3329,7 @@ p {
 
 .bubble-div {
   pointer-events: none;
-  background-image: url("assets/3fc8896dcba2f5ba3e9a298915e9ef40_bubble.png");
+  background-image: url("assets/bubble.png");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -3445,7 +3492,7 @@ p {
 }
 
 .info-container {
-  background-image: url("assets/info-20shape.svg");
+  background-image: url("assets/alert-dialog.svg");
   background-position: 50% 0;
   background-repeat: no-repeat;
   background-size: cover;
