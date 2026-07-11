@@ -9,7 +9,7 @@ import { gsapTimelines } from "./gsapTimelines.js";
 import { Howl } from "howler";
 /* import { testGlitchEffect } from "./debugGlitch.js"; // Debug utilities for development
  */import html2canvas from 'html2canvas';
-import "@lottiefiles/dotlottie-web";
+import { DotLottie } from "@lottiefiles/dotlottie-web";
 import { MagneticElements } from "./magneticEl.js";
 import { preloader } from "./preloader.js";
 import { scrambleTextJp } from "./scrambleText-jp.js";
@@ -21,7 +21,8 @@ import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js"
 import { FishEyeShader } from "./shaders/fisheyeShader.js"
 
 gsap.config({ force3D: false })
-  gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
+ gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
+preloader();
 
 // index.js
 // ---------
@@ -43,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   MagneticElements();
-  preloader();
   scrambleTextJp();
 
   //Whole page animations

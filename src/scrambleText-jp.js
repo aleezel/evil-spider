@@ -15,9 +15,10 @@ export const scrambleTextJp = () => {
         gsap.to(text, {
             scrambleText: {
                 text: ogText,
-                chars: "国雲女水大北円風地弱時月分遅",
+                chars: '人類 社会のすべての構成員の固有の 尊厳と平等で譲ることのできない権利とを承認することは',
                 revealDelay: (attribute == 'intro') ? 3 : 0.5,
                 speed: 0.4,
+                oldClass:'dotgothic16-regular japanScramble'
                 
             },
             duration: gsap.utils.clamp(3, ogText.length * 0.6, 7) ,

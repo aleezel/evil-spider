@@ -1,14 +1,23 @@
 import { gsap } from "gsap";
-import "@lottiefiles/lottie-player";
+import { DotLottie } from "@lottiefiles/dotlottie-web";
 
 export const preloader = () => {
-    window.addEventListener("load", function () {
         const preloader = document.getElementsByClassName('preloader')
+        const icons = document.querySelectorAll("#lottie-preloader")
+
+        icons.forEach((icon) => {
+            const color = icon.getAttribute("data-color");
+            const preloaderLotties = new DotLottie({
+                autoplay: true,
+                loop: false,
+                canvas: icon,
+                src: `src/assets/preloader_${color}_icon.json`
+            })
+        })
 
         gsap.to(preloader, {
             delay: 3,
             duration: 1,
             autoAlpha: 0,
         })
-    })
 }

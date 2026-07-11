@@ -46,21 +46,21 @@ export const MagneticElements = () => {
                 x: 0,
                 y: 0,
                 duration: 0.9,
-                ease: 'elasctic.out(1.4, 0.75)',
+                ease: 'elastic.out(1.4, 0.75)',
                 overwrite: true
             });
             gsap.to(magMd, {
                 x: 0,
                 y: 0,
                 duration: 0.9,
-                ease: 'elasctic.out(1.4, 0.75)',
+                ease: 'elastic.out(1.4, 0.75)',
                 overwrite: true
             })
             gsap.to(magLg, {
                 x: 0,
                 y: 0,
                 duration: 0.9,
-                ease: 'elasctic.out(1.4, 0.75)',
+                ease: 'elastic.out(1.4, 0.75)',
                 overwrite: true
             });
         });
