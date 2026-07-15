@@ -446,6 +446,23 @@ a {
   position: relative;
 }
 
+/* PIXEL TRANSITION  */
+
+.pixel-transition{
+  height: 100dvh;
+  width: 100dvw;
+  position:absolute;
+  z-index: 9999;
+  display: grid;
+}
+
+.pixel-block{
+  height: 200px;
+  aspect-ratio: 1 / 1;
+  display: block;
+  background-color: #222;
+}
+
 .home-heading {
   font-family: Handjet Bold Soft Edges, sans-serif;
   font-weight: 900;
@@ -456,7 +473,7 @@ a {
 }
 
 .home-heading:first-of-type h1{
-  font-size: 18vw;
+  font-size: clamp(4rem, 18vw, 14rem);
   width: 3em;
   height: 1em;
   white-space: nowrap;
@@ -3581,9 +3598,6 @@ p {
 }
 
 @media screen and (max-width: 767px) {
-  .home-heading {
-    font-size: 24vw;
-  }
 
   .home-elements-wrap {
     text-align: center;
