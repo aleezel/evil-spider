@@ -23,7 +23,9 @@ import { FishEyeShader } from "./shaders/fisheyeShader.js"
 gsap.config({ force3D: false })
  gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
 // preloader();
-
+/* gsap.set('.preloader, .pixel-transition', {
+  autoAlpha: 0,
+}) */
 
 // index.js
 // ---------
