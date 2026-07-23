@@ -13,6 +13,7 @@ import { DotLottie } from "@lottiefiles/dotlottie-web";
 import { MagneticElements } from "./magneticEl.js";
 import { preloader } from "./preloader.js";
 import { scrambleTextJp } from "./scrambleText-jp.js";
+import { pixelTransition } from "./transitions/transitions.js";
 
 // Inicialización del composer
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js"
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 100);
   })
 
+  pixelTransition();
   MagneticElements();
   scrambleTextJp();
 
