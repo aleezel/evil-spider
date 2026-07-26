@@ -7,11 +7,17 @@ export const pixelTransition = () => {
 
     pixelTransitions.forEach((container) => {
         let tl = gsap.timeline({
+            paused: true,
+            repeat: 1,
+            repeatDelay: 1,
+            yoyo: true,
             defaults: {
-                ease: "sine.out"
-            }
+                ease: "sine.out",
+            },
         });
         tl.addLabel("in")
+        .set(".pixel-block:not(.pixel-spider)", { autoAlpha: 0 })
+        .set(".pixel-spider", { autoAlpha: 0})
         .to(".pixel-block:not(.pixel-spider", {
             duration: 0.01,
             stagger: {
@@ -19,16 +25,22 @@ export const pixelTransition = () => {
                 each: 0.002
             },
             autoAlpha: 1,
+            repeatRefresh: true,
         })
         .to(".pixel-spider", {
             duration: 0.01,
-            delay: 0.3,
+            delay: 1,
             stagger: {
                 from: "center",
                 each: 0.004,
             },
+            ease: "expo.out",
             autoAlpha: 1,
-        }) 
+        })
+
+        // document.addEventListener('click', )
+
+        // tl.play();
     })
     
 
