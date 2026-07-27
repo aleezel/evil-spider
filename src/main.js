@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 100);
   })
 
+  pixelTransition();
   MagneticElements();
   scrambleTextJp();
 
