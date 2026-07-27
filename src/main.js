@@ -13,7 +13,7 @@ import { DotLottie } from "@lottiefiles/dotlottie-web";
 import { MagneticElements } from "./magneticEl.js";
 import { preloader } from "./preloader.js";
 import { scrambleTextJp } from "./scrambleText-jp.js";
-import { pixelTransition } from "./transitions/transitions.js";
+import { pixelTransition } from "./transitions/transitions.js"
 
 // Inicialización del composer
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js"
@@ -23,7 +23,14 @@ import { FishEyeShader } from "./shaders/fisheyeShader.js"
 
 gsap.config({ force3D: false })
  gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
-preloader();
+// preloader();
+gsap.set(".preloader", { autoAlpha: 0,})
+
+const triggerTransition = document.querySelectorAll('[data-trigger*="pixelTranstion"]')
+const pixelGrid = document.querySelector('.pixel-transition')
+pixelTransition(triggerTransition, pixelGrid);
+
+
 
 // index.js
 // ---------

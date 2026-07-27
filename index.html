@@ -38,14 +38,6 @@
       </canvas>
     </div>
   </div>
-
-  <div class="app">
-    <div class="cursor">
-      <div class="cursor-svg"><img src="src/assets/target.svg" loading="lazy" alt="" /></div>
-      <div class="cursor-feedback">
-        <h6 class="heading-4">Scroll to experience</h6>
-      </div>
-    </div>
   <div class="pixel-transition"> 
       <div class="pixel-block pixel-spider cell-r3-c10"></div>
       <div class="pixel-block pixel-spider cell-r3-c18"></div>
@@ -776,16 +768,14 @@
       <div class="pixel-block"></div>
       <div class="pixel-block"></div>
       <div class="pixel-block"></div>      
-    </div>
-    <div class="content">
-      <div class="frame_wrap">
-        <div class="frame_rounded"></div>
-        <div class="frame_rectangle"></div>
+  </div>
+
+  <div class="app">
+    <div class="cursor">
+      <div class="cursor-svg"><img src="src/assets/target.svg" loading="lazy" alt="" /></div>
+      <div class="cursor-feedback">
+        <h6 class="heading-4">Scroll to experience</h6>
       </div>
-      <nav class="navbar">
-        <a href="#" class="logo-wrap w-inline-block"><img src="src/assets/logo.webp" loading="lazy" alt=""
-            class="logo" /></a>
-        <div class="menu-wrap"><a href="#" class="m_text-link">Menu</a><a href="#" class="menu-link w-inline-block">
     </div>
     <div class="content">
       <div class="frame_wrap">
@@ -840,11 +830,11 @@
           </div>
           <div class="magzone-wrapper">
             <div class="mag-zone">
-              <div id="start-experience" class="main-mag-btn">
+              <a href="#spider-sec" id="start-experience" class="main-mag-btn" data-trigger="pixelTranstion" data-parent="#home">
                 <div class="btn-decoration">
                   <div class="btn-dot"></div>
                 </div>
-                <a href="#spider-sec" class=" w-inline-block">
+                <div  class=" w-inline-block">
                   <p class="btn-text mag-lg">START<br /></p>
                   <div class="btn-corners mag-md">
                     <div class="btn-corner is-top-left left"></div>
@@ -857,8 +847,8 @@
                     <div class="btn-corner is-top--right top"></div>
                   </div>
                   <div class="btn-background mag-sm"></div>
-                </a>
-              </div>
+                </div>
+              </a>
             </div>
           </div>
 

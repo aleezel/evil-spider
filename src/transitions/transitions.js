@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 
-export const pixelTransition = () => {
-    let pixelTransitions = gsap.utils.toArray(".pixel-transition");
+export const pixelTransition = (trigger, transition) => {
+    let pixelTransitions = trigger;
     gsap.set(".pixel-block:not(.pixel-spider", { autoAlpha: 0 })
     gsap.set(".pixel-spider", { autoAlpha: 0})
 
@@ -14,6 +14,7 @@ export const pixelTransition = () => {
             defaults: {
                 ease: "sine.out",
             },
+            onComplete: () => {gsap.set(".pixel-transition", {autoAlpha: 0})},
         });
         tl.addLabel("in")
         .set(".pixel-block:not(.pixel-spider)", { autoAlpha: 0 })
@@ -40,7 +41,7 @@ export const pixelTransition = () => {
 
         // document.addEventListener('click', )
 
-        // tl.play();
+        tl.play();
     })
     
 
