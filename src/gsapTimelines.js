@@ -56,7 +56,7 @@ export const gsapTimelines = () => {
             end: '+=5000', // end after scrolling 500px beyond the start
             scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
             markers: true,
-            refreshPriority: 2,
+            refreshPriority: 5,
             //invalidateOnRefresh: true, // Add this to recalculate on resize
         }
     });

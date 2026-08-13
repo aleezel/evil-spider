@@ -1,17 +1,20 @@
 import { gsap } from "gsap";
+import { gsapTimelines } from "../gsapTimelines";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export const pixelTransition = (link, transition) => {
+export const pixelTransition = (link, transition, ) => {
 
     gsap.set(".pixel-block:not(.pixel-spider)", { autoAlpha: 0 });
     gsap.set(".pixel-spider", { autoAlpha: 0 });
     gsap.set(transition, { autoAlpha: 1 });
+    
 
-    /* function navigate(link) {
+    function navigate(link) {
         window.location.href = link.getAttribute("href");
-    } */
+    }
 
     let tl = gsap.timeline({
-        /* paused: true, */
+        paused: true,
         repeat: 1,
         repeatDelay: 1,
         yoyo: true,
@@ -19,8 +22,9 @@ export const pixelTransition = (link, transition) => {
             ease: "sine.out",
         },
         onComplete: () => {
-            gsap.set(transition, { autoAlpha: 0 });
-            console.log("Transition complete");
+            gsap.set([transition, "#home"], { autoAlpha: 0, display: "none" });
+            document.body.classList.remove("no-scroll")
+            
             // gsap.set(link, { autoAlpha: 0 });
         },
     });
@@ -35,17 +39,22 @@ export const pixelTransition = (link, transition) => {
         autoAlpha: 1,
         repeatRefresh: true,
     })
-    /* .call(navigate(link)) */
     .to(".pixel-spider", {
         duration: 0.01,
-        delay: 1,
+        delay: 0.5,
         stagger: {
             from: "center",
             each: 0.004,
         },
         ease: "expo.out",
         autoAlpha: 1,
-    });
+        onComplete: () => {
+            gsap.set("#home", { display: "none" })
+            gsapTimelines.heroSecTl?.ScrollTrigger?.refresh()
+            ScrollTrigger.refresh()  
+        },
+    })
+    .call(navigate, [link])
     /* debugger; */
         
     if(link) {

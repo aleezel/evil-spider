@@ -14,6 +14,7 @@ import { MagneticElements } from "./magneticEl.js";
 import { preloader } from "./preloader.js";
 import { scrambleTextJp } from "./scrambleText-jp.js";
 import { pixelTransition } from "./transitions/transitions.js";
+import { Application } from '@splinetool/runtime';
 
 // Inicialización del composer
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js"
@@ -22,10 +23,11 @@ import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js"
 import { FishEyeShader } from "./shaders/fisheyeShader.js"
 
 gsap.config({ force3D: false })
- gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
+gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger);
 // preloader();
 gsap.set(".preloader", { autoAlpha: 0,})
-gsap.set(".pixel-transition", { autoAlpha: 0,})
+const pixelGrid = document.querySelector('.transition-wrapper');
+gsap.set(pixelGrid, { autoAlpha: 0,})
 
 // index.js
 // ---------
@@ -49,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const transitionTriggers = document.querySelectorAll('a[data-trigger*="pixelTransition"]');
   console.log("Transition triggers found:", transitionTriggers, transitionTriggers.length);
 
-  const pixelGrid = document.querySelector('.pixel-transition');
+  
 
     transitionTriggers.forEach(link => {
       link.addEventListener('click', (event) => {
@@ -95,14 +97,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const logContainer = document.createElement("div");
   Object.assign(logContainer.style, {
     position: "fixed",
-    bottom: "0",
-    left: "0",
+    display: "flex",
+    flexDirection: "row",
+    gap: "0.5rem",
+    bottom: "3rem",
+    left: "7vw",
     right: "0",
-    maxHeight: "200px",
-    overflowY: "auto",
-    background: "rgba(0,0,0,0.7)",
+    height: "auto",
+    width: "fit-content",
     color: "#fff",
-    fontSize: "12px",
+    fontSize: "14px",
     padding: "10px",
     boxSizing: "border-box",
     zIndex: "99999",
@@ -113,13 +117,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const commitSHA = import.meta.env.VITE_COMMIT_SHA || "N/A";
   const startTime = import.meta.env.VITE_START_TIME || "N/A";
 
-  const msg = document.createElement("div");
-  msg.textContent = `
-      Hora de inicio: ${startTime}
-      Build Number: ${buildNumber}
-      Commit SHA: ${commitSHA}
-    `;
-  logContainer.appendChild(msg);
+const [msg1, msg2, msg3] = [1, 2, 3].map(() => {
+  const div = document.createElement("div");
+  div.classList.add("b-log");
+  return div;
+});
+
+  msg1.textContent = `Hora de inicio: ${startTime}`;
+  msg2.textContent = `Build Number: ${buildNumber}`;
+  msg3.textContent = `Commit SHA: ${commitSHA}`;
+
+  logContainer.appendChild(msg1);
+  logContainer.appendChild(msg2);
+  logContainer.appendChild(msg3);
+
+  gsap.to(".b-log", { 
+    scrambleText: {
+      text: "{original}",
+      speed: 0.4,
+      revealDelay: 1,
+      chars: "upperCase"
+    },
+    duration: 2
+  })
 
   // 3) Three.js + EffectComposer
   const canvas = document.querySelector("#effects");
@@ -211,9 +231,22 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   });
 
+  const splines = document.querySelectorAll('[data-animation-type="spline"]');
 
-  /* testGlitchEffect(); */
+  function getSplineURL (splines) {
+    splines.forEach((spline) => {
+      const url = spline.getAttribute('data-spline-url');
+      const app = new Application(spline);
+      app.load(url);
+    })
+  }
+  getSplineURL(splines);
 
+
+    /* const canvas = document.getElementById('hero-heart');
+    const app = new Application(canvas);
+    app.load('https://prod.spline.design/86bETToFSyoR-P4v/scene.splinecode');
+ */
   /**
        * Spline Lazy Loader with Deactivation
        * - Lazily loads Spline embeds when they enter the viewport
@@ -363,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           }
         }
-      
+        
         /**
          * Initialize the Spline scene in the container
          */

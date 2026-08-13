@@ -23,7 +23,7 @@ export const chapter1 = () => {
     // ARREGLAR ACÁ ABAJO
     const relativeTimeline = gsap.timeline({
         scrollTrigger: {
-            trigger: '.textIntro-wrap', // contenedor de textos de introducción
+            trigger: '.textintro-wrap', // contenedor de textos de introducción
             start: 'top center',
             end: 'bottom top',
             scrub: 2,
@@ -175,20 +175,24 @@ export const chapter1 = () => {
             });
         }
     });
+
+    const chapters = document.querySelectorAll('.chapter-section');
   
     // Blur effect animation for each chapter section
-    $(".chapter-section").each(function(sectionIndex) {
-        const $section = $(this);
+    chapters.forEach((section, sectionIndex) => {
+        const svgBlurEffects = section.querySelectorAll(".svg_blureffect");
         
-        $section.find(".svg_blureffect").each(function (index) {
-            const $svgEffect = $(this);
+        svgBlurEffects.forEach((svgEffect, index) => {
             const uniqueId = `rgb-reveal-effect-${sectionIndex}-${index}`;
             
-            $svgEffect.parent().attr("style", `filter: url(#${uniqueId});`);
-            $svgEffect.find("filter").attr("id", uniqueId);
+            svgEffect.parentElement.style.filter = `url(#${uniqueId})`;
+            const filterElement = svgEffect.querySelector("filter");
+            if (filterElement) {
+                filterElement.setAttribute("id", uniqueId);
+            }
             
             // Get the matrix element within this specific SVG
-            let matrix = $svgEffect.find('feColorMatrix')[0];
+            let matrix = svgEffect.querySelector('feColorMatrix');
             if (!matrix) return; // Skip if no matrix found
             
             // Parse initial matrix values
@@ -206,7 +210,7 @@ export const chapter1 = () => {
             let blurTl = gsap.timeline({
                 defaults: { ease: "power2.out" },
                 scrollTrigger: {
-                    trigger: $section[0],  
+                    trigger: section,  
                     start: "top 80%",
                     end: "bottom 20%",
                     toggleActions: "play none none reverse",
@@ -226,16 +230,26 @@ export const chapter1 = () => {
             let animVals = { vals: [...initialValues] };
             
             // Set initial blur state
-            gsap.set($svgEffect.find("[stdDeviation]"), {attr: {stdDeviation: 13}});
-            gsap.set($svgEffect.find("[dx]"), {attr: {dx: 5}});
+            const stdDeviationElement = svgEffect.querySelector("[stdDeviation]");
+            const dxElement = svgEffect.querySelector("[dx]");
+            
+            if (stdDeviationElement) {
+                gsap.set(stdDeviationElement, {attr: {stdDeviation: 13}});
+            }
+            if (dxElement) {
+                gsap.set(dxElement, {attr: {dx: 5}});
+            }
             matrix.setAttribute("values", initialValues.map(v => v.toFixed(3)).join(' '));
             
             // Animation sequence
-            blurTl.to($svgEffect.find("[stdDeviation]"), {
+
+
+
+            blurTl.to(stdDeviationElement, {
                 attr: {stdDeviation: 0}, 
                 duration: 0.7
             })
-            .to($svgEffect.find("[dx]"), {
+            .to(dxElement, {
                 attr: {dx: 0}
             }, "<")
             .to(animVals.vals, {
