@@ -14,7 +14,6 @@ export const chapter1 = () => {
     
     // Configurar textos de intro inicialmente
     gsap.set(textIntroElements, {
-        xPercent: -50, // centrado horizontal
         yPercent: 150,  // empiezan desde abajo
         autoAlpha: 0   // incluye opacity y visibility: hidden
     });
