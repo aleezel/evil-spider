@@ -2908,7 +2908,6 @@ p {
   position: absolute;
   top: 50svh;
   left: 50vw;
-  transform: translate(-50%);
 }
 
 .div-introtext.text-1 {

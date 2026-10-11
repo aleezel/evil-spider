@@ -40,7 +40,7 @@ export const gsapTimelines = () => {
         yPercent: 150,  // empiezan desde abajo
         autoAlpha: 0   // incluye opacity y visibility: hidden
     })
-    gsap.set(".div-introtext.text-1", { xPercent: -50 })
+    /* gsap.set(".div-introtext.text-1", { xPercent: -50 }) */
 
     const eyebrow = document.querySelector(".div-text.hero-head_eyebrow");
     // gsap.set('.div-text.hero-head_eyebrow', { y: "50vh", autoAlpha: 0 })
@@ -90,8 +90,8 @@ export const gsapTimelines = () => {
     })
 
     heroSecTl
-        .to(eyebrow, { y: 0, autoAlpha: 1, duration: 1 }, ">-0.5")
-        .to(eyebrow, { y: "-20svh", duration: 1 })
+        .to(eyebrow, { y: 0, autoAlpha: 1, duration: 1, }, ">-0.5")
+        .to(eyebrow, { y: "-20svh", duration: 2, ease: "back.inOut(1.7)" }, ">-1" )
 
         .from('.div-keyword', { autoAlpha: 0 }, ">-0.5")
         .to(kwords, { autoAlpha: 1, stagger: { each: 0.2, from: "random" } })
