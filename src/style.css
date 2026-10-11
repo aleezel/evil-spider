@@ -514,7 +514,7 @@ a {
 }
 
 .section.home-section {
-  z-index: 990;
+  z-index: 6;
   background-color: #540276;
   flex-flow: column;
   justify-content: space-between;
@@ -2583,7 +2583,7 @@ p {
   margin-top: 5vh;
   margin-left: 0;
   padding-left: 6.2vw;
-  padding-right: 2vw;
+  padding-right: 5vw;
   display: inline-flex;
   position: fixed;
   inset: 0% 0% auto;
@@ -2838,13 +2838,14 @@ p {
 }
 
 .sound-btn {
-  background-color: #0000;
   justify-content: center;
   align-items: center;
   width: 128px;
   display: flex;
-  position: absolute;
-  inset: auto 2vw 6vh auto;
+  position: fixed;
+  inset: auto 6vw 6vh auto;
+  mix-blend-mode: difference;
+  z-index: 10;
 }
 
 .wave-wrapper {
